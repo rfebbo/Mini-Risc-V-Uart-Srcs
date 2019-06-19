@@ -47,6 +47,11 @@ module Memory(main_bus bus);
   logic [31:0] memforward; 
   logic MEM_WB_memwrite;
   logic [31:0] MEM_WB_dout_rs2;
+//  logic [11:0] addr;
+  logic mmio_wea;
+  logic set_mmio_wea;
+  logic [31:0] mmio_dat;
+  logic set_mmio_dat;
   assign En=1'b1;
   
    
@@ -80,13 +85,17 @@ module Memory(main_bus bus);
                          2'b11: byte_write = 4'b1001;
                       endcase
                  end
-             3'b100:  byte_write=4'b1111; // store word (sw)
+             3'b100:  byte_write=(bus.EX_MEM_alures == 32'haaaaa004 || bus.EX_MEM_alures == 32'haaaaa008) ? 4'b0000: 4'b1111; // store word (sw)
                   
              3'b000:  byte_write=4'b1111; // not store
              default: byte_write=4'b1111;
        endcase
       
     
+    assign set_mmio_wea = ((bus.EX_MEM_storecntrl == 3'b100) && (bus.EX_MEM_alures == 32'haaaaa004)) ? 1 : 0;
+    assign set_mmio_dat = ((bus.EX_MEM_storecntrl == 3'b100) && (bus.EX_MEM_alures == 32'haaaaa008)) ? 1 : 0;
+    assign bus.mmio_wea = mmio_wea;
+    assign bus.mmio_dat = mmio_dat;
  /* blk_mem_gen_0 datamem (
           .clka(clk),    // input wire clka
           .ena(En),      // input wire ena
@@ -97,12 +106,14 @@ module Memory(main_bus bus);
         );
    */
    
+   
    Memory_byteaddress datamem(
            .clk(bus.clk),
            .rst(bus.Rst),
            .wea(bus.EX_MEM_memwrite),
            .en(byte_write),
            .addr(bus.EX_MEM_alures[11:0]),
+//           .addr(addr),
            .din(memforward),
            .dout(MEM_WB_memres_temp)
            );
@@ -151,6 +162,8 @@ module Memory(main_bus bus);
             MEM_WB_dout_sel<=2'b00;
             MEM_WB_memwrite<=1'b0;
             MEM_WB_dout_rs2 <= 32'h00000000;
+//            set_mmio_wea <= 0;
+//            set_mmio_dat <= 0;
         end
         else if(!bus.dbg) begin
             bus.MEM_WB_alures<=bus.EX_MEM_alures;
@@ -161,6 +174,8 @@ module Memory(main_bus bus);
             MEM_WB_dout_sel<=bus.EX_MEM_alures[1:0];
             MEM_WB_memwrite<=bus.EX_MEM_memwrite;
             MEM_WB_dout_rs2 <= bus.EX_MEM_dout_rs2;
+            mmio_wea <= set_mmio_wea ? memforward[0] : mmio_wea;
+            mmio_dat <= set_mmio_dat ? memforward : mmio_dat;
         end
      end
         

@@ -71,6 +71,9 @@ interface main_bus (
     logic [31:0] uart_dout;
     logic memcon_prog_ena;
     
+    logic mmio_wea;
+    logic [31:0] mmio_dat;
+    
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
     
@@ -128,7 +131,8 @@ interface main_bus (
         input clk, Rst, dbg, EX_MEM_storecntrl,
         input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
-        output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres
+        output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
+        output mmio_wea, mmio_dat
     );
     
     //modport for writeback stage

@@ -144,7 +144,7 @@ module tb_RISCVcore(
         debug_input=5'b0;
         #10
         Rst=1'b0;
-        #3400
+        #400
         debug=1'b1;
         #10
         //STUFF I ADDED

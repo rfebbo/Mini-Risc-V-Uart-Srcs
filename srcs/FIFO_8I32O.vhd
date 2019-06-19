@@ -31,6 +31,9 @@ begin
     variable Tail : natural range 0 to FIFO_DEPTH - 1;
     variable Looped : boolean;
     variable writepos : natural range 0 to (DATAOUT_WIDTH / DATAINP_WIDTH)-1 := 0;
+    
+    attribute ram_style : string; 
+    attribute ram_style of Memory : variable is "distributed";
   begin
     if rising_edge(CLK) then
       if RST = '1' then

@@ -124,6 +124,11 @@ module Memory_byteaddress(
     );*/
     
     
+//    blk_mem_gen_1 mem0 (.clka(clk), .ena(en[0]), .wea(wea), .addra(addr0), .dina(di[7:0]), .douta(d0));
+//    blk_mem_gen_1 mem1 (.clka(clk), .ena(en[1]), .wea(wea), .addra(addr1), .dina(di[15:8]), .douta(d1));
+//    blk_mem_gen_1 mem2 (.clka(clk), .ena(en[2]), .wea(wea), .addra(addr2), .dina(di[23:16]), .douta(d2));
+//    blk_mem_gen_1 mem3 (.clka(clk), .ena(en[3]), .wea(wea), .addra(addr3), .dina(di[31:24]), .douta(d3));
+    
     Memory_ff dmem0 (
         .clk(clk),
         .Rst(rst),
