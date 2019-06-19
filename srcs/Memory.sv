@@ -54,7 +54,12 @@ module Memory(main_bus bus);
   logic set_mmio_dat;
   assign En=1'b1;
   
-   
+//   initial begin
+//    mmio_dat = 32'h00000000;
+//    mmio_wea = 0;
+//    set_mmio_wea = 0;
+//    set_mmio_dat = 0;
+//   end
  /*
   always_comb
   unique casez(EX_MEM_storecntrl)
@@ -162,8 +167,8 @@ module Memory(main_bus bus);
             MEM_WB_dout_sel<=2'b00;
             MEM_WB_memwrite<=1'b0;
             MEM_WB_dout_rs2 <= 32'h00000000;
-//            set_mmio_wea <= 0;
-//            set_mmio_dat <= 0;
+            mmio_wea <= 0;
+            mmio_dat <= 0;
         end
         else if(!bus.dbg) begin
             bus.MEM_WB_alures<=bus.EX_MEM_alures;

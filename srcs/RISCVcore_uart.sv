@@ -179,6 +179,9 @@ module RISCVcore_uart(    input   logic         clk,
         else if(debug) begin //debug register
             debug_output<=bus.IF_ID_dout_rs1;
         end
+        else begin
+            debug_output<=bus.mmio_dat;
+        end
     end
 
     Fetch_Reprogrammable u1(bus.fetch);
