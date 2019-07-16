@@ -19,6 +19,8 @@ module rv_top
   logic addr_dn, addr_up;
   //clock divider variable
   integer      count;
+  
+  logic rst_in, rst_last;
 
   enum logic [7:0] {a0=8'b11111110, a1=8'b11111101,
                     a2=8'b11111011, a3=8'b11110111,
@@ -27,10 +29,15 @@ module rv_top
                     an_cur, an_nxt;
 
   //RISCVcore rv_core(.clk(clk), .*);
-  RISCVcore_uart rv_core(.*);
-//    RISCVcore_uart rv_core(.clk(clk_50M), .*);  
+//  RISCVcore_uart rv_core(.*);
+    RISCVcore_uart rv_core(.clk(clk_50M), .*);  
   //clock divider logic
   always @(posedge clk) begin
+    rst_last <= Rst;
+    if (Rst == 1'b1 && rst_in == 1'b0 && rst_last == 1'b0) 
+        rst_in <= 1;
+    else
+        rst_in <= 0;
      count <= count + 1;
      clk_50M<=!clk_50M;
      if(count==500)

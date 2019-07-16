@@ -49,7 +49,7 @@ interface main_bus (
     logic  [31:0] EX_MEM_alures,MEM_WB_alures,MEM_WB_memres;
     logic         EX_MEM_comp_res;
     
-    logic  [4:0]  EX_MEM_rs2;
+    logic  [4:0]  EX_MEM_rs1, EX_MEM_rs2;
     
     logic  [2:0]  ID_EX_alusel;
     logic  [4:0]  ID_EX_loadcntrl;
@@ -122,7 +122,7 @@ interface main_bus (
         input ID_EX_compare, ID_EX_pres_addr, ID_EX_alusel, ID_EX_alusrc,
         input ID_EX_memread, ID_EX_memwrite, ID_EX_regwrite, ID_EX_jal,
         input ID_EX_jalr, ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_dout_rs1, ID_EX_dout_rs2,
-        output EX_MEM_dout_rs2, EX_MEM_rs2,
+        output EX_MEM_dout_rs2, EX_MEM_rs2, EX_MEM_rs1,
         input ID_EX_imm, MEM_WB_regwrite, WB_ID_regwrite,
         output EX_MEM_alures,
         input WB_res, WB_ID_res, 
@@ -134,7 +134,7 @@ interface main_bus (
     //modport for memory stage
     modport memory (
         input clk, Rst, dbg, EX_MEM_storecntrl, mmio_read,
-        input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res,
+        input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res, EX_MEM_rs1,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
         output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
         output mmio_wea, mmio_dat
@@ -161,7 +161,7 @@ interface main_bus (
     modport Debug_Display(
         input clk, Rst, mmio_wea, mmio_dat, 
 //        input addr_dn, addr_up,
-        input debug_input,
+        input debug_input, prog,
         output DD_out
     );
    
@@ -196,7 +196,7 @@ module RISCVcore_uart(    input   logic         clk,
             debug_output<=bus.ins;
         end
         else if(debug) begin //debug register
-            debug_output<=bus.IF_ID_dout_rs1;
+            debug_output<= bus.IF_ID_dout_rs1;
         end
         else begin
 //            debug_output<=bus.mmio_dat;

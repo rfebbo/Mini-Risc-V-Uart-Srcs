@@ -30,8 +30,8 @@ module UART_Programmer (
 );
 
 //baud rate of 115200 with 100 MHz clk makes baud count of 880-something / 16 = 54 (or 53 w/ 0)
-integer baud_count = 53;
-//integer baud_count = 26;
+//integer baud_count = 53;
+integer baud_count = 26;
 integer cnt;
 
 logic[7:0] rx_data; //incoming byte

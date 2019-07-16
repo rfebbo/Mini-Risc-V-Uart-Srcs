@@ -41,13 +41,13 @@ module Memory_ff(
             end
         else
             dout<=memdata[addr];
-    `ifndef SYNTHESIS
-                integer i;
-                initial begin
-                  for(i=0; i<1024 ;i=i+1)begin
-                    memdata[i] = 8'hff;
-                  end
-                    end
-                  `endif        
+//    `ifndef SYNTHESIS
+//                integer i;
+//                initial begin
+//                  for(i=0; i<1024 ;i=i+1)begin
+//                    memdata[i] = 8'hff;
+//                  end
+//                    end
+//                  `endif        
         
 endmodule : Memory_ff

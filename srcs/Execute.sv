@@ -114,6 +114,7 @@ module Execute(main_bus bus);
             EX_MEM_alures_sig<=32'h00000000;
             bus.EX_MEM_dout_rs2<=32'h00000000;
             bus.EX_MEM_rs2 <= 5'h0;
+            bus.EX_MEM_rs1 <= 5'h0;
             bus.EX_MEM_comp_res<=1'b0;
             bus.EX_MEM_loadcntrl<=5'h0;
             bus.EX_MEM_storecntrl<=3'h0;
@@ -126,6 +127,7 @@ module Execute(main_bus bus);
             EX_MEM_alures_sig<=alures;
             bus.EX_MEM_dout_rs2<=rs2_mod;//new
             bus.EX_MEM_rs2<=bus.ID_EX_rs2;
+            bus.EX_MEM_rs1<=bus.ID_EX_rs1;
             bus.EX_MEM_comp_res<=comp_res;
             bus.EX_MEM_loadcntrl<=bus.ID_EX_loadcntrl;
             bus.EX_MEM_storecntrl<=bus.ID_EX_storecntrl;
