@@ -25,8 +25,10 @@
 
 //Interface bus between all pipeline stages
 interface main_bus (
-    input logic clk, Rst, debug, rx, prog,
-    input logic[4:0] debug_input);
+    input logic clk, Rst, debug, rx, prog, //addr_dn, addr_up,
+    input logic[4:0] debug_input
+//    output logic tx
+    );
     
     logic         PC_En;
     logic         hz;
@@ -73,7 +75,10 @@ interface main_bus (
     
     logic mmio_wea;
     logic [31:0] mmio_dat;
+    logic mmio_read;
     
+    logic [31:0] DD_out;
+
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
     
@@ -128,7 +133,7 @@ interface main_bus (
     
     //modport for memory stage
     modport memory (
-        input clk, Rst, dbg, EX_MEM_storecntrl,
+        input clk, Rst, dbg, EX_MEM_storecntrl, mmio_read,
         input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
         output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
@@ -147,6 +152,18 @@ interface main_bus (
         input clk, Rst, rx,
         output uart_dout, memcon_prog_ena
     );
+    
+//    modport tx_control(
+//        input clk, Rst, mmio_wea, mmio_dat,
+//        output tx, mmio_read
+//    );
+    
+    modport Debug_Display(
+        input clk, Rst, mmio_wea, mmio_dat, 
+//        input addr_dn, addr_up,
+        input debug_input,
+        output DD_out
+    );
    
     
 endinterface
@@ -158,12 +175,14 @@ module RISCVcore_uart(    input   logic         clk,
     input   logic         prog, //reprogram or view instruction memory
     input   logic [4:0]   debug_input,
     output  logic [31:0]  debug_output
-
+//    input logic addr_dn, addr_up
+//    output  logic         tx
     );
-
+    //logic addr_dn = 0, addr_up = 0;
+    
     main_bus bus(.*);
     
-
+    
     assign bus.PC_En=!bus.hz;
     assign bus.dbg=(debug || prog); //added to stop pipeline on prog and/or debug
     //debugging resister
@@ -180,7 +199,8 @@ module RISCVcore_uart(    input   logic         clk,
             debug_output<=bus.IF_ID_dout_rs1;
         end
         else begin
-            debug_output<=bus.mmio_dat;
+//            debug_output<=bus.mmio_dat;
+            debug_output<=bus.DD_out;
         end
     end
 
@@ -198,5 +218,11 @@ module RISCVcore_uart(    input   logic         clk,
     Writeback u5(bus.writeback);
     
     UART_Programmer uart(bus.UART_Programmer);
+   
+//    tx_control txc(bus.tx_control);
+    
+    Debug_Display DD(bus.Debug_Display);
+    
+    
     
 endmodule

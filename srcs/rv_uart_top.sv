@@ -5,6 +5,8 @@ module rv_top
   input  logic       debug,
   input  logic       rx, //uart recv pin
   input  logic       prog, //similar to debug, but shows mem addr, and allows reprogramming
+//  input  logic       addr_dn,
+//  input  logic       addr_up,
   input  logic [4:0] debug_input,
   output logic tx, clk_out,
   output logic [6:0] sev_out,
@@ -14,7 +16,7 @@ module rv_top
   logic [31:0] debug_output;
   logic [3:0]  seg_cur, seg_nxt;
   logic        clk_50M, clk_disp;
-  
+  logic addr_dn, addr_up;
   //clock divider variable
   integer      count;
 
@@ -118,5 +120,21 @@ module rv_top
       default: sev_out = 7'b0000000;
     endcase
   end
+  
+//  integer cnt = 0;
+//    integer maxcnt = 100000000;
+//    always_ff @(posedge clk) begin
+//        if (Rst) begin
+//            cnt = 0;
+//        end else if (~(debug || prog)) begin
+//            if (cnt == maxcnt) begin
+//                cnt <= 0;
+//                addr_dn <= 1;
+//            end else begin
+//                cnt <= cnt + 1;
+//                addr_dn <= 0;
+//            end
+//        end
+//    end
 endmodule: rv_top
 			  

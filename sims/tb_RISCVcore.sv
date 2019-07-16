@@ -27,10 +27,11 @@ module tb_RISCVcore(
     logic Rst;
     logic prog;
     logic rx;
-//    logic tx;
+    logic tx;
     logic debug;
     logic [4:0]debug_input;
     logic [31:0]debug_output;
+    logic addr_up, addr_dn;
 //    logic [7:0]debug_IF_ID_pres_adr;
 //    logic [31:0]debug_ins;
 //    logic [31:0]dbg_imm;
@@ -144,18 +145,37 @@ module tb_RISCVcore(
         debug_input=5'b0;
         #10
         Rst=1'b0;
-        #400
-        debug=1'b1;
+        #1700
+        
+        addr_dn=1;
         #10
-        //STUFF I ADDED
-        debug_input=5'b00011;
+        addr_dn=0;
         #10
-        debug_input=5'b00100;
+        addr_dn=1;
         #10
-        debug_input=5'b00101;
+        addr_dn=0;
         #10
-        debug_input=5'b00110;
+        addr_dn=1;
         #10
+        addr_dn=0;
+        #10
+        addr_dn=1;
+        #10
+        addr_dn=0;
+        #10
+//        debug=1'b1;
+//        #10
+//        //STUFF I ADDED
+//        debug_input=5'b00011;
+//        #10
+//        debug_input=5'b00100;
+//        #10
+//        debug_input=5'b00101;
+//        #10
+//        debug_input=5'b00110;
+//        #10
+        
+        
 //        debug_input=5'b00111;
 //        #10
 //        debug_input=5'b01000;

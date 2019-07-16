@@ -1,12 +1,23 @@
 `timescale 1ns / 1ps
 
 module tx_control (
-	input logic clk, rst, ena,
-	input logic[31:0] data,
-	output logic tx
+//	input logic clk, rst, ena,
+//	input logic[31:0] data,
+//	output logic tx
+main_bus bus
 );
 
+logic clk, rst, ena, tx;
+logic [31:0] data;
+
+assign clk = bus.clk;
+assign rst = bus.Rst;
+assign ena = bus.mmio_wea;
+assign bus.tx = tx;
+assign data = bus.mmio_dat;
+
 integer baud_count = 53;
+//integer baud_count = 26;
 integer cnt = 0;
 
 logic[7:0] tx_data;
@@ -24,7 +35,8 @@ FIFO_32I8O fifo_out(.CLK(clk), .RST(rst), .WriteEn(fifo_wea), .DataIn(data),
 	.ReadEn(fifo_rea), .DataOut(tx_data), .Empty(fifo_empty), 
 	.Full(fifo_full));
 
-assign fifo_wea = ena;
+//assign fifo_wea = ena;
+
 
 //uart stuff
 
@@ -33,8 +45,18 @@ always_ff @(posedge clk) begin
 		tx_wea <= 0;
 		fifo_rea <= 0;
 		writeflag <= 0;
+		fifo_wea <= 0;
+		bus.mmio_read <= 0;
 	end
 	else begin
+	   if (ena) begin
+	       fifo_wea <= 1;
+	       bus.mmio_read <= 1;
+	   end
+	   else begin
+	       fifo_wea <= 0;
+	       bus.mmio_read <= 0;
+	   end
 		if (tx_full == 0) begin
 			if (fifo_empty == 0) begin
 				if (writeflag == 0) begin
