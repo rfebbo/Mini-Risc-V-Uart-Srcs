@@ -21,6 +21,12 @@ module rv_top
   integer      count;
   
   logic rst_in, rst_last;
+  
+  logic mem_wea;
+  logic [3:0] mem_en;
+  logic [11:0] mem_addr;
+  logic [31:0] mem_din, mem_dout;
+  
 
   enum logic [7:0] {a0=8'b11111110, a1=8'b11111101,
                     a2=8'b11111011, a3=8'b11110111,
@@ -31,6 +37,10 @@ module rv_top
   //RISCVcore rv_core(.clk(clk), .*);
 //  RISCVcore_uart rv_core(.*);
     RISCVcore_uart rv_core(.clk(clk_50M), .*);  
+    
+    Memory_byteaddress mem0(.clk(clk_50M), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
+        .din(mem_din), .dout(mem_dout));
+    
   //clock divider logic
   always @(posedge clk) begin
     rst_last <= Rst;

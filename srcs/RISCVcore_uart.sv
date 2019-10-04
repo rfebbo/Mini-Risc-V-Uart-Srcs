@@ -78,6 +78,11 @@ interface main_bus (
     logic mmio_read;
     
     logic [31:0] DD_out;
+    
+    logic [31:0] mem_din, mem_dout; 
+    logic [11:0] mem_addr; 
+    logic [3:0] mem_en; 
+    logic mem_wea;
 
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
@@ -137,7 +142,10 @@ interface main_bus (
         input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res, EX_MEM_rs1,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
         output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
-        output mmio_wea, mmio_dat
+        output mmio_wea, mmio_dat, 
+        
+        input mem_dout, 
+        output mem_din, mem_addr, mem_wea, mem_en
     );
     
     //modport for writeback stage
@@ -174,13 +182,26 @@ module RISCVcore_uart(    input   logic         clk,
     input   logic         rx, //uart recv
     input   logic         prog, //reprogram or view instruction memory
     input   logic [4:0]   debug_input,
-    output  logic [31:0]  debug_output
+    output  logic [31:0]  debug_output,
+    
+    output logic mem_wea,
+    output logic [3:0] mem_en, 
+    output logic [11:0] mem_addr, 
+    output logic [31:0] mem_din, 
+    input logic [31:0] mem_dout
 //    input logic addr_dn, addr_up
 //    output  logic         tx
     );
     //logic addr_dn = 0, addr_up = 0;
     
     main_bus bus(.*);
+    
+    assign mem_wea = bus.mem_wea;
+//    assign mem_clk = bus.clk;
+    assign mem_en = bus.mem_en;
+    assign mem_addr = bus.mem_addr;
+    assign mem_din = bus.mem_din;
+    assign bus.mem_dout = mem_dout;
     
     
     assign bus.PC_En=!bus.hz;

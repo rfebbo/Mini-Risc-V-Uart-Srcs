@@ -32,6 +32,12 @@ module tb_RISCVcore(
     logic [4:0]debug_input;
     logic [31:0]debug_output;
     logic addr_up, addr_dn;
+    
+    logic mem_wea;
+  logic [3:0] mem_en;
+  logic [11:0] mem_addr;
+  logic [31:0] mem_din, mem_dout;
+    
 //    logic [7:0]debug_IF_ID_pres_adr;
 //    logic [31:0]debug_ins;
 //    logic [31:0]dbg_imm;
@@ -80,6 +86,8 @@ module tb_RISCVcore(
     //wire [31:0]dbg_ALUop1,dbg_ALUop2;
    
    RISCVcore_uart uut(.*);
+   Memory_byteaddress mem0(.clk(clk), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
+        .din(mem_din), .dout(mem_dout));
 //    RISCVcore uut(
 //        .clk(clk),
 //        .Rst(Rst),
@@ -145,33 +153,37 @@ module tb_RISCVcore(
         debug_input=5'b0;
         #10
         Rst=1'b0;
-        #1700
+//        #1700
         
-        addr_dn=1;
-        #10
-        addr_dn=0;
-        #10
-        addr_dn=1;
-        #10
-        addr_dn=0;
-        #10
-        addr_dn=1;
-        #10
-        addr_dn=0;
-        #10
-        addr_dn=1;
-        #10
-        addr_dn=0;
-        #10
+//        addr_dn=1;
+//        #10
+//        addr_dn=0;
+//        #10
+//        addr_dn=1;
+//        #10
+//        addr_dn=0;
+//        #10
+//        addr_dn=1;
+//        #10
+//        addr_dn=0;
+//        #10
+//        addr_dn=1;
+//        #10
+//        addr_dn=0;
+//        #10
 //        debug=1'b1;
 //        #10
 //        //STUFF I ADDED
-//        debug_input=5'b00011;
-//        #10
-//        debug_input=5'b00100;
-//        #10
-//        debug_input=5'b00101;
-//        #10
+        #180
+        debug = 1'b1;
+        debug_input=5'b00011;
+        #10
+        debug_input=5'b00100;
+        #10
+        debug_input=5'b00101;
+        #10
+        debug_input=5'b00110;
+        #10
 //        debug_input=5'b00110;
 //        #10
         

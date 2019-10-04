@@ -114,7 +114,7 @@ module Memory(main_bus bus);
    */
    
    
-   Memory_byteaddress datamem(
+  /* Memory_byteaddress datamem(
            .clk(bus.clk),
            .rst(bus.Rst),
            .wea(bus.EX_MEM_memwrite),
@@ -123,7 +123,13 @@ module Memory(main_bus bus);
 //           .addr(addr),
            .din(memforward),
            .dout(MEM_WB_memres_temp)
-           );
+           );*/
+           
+    assign bus.mem_wea = bus.EX_MEM_memwrite;
+    assign bus.mem_en = byte_write; 
+    assign bus.mem_addr = bus.EX_MEM_alures[11:0]; 
+    assign bus.mem_din = memforward; 
+    assign MEM_WB_memres_temp = bus.mem_dout;
            
  assign d0=MEM_WB_memres_temp[7:0];
  assign d1=MEM_WB_memres_temp[15:8];
