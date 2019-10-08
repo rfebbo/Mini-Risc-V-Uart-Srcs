@@ -1,4 +1,18 @@
 `timescale 1ns / 1ps
+
+interface riscv_bus (
+    input logic clk, Rst, debug, rx, prog, 
+    input logic [4:0] debug_input, 
+    output logic [31:0] debug_output
+    
+    );
+
+    logic mem_wea;
+    logic [3:0] mem_en; 
+    logic [11:0] mem_addr;
+    logic [31:0] mem_din, mem_dout;
+endinterface
+
 module rv_top
  (input  logic       clk,
   input  logic       Rst,
