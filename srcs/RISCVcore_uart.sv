@@ -83,6 +83,10 @@ interface main_bus (
     logic [31:0] mem_addr; 
     logic [3:0] mem_en; 
     logic mem_wea;
+    
+    logic [31:0] imem_dout;
+    logic imem_en;
+    logic [11:0] imem_addr;
 
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
@@ -94,7 +98,9 @@ interface main_bus (
         //input rx,
         input uart_dout, memcon_prog_ena,
         input debug_input, branoff,
-        output IF_ID_pres_addr, ins
+        output IF_ID_pres_addr, ins, 
+        input imem_dout, 
+        output imem_en, imem_addr
     );
     
     //modport for register file
@@ -214,6 +220,11 @@ module RISCVcore_uart(
         rbus.mem_addr = mem_addr; 
         rbus.mem_din = mem_din; 
         mem_dout = rbus.mem_dout; 
+        rbus.imem_en = bus.imem_en;
+        rbus.imem_addr = bus.imem_addr;
+        bus.imem_dout = rbus.imem_dout;
+        rbus.imem_din = bus.uart_dout;
+        rbus.imem_prog_ena = bus.memcon_prog_ena;
     end
     
     

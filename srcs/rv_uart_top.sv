@@ -13,14 +13,20 @@ interface riscv_bus (
     logic [31:0] mem_din, mem_dout; 
     logic [31:0] debug_output;
     
+    logic imem_en, imem_prog_ena;
+    logic [9:0] imem_addr;
+    logic [31:0] imem_dout, imem_din; 
+    
     modport core(
-        input clk, Rst, debug, rx, prog, debug_input, mem_dout, 
-        output debug_output, mem_wea, mem_en, mem_addr, mem_din
+        input clk, Rst, debug, rx, prog, debug_input, mem_dout, imem_dout,
+        output debug_output, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
+        output imem_addr, imem_din, imem_prog_ena
     );
     
     modport memcon(
-        input clk, Rst, mem_wea, mem_en, mem_addr, mem_din, 
-        output mem_dout
+        input clk, Rst, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
+        input imem_addr, imem_din, imem_prog_ena,
+        output mem_dout, imem_dout
     );
 endinterface
 
@@ -72,10 +78,10 @@ module rv_top
 //  logic [3:0] mem_en;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
-//  riscv_bus rbus(.*);
-//  mmio_bus mbus(.*);
-  riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus mbus(.clk(clk_50M), .*);
+  riscv_bus rbus(.*);
+  mmio_bus mbus(.*);
+//  riscv_bus rbus(.clk(clk_50M), .*);
+//  mmio_bus mbus(.clk(clk_50M), .*);
   
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
