@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps 
 
 module Debug_Display (
-main_bus bus
+//main_bus bus
+mmio_bus mbus
 //input logic clk, rst, mmio_wea, addr_up_in, addr_dn_in,
 //input logic [31:0] din,
 //output logic [31:0] dout
@@ -24,14 +25,20 @@ Addressable_FIFO u0 (.wea(mmio_wea), .*);
 //assign addr_up = bus.addr_up;
 
 always_comb begin : proc_bustransfer
-	clk = bus.clk;
-	rst = bus.Rst; 
-	mmio_wea = bus.mmio_wea; 
-	din = bus.mmio_dat; 
-	// addr_up = bus.addr_up;
-	// addr_dn = bus.addr_dn; 
-	bus.DD_out = dout;
-	addr = bus.debug_input;
+    clk = mbus.clk;
+    rst = mbus.Rst; 
+    mmio_wea = mbus.disp_wea; 
+    din = mbus.disp_dat; 
+    mbus.disp_out = dout; 
+    addr = mbus.debug_input;
+//	clk = bus.clk;
+//	rst = bus.Rst; 
+//	mmio_wea = bus.mmio_wea; 
+//	din = bus.mmio_dat; 
+//	// addr_up = bus.addr_up;
+//	// addr_dn = bus.addr_dn; 
+//	bus.DD_out = dout;
+//	addr = bus.debug_input;
 end
 
 //always_ff @(posedge clk) begin : proc_DD

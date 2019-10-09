@@ -2,15 +2,47 @@
 
 interface riscv_bus (
     input logic clk, Rst, debug, rx, prog, 
-    input logic [4:0] debug_input, 
-    output logic [31:0] debug_output
+    input logic [4:0] debug_input
+//    output logic [31:0] debug_output
     
     );
 
     logic mem_wea;
     logic [3:0] mem_en; 
-    logic [11:0] mem_addr;
-    logic [31:0] mem_din, mem_dout;
+    logic [31:0] mem_addr;
+    logic [31:0] mem_din, mem_dout; 
+    logic [31:0] debug_output;
+    
+    modport core(
+        input clk, Rst, debug, rx, prog, debug_input, mem_dout, 
+        output debug_output, mem_wea, mem_en, mem_addr, mem_din
+    );
+    
+    modport memcon(
+        input clk, Rst, mem_wea, mem_en, mem_addr, mem_din, 
+        output mem_dout
+    );
+endinterface
+
+interface mmio_bus (
+        input logic clk, Rst, 
+        input logic [4:0] debug_input
+    );
+    
+    logic disp_wea;
+    logic [31:0] disp_dat; 
+    logic [31:0] disp_out;
+    
+    modport memcon(
+        input clk, Rst,
+        output disp_dat, disp_wea
+    );
+    
+    modport display(
+        input clk, Rst, disp_wea, disp_dat, debug_input, 
+        output disp_out
+    );
+    
 endinterface
 
 module rv_top
@@ -36,10 +68,16 @@ module rv_top
   
   logic rst_in, rst_last;
   
-  logic mem_wea;
-  logic [3:0] mem_en;
-  logic [11:0] mem_addr;
-  logic [31:0] mem_din, mem_dout;
+//  logic mem_wea;
+//  logic [3:0] mem_en;
+//  logic [11:0] mem_addr;
+//  logic [31:0] mem_din, mem_dout;
+//  riscv_bus rbus(.*);
+//  mmio_bus mbus(.*);
+  riscv_bus rbus(.clk(clk_50M), .*);
+  mmio_bus mbus(.clk(clk_50M), .*);
+  
+  assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
 
   enum logic [7:0] {a0=8'b11111110, a1=8'b11111101,
@@ -50,10 +88,14 @@ module rv_top
 
   //RISCVcore rv_core(.clk(clk), .*);
 //  RISCVcore_uart rv_core(.*);
-    RISCVcore_uart rv_core(.clk(clk_50M), .*);  
+//    RISCVcore_uart rv_core(.clk(clk_50M), .*);  
+    RISCVcore_uart rv_core(rbus.core);    
+    Memory_Controller memcon0(rbus.memcon, mbus.memcon);
     
-    Memory_byteaddress mem0(.clk(clk_50M), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
-        .din(mem_din), .dout(mem_dout));
+    Debug_Display d0(mbus.display);
+    
+//    Memory_byteaddress mem0(.clk(clk_50M), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
+//        .din(mem_din), .dout(mem_dout));
     
   //clock divider logic
   always @(posedge clk) begin

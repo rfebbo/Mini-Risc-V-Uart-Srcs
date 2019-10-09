@@ -80,7 +80,7 @@ interface main_bus (
     logic [31:0] DD_out;
     
     logic [31:0] mem_din, mem_dout; 
-    logic [11:0] mem_addr; 
+    logic [31:0] mem_addr; 
     logic [3:0] mem_en; 
     logic mem_wea;
 
@@ -166,33 +166,56 @@ interface main_bus (
 //        output tx, mmio_read
 //    );
     
-    modport Debug_Display(
-        input clk, Rst, mmio_wea, mmio_dat, 
-//        input addr_dn, addr_up,
-        input debug_input, prog,
-        output DD_out
-    );
+//    modport Debug_Display(
+//        input clk, Rst, mmio_wea, mmio_dat, 
+////        input addr_dn, addr_up,
+//        input debug_input, prog,
+//        output DD_out
+//    );
    
     
 endinterface
 
-module RISCVcore_uart(    input   logic         clk,
-    input   logic         Rst,
-    input   logic         debug,
-    input   logic         rx, //uart recv
-    input   logic         prog, //reprogram or view instruction memory
-    input   logic [4:0]   debug_input,
-    output  logic [31:0]  debug_output,
+module RISCVcore_uart(    
+    riscv_bus rbus 
+//    input   logic         clk,
+//    input   logic         Rst,
+//    input   logic         debug,
+//    input   logic         rx, //uart recv
+//    input   logic         prog, //reprogram or view instruction memory
+//    input   logic [4:0]   debug_input,
+//    output  logic [31:0]  debug_output,
     
-    output logic mem_wea,
-    output logic [3:0] mem_en, 
-    output logic [11:0] mem_addr, 
-    output logic [31:0] mem_din, 
-    input logic [31:0] mem_dout
+//    output logic mem_wea,
+//    output logic [3:0] mem_en, 
+//    output logic [11:0] mem_addr, 
+//    output logic [31:0] mem_din, 
+//    input logic [31:0] mem_dout
 //    input logic addr_dn, addr_up
 //    output  logic         tx
     );
     //logic addr_dn = 0, addr_up = 0;
+    
+    logic clk, Rst, debug, rx, prog, mem_wea;
+    logic [4:0] debug_input;
+    logic [31:0] debug_output, mem_addr, mem_din, mem_dout; 
+    logic [3:0] mem_en; 
+    
+    always_comb begin
+        clk = rbus.clk; 
+        Rst = rbus.Rst; 
+        debug = rbus.debug; 
+        rx = rbus.rx; 
+        prog = rbus.prog; 
+        debug_input = rbus.debug_input; 
+        rbus.debug_output = debug_output; 
+        rbus.mem_wea = mem_wea; 
+        rbus.mem_en = mem_en; 
+        rbus.mem_addr = mem_addr; 
+        rbus.mem_din = mem_din; 
+        mem_dout = rbus.mem_dout; 
+    end
+    
     
     main_bus bus(.*);
     
@@ -221,7 +244,7 @@ module RISCVcore_uart(    input   logic         clk,
         end
         else begin
 //            debug_output<=bus.mmio_dat;
-            debug_output<=bus.DD_out;
+            debug_output<=32'h00000000;
         end
     end
 
@@ -242,7 +265,7 @@ module RISCVcore_uart(    input   logic         clk,
    
 //    tx_control txc(bus.tx_control);
     
-    Debug_Display DD(bus.Debug_Display);
+//    Debug_Display DD(bus.Debug_Display);
     
     
     

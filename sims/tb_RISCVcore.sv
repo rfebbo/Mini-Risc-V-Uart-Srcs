@@ -174,6 +174,8 @@ module tb_RISCVcore(
 //        debug=1'b1;
 //        #10
 //        //STUFF I ADDED
+          
+          
         #180
         debug = 1'b1;
         debug_input=5'b00011;
@@ -184,8 +186,8 @@ module tb_RISCVcore(
         #10
         debug_input=5'b00110;
         #10
-//        debug_input=5'b00110;
-//        #10
+        debug_input=5'b00110;
+        #10
         
         
 //        debug_input=5'b00111;

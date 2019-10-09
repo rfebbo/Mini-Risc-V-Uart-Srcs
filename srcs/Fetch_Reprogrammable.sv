@@ -69,7 +69,7 @@ always_ff @(posedge bus.clk) begin
 end
 
 //UART_Programmer mem(.clk(bus.clk), .rx(bus.rx), .rst(bus.Rst), .ena(En_mem), .addra(addr_in), .douta(memdout), .*);
-Memory_Controller mem(.clk(bus.clk), .rst(bus.Rst), .ena(En_mem), .prog_ena(bus.memcon_prog_ena), .wea_in(4'b0000), 
+IRAM_Controller mem(.clk(bus.clk), .rst(bus.Rst), .ena(En_mem), .prog_ena(bus.memcon_prog_ena), .wea_in(4'b0000), 
         .dina(bus.uart_dout), .addr_in(addr_in), .state_load_prog(state_load_prog), .douta(memdout));
 
 endmodule

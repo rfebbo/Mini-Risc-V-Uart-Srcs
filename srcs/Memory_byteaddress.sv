@@ -31,7 +31,7 @@ module Memory_byteaddress(
     );
     //logic [1:0] dout_sel;
     //Removed submodules and made one clean array of byte addressable memory. 
-    logic [7:0] memdata [11:0]; 
+    logic [7:0] memdata [4095:0]; 
     
     always_ff @(posedge clk) begin
         if (rst == 1) begin
