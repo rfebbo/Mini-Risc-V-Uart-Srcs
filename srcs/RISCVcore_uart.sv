@@ -87,9 +87,24 @@ interface main_bus (
     logic [31:0] imem_dout;
     logic imem_en;
     logic [11:0] imem_addr;
+    
+    //CSR signals 
+//    logic [11:0] IF_ID_CSR_addr; 
+//    logic [31:0] IF_ID_CSR_dout, ID_EX_CSR_dout;
+//    logic [31:0] WB_CSR_res;
+//    logic [11:0] MEM_WB_CSR_addr;
+//    logic MEM_WB_CSR_write;
+    
+//    logic ID_EX_CSR_write;
 
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
+    
+//    modport CSR(
+//        input clk, IF_ID_CSR_addr, MEM_WB_CSR_addr,
+//        input WB_CSR_res, MEM_WB_CSR_write,
+//        output IF_ID_CSR_dout
+//    );
     
     //modport for fetch stage
     modport fetch(

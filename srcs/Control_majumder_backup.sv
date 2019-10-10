@@ -248,6 +248,15 @@ module Control
             alusrc=1'b1;
             regwrite=stall ? 1'b0 : 1'b1;
         end
+//      7'b1110011:               //SYSTEM
+//        begin
+//            unique case(funct3) 
+//              3'b001: begin
+                
+//              end
+            
+//            endcase
+//        end
      default:
         illegal_ins=(!flush)&&(1'b1);
     endcase
