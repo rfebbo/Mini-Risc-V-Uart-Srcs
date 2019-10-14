@@ -50,6 +50,9 @@ always_ff @(posedge clk) begin
             else if ((mem_addr_lower == 12'h008)) begin
                 disp_dat = mem_din;
             end
+            else if ((mem_addr_lower == 12'h00c)) begin
+                mbus.led = mem_din[15:0];
+            end
         end
     end
 end
@@ -57,11 +60,11 @@ end
 Memory_byteaddress mem0(.clk(clk), .rst(rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr_lower), 
     .din(mem_din), .dout(mem_dout));
     
-//blk_mem_gen_0 imem0(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
-//    .douta(imem_dout));
-IRAM_Controller imem0(.clk(clk), .rst(rst), .ena(imem_en), .prog_ena(rbus.imem_prog_ena), 
-    .wea_in(4'b0000), .dina(imem_din), .addr_in(imem_addr), .state_load_prog(imem_state),
+blk_mem_gen_0 imem0(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
     .douta(imem_dout));
+//IRAM_Controller imem0(.clk(clk), .rst(rst), .ena(imem_en), .prog_ena(rbus.imem_prog_ena), 
+//    .wea_in(4'b0000), .dina(imem_din), .addr_in(imem_addr), .state_load_prog(imem_state),
+//    .douta(imem_dout));
     
 
 endmodule : Memory_Controller

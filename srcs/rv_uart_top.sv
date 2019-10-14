@@ -32,16 +32,19 @@ endinterface
 
 interface mmio_bus (
         input logic clk, Rst, 
-        input logic [4:0] debug_input
+        input logic [4:0] debug_input,
+        output logic[31:0] led
     );
     
     logic disp_wea;
     logic [31:0] disp_dat; 
     logic [31:0] disp_out;
     
+    
+    
     modport memcon(
         input clk, Rst,
-        output disp_dat, disp_wea
+        output disp_dat, disp_wea, led
     );
     
     modport display(
@@ -123,7 +126,7 @@ module rv_top
   //clk_wiz_1 clk_div1(clk_5M, clk_50M);
 
   assign an = an_cur;
-  assign led = debug_output[15:0];
+//  assign led = debug_output[15:0];
   assign clk_out = clk_50M;
   
   always_ff @(posedge clk_disp) begin

@@ -31,7 +31,7 @@ module Memory_byteaddress(
     );
     //logic [1:0] dout_sel;
     //Removed submodules and made one clean array of byte addressable memory. 
-    logic [7:0] memdata [4095:0]; 
+    /*logic [7:0] memdata [4095:0]; 
     
     always_ff @(posedge clk) begin
         if (rst == 1) begin
@@ -51,9 +51,9 @@ module Memory_byteaddress(
                 dout <= {memdata[addr+3], memdata[addr+2], memdata[addr+1], memdata[addr]};
             end
         end
-    end
+    end */
     
-    /*
+    
     logic [9:0]  addr0,addr1,addr2,addr3;
     logic [7:0]  d0,d1,d2,d3;
     logic [31:0] di;
@@ -97,7 +97,7 @@ module Memory_byteaddress(
                addr3  = addr[11:2];
                di     = {din[7:0],din[31:24],din[23:16],din[15:8]};   
             end
-       endcase */
+       endcase 
        
    /*    always_comb
        case(dout_sel)
@@ -150,7 +150,7 @@ module Memory_byteaddress(
 //    blk_mem_gen_1 mem1 (.clka(clk), .ena(en[1]), .wea(wea), .addra(addr1), .dina(di[15:8]), .douta(d1));
 //    blk_mem_gen_1 mem2 (.clka(clk), .ena(en[2]), .wea(wea), .addra(addr2), .dina(di[23:16]), .douta(d2));
 //    blk_mem_gen_1 mem3 (.clka(clk), .ena(en[3]), .wea(wea), .addra(addr3), .dina(di[31:24]), .douta(d3));
-    /*
+    
     Memory_ff dmem0 (
         .clk(clk),
         .Rst(rst),
@@ -186,7 +186,7 @@ module Memory_byteaddress(
         .addr(addr3),
         .din(di[31:24]),
         .dout(d3)
-        ); */
+        ); 
                 
     
 endmodule

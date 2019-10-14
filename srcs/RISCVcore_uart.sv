@@ -177,10 +177,10 @@ interface main_bus (
     );
     
     //modport for UART programmer
-    modport UART_Programmer(
-        input clk, Rst, rx,
-        output uart_dout, memcon_prog_ena
-    );
+//    modport UART_Programmer(
+//        input clk, Rst, rx,
+//        output uart_dout, memcon_prog_ena
+//    );
     
 //    modport tx_control(
 //        input clk, Rst, mmio_wea, mmio_dat,
@@ -287,7 +287,7 @@ module RISCVcore_uart(
     
     Writeback u5(bus.writeback);
     
-    UART_Programmer uart(bus.UART_Programmer);
+//    UART_Programmer uart(bus.UART_Programmer);
    
 //    tx_control txc(bus.tx_control);
     
