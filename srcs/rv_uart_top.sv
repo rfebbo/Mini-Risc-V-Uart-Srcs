@@ -81,10 +81,10 @@ module rv_top
 //  logic [3:0] mem_en;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
-//  riscv_bus rbus(.*);
-//  mmio_bus mbus(.*);
-  riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus mbus(.clk(clk_50M), .*);
+  riscv_bus rbus(.*);
+  mmio_bus mbus(.*);
+//  riscv_bus rbus(.clk(clk_50M), .*);
+//  mmio_bus mbus(.clk(clk_50M), .*);
   
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
