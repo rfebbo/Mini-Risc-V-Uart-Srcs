@@ -31,8 +31,9 @@ interface riscv_bus (
 endinterface
 
 interface mmio_bus (
-        input logic clk, Rst, 
+        input logic clk, Rst, rx,
         input logic [4:0] debug_input,
+        output logic tx,
         output logic[31:0] led
     );
     
@@ -40,16 +41,32 @@ interface mmio_bus (
     logic [31:0] disp_dat; 
     logic [31:0] disp_out;
     
-    
+//    logic w_ready_write, w_ready_out, r_valid_write, r_valid_out;
+    logic rw_en;
+    logic [1:0] rw;
+    logic [1:0] rw_in;
+
+    logic [7:0] txdata, rxdata;
     
     modport memcon(
-        input clk, Rst,
-        output disp_dat, disp_wea, led
+        input clk, Rst, rxdata, 
+        input rw,
+        output rw_in,
+        output disp_dat, disp_wea, led, txdata, rw_en
     );
     
     modport display(
         input clk, Rst, disp_wea, disp_dat, debug_input, 
         output disp_out
+    );
+    
+    modport uart(
+        input clk, Rst, rx, txdata, rw_en,
+        output rw,
+        input rw_in, 
+        output rxdata, tx
+//        input clk, Rst, rx, w_ready_write, r_valid_write, txdata,
+//        output w_ready_out, r_valid_out, rxdata, tx
     );
     
 endinterface
@@ -71,9 +88,11 @@ module rv_top
   logic [31:0] debug_output;
   logic [3:0]  seg_cur, seg_nxt;
   logic        clk_50M, clk_disp;
+//  logic        clk_25M;
   logic addr_dn, addr_up;
   //clock divider variable
   integer      count;
+  integer      clk_cnt;
   
   logic rst_in, rst_last;
   
@@ -103,6 +122,8 @@ module rv_top
     
     Debug_Display d0(mbus.display);
     
+    uart_ctrl u0(mbus.uart);
+    
 //    Memory_byteaddress mem0(.clk(clk_50M), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
 //        .din(mem_din), .dout(mem_dout));
     
@@ -113,9 +134,15 @@ module rv_top
         rst_in <= 1;
     else
         rst_in <= 0;
+  //   clk_cnt <= clk_cnt + 1;
      count <= count + 1;
      clk_50M<=!clk_50M;
+/*    if (clk_cnt >= 5) begin
+        clk_cnt <= 0;
+        clk_50M<=!clk_50M;
+    end*/
      if(count==500)
+//    if (count == 10)
      begin
         count<=0;
         clk_disp <= !clk_disp;
