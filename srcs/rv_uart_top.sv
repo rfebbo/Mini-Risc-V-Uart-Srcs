@@ -2,9 +2,9 @@
 
 interface riscv_bus (
     input logic clk, Rst, debug, rx, prog, 
-    input logic [4:0] debug_input
+    input logic [4:0] debug_input,
 //    output logic [31:0] debug_output
-    
+    input logic [95:0] key
     );
 
     logic mem_wea;
@@ -20,7 +20,8 @@ interface riscv_bus (
     modport core(
         input clk, Rst, debug, rx, prog, debug_input, mem_dout, imem_dout,
         output debug_output, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
-        output imem_addr, imem_din, imem_prog_ena
+        output imem_addr, imem_din, imem_prog_ena,
+        input key
     );
     
     modport memcon(
@@ -66,7 +67,8 @@ module rv_top
   output logic tx, clk_out,
   output logic [6:0] sev_out,
   output logic [7:0] an,
-  output logic [15:0] led);
+  output logic [15:0] led, 
+  input logic [95:0] key);
 
   logic [31:0] debug_output;
   logic [3:0]  seg_cur, seg_nxt;

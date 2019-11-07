@@ -26,7 +26,8 @@
 //Interface bus between all pipeline stages
 interface main_bus (
     input logic clk, Rst, debug, rx, prog, //addr_dn, addr_up,
-    input logic[4:0] debug_input
+    input logic[4:0] debug_input, 
+    input logic [95:0] key
 //    output logic tx
     );
     
@@ -154,7 +155,8 @@ interface main_bus (
         input WB_res, WB_ID_res, 
         output EX_MEM_memread, EX_MEM_rd,
         input MEM_WB_rd, WB_ID_rd,
-        output EX_MEM_memwrite, EX_MEM_regwrite, EX_MEM_comp_res
+        output EX_MEM_memwrite, EX_MEM_regwrite, EX_MEM_comp_res, 
+        input key
     );
     
     //modport for memory stage
@@ -243,7 +245,7 @@ module RISCVcore_uart(
     end
     
     
-    main_bus bus(.*);
+    main_bus bus(.key(rbus.key), .*);
     
     assign mem_wea = bus.mem_wea;
 //    assign mem_clk = bus.clk;

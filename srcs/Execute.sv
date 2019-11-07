@@ -101,6 +101,7 @@ module Execute(main_bus bus);
         .ID_EX_lui(bus.ID_EX_lui),
         .ID_EX_jal(bus.ID_EX_jal),
         .ID_EX_jalr(bus.ID_EX_jalr),
+        .key(bus.key),
         .res(alures),
         .comp_res(comp_res)
         );
