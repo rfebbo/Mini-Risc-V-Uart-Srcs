@@ -53,7 +53,7 @@ initial begin
     #10
     Rst=0;
     
-    #940
+    #1500
     
     debug_input=5'b00001;
     #10

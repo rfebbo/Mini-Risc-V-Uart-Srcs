@@ -67,8 +67,9 @@ module rv_top
   output logic tx, clk_out,
   output logic [6:0] sev_out,
   output logic [7:0] an,
-  output logic [15:0] led, 
-  input logic [95:0] key);
+  output logic [15:0] led
+//  input logic [95:0] key
+  );
 
   logic [31:0] debug_output;
   logic [3:0]  seg_cur, seg_nxt;
@@ -76,7 +77,17 @@ module rv_top
   logic addr_dn, addr_up;
   //clock divider variable
   integer      count;
+  logic [95:0] key; 
   
+  
+  assign key[95:48]=48'h3cf3cf3cf3cf;
+assign key[47:24]=24'h30c30c;
+assign key[23:12]=12'hbae;
+assign key[11:0]=12'h3cf;
+//  assign key[95:48]=48'haaaaaaaaaaaa;
+//assign key[47:24]=24'h000000;
+//assign key[23:12]=12'h000;
+//assign key[11:0] = 12'h000;
   logic rst_in, rst_last;
   
 //  logic mem_wea;
