@@ -74,6 +74,8 @@ interface main_bus (
     logic [31:0] uart_dout;
     logic memcon_prog_ena;
     
+    logic IF_ID_jal;
+    
     logic mmio_wea;
     logic [31:0] mmio_dat;
     logic mmio_read;
@@ -84,7 +86,8 @@ interface main_bus (
     logic [31:0] mem_addr; 
     logic [3:0] mem_en; 
     logic mem_wea;
-    
+    logic mem_rea; 
+       
     logic [31:0] imem_dout;
     logic imem_en;
     logic [11:0] imem_addr;
@@ -109,7 +112,7 @@ interface main_bus (
     
     //modport for fetch stage
     modport fetch(
-        input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, 
+        input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
         input dbg,
         //input rx,
         input uart_dout, memcon_prog_ena,
@@ -121,7 +124,7 @@ interface main_bus (
     
     //modport for register file
     modport regfile(
-        input clk, adr_rs1, IF_ID_rs2, MEM_WB_rd,
+        input clk, adr_rs1, IF_ID_rs2, MEM_WB_rd, Rst,
         input WB_res, MEM_WB_regwrite,
         output IF_ID_dout_rs1, IF_ID_dout_rs2 
     ); 
@@ -132,7 +135,7 @@ interface main_bus (
         input EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
         inout ID_EX_memread, ID_EX_regwrite,
-        output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch,
+        output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch, IF_ID_jal,
         output IF_ID_rs1, IF_ID_rs2,
         output ID_EX_dout_rs1, ID_EX_dout_rs2, branoff, hz,
         output ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_alusel,
@@ -168,7 +171,7 @@ interface main_bus (
         output mmio_wea, mmio_dat, 
         
         input mem_dout, 
-        output mem_din, mem_addr, mem_wea, mem_en
+        output mem_din, mem_addr, mem_wea, mem_en, mem_rea
     );
     
     //modport for writeback stage
@@ -233,6 +236,7 @@ module RISCVcore_uart(
         debug_input = rbus.debug_input; 
         rbus.debug_output = debug_output; 
         rbus.mem_wea = mem_wea; 
+        rbus.mem_rea = bus.mem_rea;
         rbus.mem_en = mem_en; 
         rbus.mem_addr = mem_addr; 
         rbus.mem_din = mem_din; 

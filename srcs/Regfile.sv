@@ -43,15 +43,20 @@ module Regfile(main_bus bus);
   assign bus.IF_ID_dout_rs1 = |bus.adr_rs1 ? regdata[bus.adr_rs1] : 0;
   assign bus.IF_ID_dout_rs2 = |bus.IF_ID_rs2 ? regdata[bus.IF_ID_rs2] : 0;
 
-  always_ff @(posedge bus.clk)
+  always_ff @(posedge bus.clk)begin
+    if(bus.Rst)
+        regdata[2] <= 1020;
     if(wen)
       regdata[bus.MEM_WB_rd] <= bus.WB_res;
-    
+  end
   `ifndef SYNTHESIS
     integer i;
     initial begin
       for(i=0; i<32 ;i=i+1)begin
-        regdata[i] = $random;
+        if (i == 2)
+            regdata[i] = 511; 
+        else
+            regdata[i] = $random;
       end
         end
       `endif

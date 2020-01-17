@@ -196,6 +196,7 @@ assign bus.hz=hz_sig;
    compare u6(
         .IF_ID_rs1(bus.IF_ID_rs1),
         .IF_ID_rs2(bus.IF_ID_rs2),
+        //.ID_EX_rs1(bus.ID_EX_rs1),
         .ID_EX_rd(bus.ID_EX_rd),
         .EX_MEM_rd(bus.EX_MEM_rd),
         .MEM_WB_rd(bus.MEM_WB_rd),
@@ -232,29 +233,54 @@ assign bus.hz=hz_sig;
             bus.ID_EX_auipc<=1'b0;
             end
         else if(!bus.dbg) begin
-            bus.ID_EX_alusel<=IF_ID_alusel;
-            bus.ID_EX_alusrc<=IF_ID_alusrc;
-            ID_EX_memread_sig<=IF_ID_memread;
-            bus.ID_EX_memwrite<=IF_ID_memwrite;
-            ID_EX_regwrite_sig<=IF_ID_regwrite;
-            bus.ID_EX_storecntrl<=IF_ID_storecntrl;
-            bus.ID_EX_loadcntrl<=IF_ID_loadcntrl;
-            bus.ID_EX_cmpcntrl<=IF_ID_cmpcntrl;
-            bus.ID_EX_rs1<=bus.IF_ID_rs1;
-            bus.ID_EX_rs2<=bus.IF_ID_rs2;
-           // ID_EX_rd_sig<=IF_ID_rd;
-            bus.ID_EX_rd<=IF_ID_rd;
-            bus.ID_EX_compare<=IF_ID_compare;
-            bus.ID_EX_dout_rs1<=bus.IF_ID_dout_rs1;
-            bus.ID_EX_dout_rs2<=bus.IF_ID_dout_rs2;
-            bus.ID_EX_imm<=imm;
-            bus.ID_EX_pres_addr<=bus.IF_ID_pres_addr;
-            flush_sig<=branch_taken_sig;
-            bus.ID_EX_jal<=IF_ID_jal;
-            bus.ID_EX_jalr<=IF_ID_jalr_sig;
-            bus.ID_EX_lui<=IF_ID_lui;
-            bus.ID_EX_auipc<=IF_ID_auipc;
+            if (!hz_sig) begin
+                bus.ID_EX_alusel<=IF_ID_alusel;
+                bus.ID_EX_alusrc<=IF_ID_alusrc;
+                ID_EX_memread_sig<=IF_ID_memread;
+                bus.ID_EX_memwrite<=IF_ID_memwrite;
+                ID_EX_regwrite_sig<=IF_ID_regwrite;
+                bus.ID_EX_storecntrl<=IF_ID_storecntrl;
+                bus.ID_EX_loadcntrl<=IF_ID_loadcntrl;
+                bus.ID_EX_cmpcntrl<=IF_ID_cmpcntrl;
+                bus.ID_EX_rs1<=bus.IF_ID_rs1;
+                bus.ID_EX_rs2<=bus.IF_ID_rs2;
+               // ID_EX_rd_sig<=IF_ID_rd;
+                bus.ID_EX_rd<=IF_ID_rd;
+                bus.ID_EX_compare<=IF_ID_compare;
+                bus.ID_EX_dout_rs1<=bus.IF_ID_dout_rs1;
+                bus.ID_EX_dout_rs2<=bus.IF_ID_dout_rs2;
+                bus.ID_EX_imm<=imm;
+                bus.ID_EX_pres_addr<=bus.IF_ID_pres_addr;
+                flush_sig<=branch_taken_sig;
+                bus.ID_EX_jal<=IF_ID_jal;
+                bus.ID_EX_jalr<=IF_ID_jalr_sig;
+                bus.ID_EX_lui<=IF_ID_lui;
+                bus.ID_EX_auipc<=IF_ID_auipc;
+            end else begin
+                bus.ID_EX_alusel<=3'b000;
+                bus.ID_EX_alusrc<=1'b1;
+                ID_EX_memread_sig<=1'b0;
+                bus.ID_EX_memwrite<=1'b0;;
+                ID_EX_regwrite_sig<=1'b0;
+                bus.ID_EX_storecntrl<=3'b000;
+                bus.ID_EX_loadcntrl<=3'b000;
+                bus.ID_EX_cmpcntrl<=2'b00;
+                bus.ID_EX_rs1<=5'b00000;
+                bus.ID_EX_rs2<=5'b00000;
+               // ID_EX_rd_sig<=IF_ID_rd;
+                bus.ID_EX_rd<=5'b00000;
+                bus.ID_EX_compare<=1'b0;
+                bus.ID_EX_dout_rs1<=32'h00000000;
+                bus.ID_EX_dout_rs2<=32'h00000000;
+                bus.ID_EX_imm<=32'h00000000;
+                bus.ID_EX_pres_addr<=bus.IF_ID_pres_addr;
+                flush_sig<=1'b0;
+                bus.ID_EX_jal<=1'b0;
+                bus.ID_EX_jalr<=1'b0;
+                bus.ID_EX_lui<=1'b0;
+                bus.ID_EX_auipc<=1'b0;
             end
+        end
     end
         
     assign bus.ID_EX_memread=ID_EX_memread_sig;
@@ -262,4 +288,5 @@ assign bus.hz=hz_sig;
    // assign ID_EX_rd=ID_EX_rd_sig;
     assign flush=flush_sig;
     assign bus.IF_ID_jalr=IF_ID_jalr_sig;
+    assign bus.IF_ID_jal = IF_ID_jal;
 endmodule

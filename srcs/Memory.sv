@@ -126,6 +126,7 @@ module Memory(main_bus bus);
            );*/
            
     assign bus.mem_wea = bus.EX_MEM_memwrite;
+    assign bus.mem_rea = bus.EX_MEM_memread;
     assign bus.mem_en = byte_write; 
 //    assign bus.mem_addr = bus.EX_MEM_alures[11:0]; 
     assign bus.mem_addr = bus.EX_MEM_alures;

@@ -55,13 +55,16 @@ assign debug_addr_imm[4:0] = bus.debug_input;
 //assign branoff[6:0] = bus.branoff[6:0];
 assign memdout = bus.imem_dout;
 
-assign bus.IF_ID_pres_addr = pres_addr;
-assign pc_incr=(bus.branch)?bus.branoff:12'h004;
-assign next_addr=bus.IF_ID_jalr?bus.branoff:(pres_addr+pc_incr);
+//assign bus.IF_ID_pres_addr = pres_addr;
+assign pc_incr=bus.branch?bus.branoff:12'h004;
+//assign next_addr=bus.IF_ID_jalr?bus.branoff: bus.IF_ID_jal ? (bus.IF_ID_pres_addr + pc_incr) : (pres_addr+pc_incr);
+assign next_addr=bus.IF_ID_jalr?bus.branoff: bus.IF_ID_jal ? (bus.IF_ID_pres_addr + pc_incr)
+     : bus.branch ? (bus.IF_ID_pres_addr+pc_incr) : (pres_addr+pc_incr);
 assign En_sig=(bus.PC_En&&(!bus.debug)); 
 //assign En_sig=(bus.PC_En&&(!bus.dbg));
 assign En_mem=En_sig || bus.prog;
 assign bus.ins=bus.Rst?32'h00000000:memdout;
+//assign bus.ins=bus.Rst?32'h00000000:En_sig?memdout:32'h00000013;
 assign addr_in=bus.prog?debug_addr_imm:pres_addr[11:2];
 
 assign bus.imem_en = En_mem; 
@@ -69,8 +72,18 @@ assign bus.imem_en = En_mem;
 assign bus.imem_addr = addr_in; 
 
 always_ff @(posedge bus.clk) begin
-	if (bus.Rst || bus.memcon_prog_ena) pres_addr <= 12'h000;
-	else if (En_sig) pres_addr <= next_addr; 
+	if (bus.Rst || bus.memcon_prog_ena) begin
+	   pres_addr <= 12'h000;
+//	   bus.ins<=32'h00000000;
+	end
+	else if (En_sig) begin
+	   bus.IF_ID_pres_addr <= pres_addr; 
+	   pres_addr <= next_addr;
+//	    bus.ins<=memdout;
+    end 
+    else begin
+//        bus.ins <= 32'h00000013;
+    end
 end
 
 //UART_Programmer mem(.clk(bus.clk), .rx(bus.rx), .rst(bus.Rst), .ena(En_mem), .addra(addr_in), .douta(memdout), .*);

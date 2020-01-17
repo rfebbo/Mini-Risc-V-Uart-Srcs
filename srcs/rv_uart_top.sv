@@ -7,7 +7,7 @@ interface riscv_bus (
     input logic [95:0] key
     );
 
-    logic mem_wea;
+    logic mem_wea, mem_rea;
     logic [3:0] mem_en; 
     logic [31:0] mem_addr;
     logic [31:0] mem_din, mem_dout; 
@@ -19,14 +19,14 @@ interface riscv_bus (
     
     modport core(
         input clk, Rst, debug, rx, prog, debug_input, mem_dout, imem_dout,
-        output debug_output, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
+        output debug_output, mem_wea, mem_rea, mem_en, mem_addr, mem_din, imem_en, 
         output imem_addr, imem_din, imem_prog_ena,
         input key
     );
     
     modport memcon(
         input clk, Rst, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
-        input imem_addr, imem_din, imem_prog_ena,
+        input imem_addr, imem_din, imem_prog_ena, mem_rea,
         output mem_dout, imem_dout
     );
 endinterface
@@ -73,10 +73,10 @@ module rv_top
 
   logic [31:0] debug_output;
   logic [3:0]  seg_cur, seg_nxt;
-  logic        clk_50M, clk_disp;
+  logic        clk_50M, clk_5M;// clk_disp;
   logic addr_dn, addr_up;
   //clock divider variable
-  integer      count;
+//  integer      count;
   logic [95:0] key; 
   
   
@@ -120,21 +120,22 @@ assign key[11:0]=12'h3cf;
 //        .din(mem_din), .dout(mem_dout));
     
   //clock divider logic
-  always @(posedge clk) begin
-    rst_last <= Rst;
-    if (Rst == 1'b1 && rst_in == 1'b0 && rst_last == 1'b0) 
-        rst_in <= 1;
-    else
-        rst_in <= 0;
-     count <= count + 1;
-     clk_50M<=!clk_50M;
-     if(count==500)
-     begin
-        count<=0;
-        clk_disp <= !clk_disp;
-     end
-  end
+//  always @(posedge clk) begin
+//    rst_last <= Rst;
+//    if (Rst == 1'b1 && rst_in == 1'b0 && rst_last == 1'b0) 
+//        rst_in <= 1;
+//    else
+//        rst_in <= 0;
+//     count <= count + 1;
+//     clk_50M<=!clk_50M;
+//     if(count==500)
+//     begin
+//        count<=0;
+//        clk_disp <= !clk_disp;
+//     end
+//  end
  
+ clk_wiz_0 c0(.*);
   //clk_wiz_0 clk_div0(clk_50M, clk);
   //clk_wiz_1 clk_div1(clk_5M, clk_50M);
 
@@ -142,7 +143,7 @@ assign key[11:0]=12'h3cf;
 //  assign led = debug_output[15:0];
   assign clk_out = clk_50M;
   
-  always_ff @(posedge clk_disp) begin
+  always_ff @(posedge clk_5M) begin
     if (Rst) begin
       an_cur <= a0;
       seg_cur <= debug_output[3:0];

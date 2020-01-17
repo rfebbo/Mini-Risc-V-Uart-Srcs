@@ -6,7 +6,7 @@ module Memory_Controller (
 );
 
 logic clk, rst;
-logic mem_wea;
+logic mem_wea, mem_rea;
 logic [3:0] mem_en;
 logic [11:0] mem_addr_lower;
 logic [19:0] mem_addr_upper;
@@ -22,11 +22,12 @@ always_comb begin
     clk = rbus.clk;
     rst = rbus.Rst; 
     mem_wea = rbus.mem_wea;
+    mem_rea = rbus.mem_rea;
     mem_din = rbus.mem_din; 
     rbus.mem_dout = mem_dout; 
     mem_addr_lower = rbus.mem_addr[11:0]; 
     mem_addr_upper = rbus.mem_addr[31:12]; 
-    mem_en = (mem_addr_upper == 19'h0) ? rbus.mem_en : 4'b0000; 
+    mem_en = (mem_addr_upper < 20'haaaaa) & (mem_wea) ? rbus.mem_en : 4'b0000; 
     imem_en = rbus.imem_en; 
     imem_addr = rbus.imem_addr; 
     imem_din = rbus.imem_din; 
@@ -57,11 +58,15 @@ always_ff @(posedge clk) begin
     end
 end
 
-Memory_byteaddress mem0(.clk(clk), .rst(rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr_lower), 
-    .din(mem_din), .dout(mem_dout));
+blk_mem_gen_1 sharedmem(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
+    .douta(imem_dout), .clkb(clk), .enb((mem_wea | mem_rea) & mem_addr_upper < 20'haaaaa), .web(mem_en), .addrb(rbus.mem_addr[12:2]), .dinb(mem_din), .doutb(mem_dout));
+//Memory_byteaddress mem0(.clk(clk), .rst(rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr_lower), 
+//    .din(mem_din), .dout(mem_dout));
     
-blk_mem_gen_0 imem0(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
-    .douta(imem_dout));
+//blk_mem_gen_0 imem0(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
+//    .douta(imem_dout));
+    
+    
 //IRAM_Controller imem0(.clk(clk), .rst(rst), .ena(imem_en), .prog_ena(rbus.imem_prog_ena), 
 //    .wea_in(4'b0000), .dina(imem_din), .addr_in(imem_addr), .state_load_prog(imem_state),
 //    .douta(imem_dout));
