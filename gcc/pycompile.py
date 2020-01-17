@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+import os 
+import argparse 
+
+def runbash(cmd):
+	exitCode = os.system(cmd)
+	if (exitCode > 0):
+		print("ERROR :(")
+		exit()
+
+def prep_hex(filename, iscoe=True):
+	b = open(filename + '.bin', 'rb').read() 
+	i = 0 
+	ext = '.hex'
+	if (iscoe):
+		ext = '.coe'
+	f = open(filename + ext, 'w')
+	if (iscoe):
+		f.write('memory_initialization_radix=16;\nmemory_initialization_vector=\n')
+	while(i < len(b)):
+		btmp = b[i:i+4]
+		hexstr = ''
+		for t in btmp:
+			hexstr = f'{t:0{2}x}' + hexstr
+			# hexstr = hex(t)[2:] + hexstr
+		f.write(hexstr + '\n')
+		i += 4 
+	if (iscoe):
+		f.write(';')
+	f.close() 
+
+
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('files', nargs='+', help='File Names (Takes .c and .s')
+parser.add_argument('-c', '--coe', action='store_true', help='generate .coe file instead of .hex file')
+parser.add_argument('-s', '--save_temps', action='store_true', help='save intermediate .s and .o files')
+parser.add_argument('-l', '--linker_script', type=str, default='test.ld')
+parser.add_argument('-b', '--bootloader', type=str, default='boot.S')
+parser.add_argument('-o', '--output', type=str, default='a.hex')
+args = parser.parse_args()
+
+cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ',-e,0 -o '
+
+cmd += (args.output + '.elf ')
+cmd += args.bootloader
+for f in args.files:
+	cmd += (' ' + f)
+
+# print(cmd)
+
+# exitCode = os.system(cmd)
+# if (exitCode > 0):
+# 	print("ERROR :(")
+# 	exit()
+runbash(cmd) 
+
+cmd2 = 'riscv32-unknown-elf-objcopy -O binary ' + args.output + '.elf' + ' ' + args.output + '.bin'
+
+runbash(cmd2)
+
+prep_hex(args.output)

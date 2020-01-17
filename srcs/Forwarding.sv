@@ -62,9 +62,11 @@ module Forwarding
 
   //takes operands of ALU from rs1 or forwarded from subsequent stages
   assign cond1_1 = ((EX_MEM_regwrite && (!EX_MEM_memread)) && 
-                   (EX_MEM_rd==ID_EX_rs1));
-  assign cond1_2 = ((MEM_WB_regwrite) && (MEM_WB_rd==ID_EX_rs1));
-  assign cond1_3 = ((WB_ID_regwrite) && (WB_ID_rd==ID_EX_rs1));
+                   (EX_MEM_rd==ID_EX_rs1 ) && (EX_MEM_rd != 0));
+  assign cond1_2 = ((MEM_WB_regwrite) && (MEM_WB_rd==ID_EX_rs1)
+                    && (MEM_WB_rd != 0));
+  assign cond1_3 = ((WB_ID_regwrite) && (WB_ID_rd==ID_EX_rs1)
+                    && (WB_ID_rd != 0));
   assign cond2_1 = ((EX_MEM_regwrite && (!EX_MEM_memread)) && 
                    (EX_MEM_rd==ID_EX_rs2));
   assign cond2_2 = ((MEM_WB_regwrite) && (MEM_WB_rd==ID_EX_rs2));
