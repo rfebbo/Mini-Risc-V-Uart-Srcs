@@ -34,7 +34,8 @@ def prep_hex(filename, iscoe=True):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('files', nargs='+', help='File Names (Takes .c and .s')
-parser.add_argument('-c', '--coe', action='store_true', help='generate .coe file instead of .hex file')
+# parser.add_argument('-c', '--coe', action='store_true', help='generate .coe file instead of .hex file')
+parser.add_argument('-x', '--hex', action='store_true', help='generate .hex instead of .coe file')
 parser.add_argument('-s', '--save_temps', action='store_true', help='save intermediate .s and .o files')
 parser.add_argument('-l', '--linker_script', type=str, default='test.ld')
 parser.add_argument('-b', '--bootloader', type=str, default='boot.S')
@@ -42,6 +43,11 @@ parser.add_argument('-o', '--output', type=str, default='a.hex')
 args = parser.parse_args()
 
 cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ',-e,0 -o '
+
+if ('.coe' in args.output):
+	args.output = args.output.replace('.coe', '')
+if ('.hex' in args.output):
+	args.output = args.output.replace('.hex', '')	
 
 cmd += (args.output + '.elf ')
 cmd += args.bootloader
@@ -60,4 +66,4 @@ cmd2 = 'riscv32-unknown-elf-objcopy -O binary ' + args.output + '.elf' + ' ' + a
 
 runbash(cmd2)
 
-prep_hex(args.output)
+prep_hex(args.output, iscoe = not(args.hex))

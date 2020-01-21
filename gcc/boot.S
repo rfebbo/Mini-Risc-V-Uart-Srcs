@@ -4,4 +4,8 @@
 .global _start 
 _start: 
 	li sp, 2044
-	j main
+	la ra, _endloop 
+	jal main
+
+_endloop:
+	j _endloop
