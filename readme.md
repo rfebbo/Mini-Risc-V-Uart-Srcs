@@ -6,7 +6,9 @@ The original Mini-Risc-V Core was designed by Md Badruddoja Majumder. I've made 
 
 <hr> 
 
-Also included in the `gcc` folder is a python script that allows you to compile c code into a coe file for use with the core. It appears to work but is still a work in progress, so functionality cannot be guaranteed. 
+Also included in the `gcc` folder is a python script, called `pycompile.py`, that allows you to compile c code into a coe file for use with the core. It appears to work but is still a work in progress, so functionality cannot be guaranteed. This requires the riscv toolchain to be installed, targeted for rv32i. Additionally you'll need to use the included `boot.S` and `test.ld` files, but you may supply a bootloader or linker script of your own if you wish. 
+
+`./pycompile.py <options> files`
 
 <hr> 
 A number of IP cores are used that must be included and configured as below: 
