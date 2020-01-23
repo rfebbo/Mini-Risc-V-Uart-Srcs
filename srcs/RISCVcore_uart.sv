@@ -25,7 +25,7 @@
 
 //Interface bus between all pipeline stages
 interface main_bus (
-    input logic clk, Rst, debug, rx, prog, //addr_dn, addr_up,
+    input logic clk, Rst, debug,  prog, //rx, //addr_dn, addr_up,
     input logic[4:0] debug_input, 
     input logic [95:0] key
 //    output logic tx
@@ -222,7 +222,7 @@ module RISCVcore_uart(
     );
     //logic addr_dn = 0, addr_up = 0;
     
-    logic clk, Rst, debug, rx, prog, mem_wea;
+    logic clk, Rst, debug, prog, mem_wea; //rx,
     logic [4:0] debug_input;
     logic [31:0] debug_output, mem_addr, mem_din, mem_dout; 
     logic [3:0] mem_en; 
@@ -231,7 +231,7 @@ module RISCVcore_uart(
         clk = rbus.clk; 
         Rst = rbus.Rst; 
         debug = rbus.debug; 
-        rx = rbus.rx; 
+        //rx = rbus.rx; 
         prog = rbus.prog; 
         debug_input = rbus.debug_input; 
         rbus.debug_output = debug_output; 
@@ -259,7 +259,8 @@ module RISCVcore_uart(
     assign bus.mem_dout = mem_dout;
     
     
-    assign bus.PC_En=!bus.hz;
+//    assign bus.PC_En=!bus.hz;
+    assign bus.PC_En=(!bus.hz);
     assign bus.dbg=(debug || prog); //added to stop pipeline on prog and/or debug
     //debugging resister
     assign bus.adr_rs1=debug ? debug_input:bus.IF_ID_rs1;

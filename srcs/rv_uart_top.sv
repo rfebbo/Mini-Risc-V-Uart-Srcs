@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 interface riscv_bus (
-    input logic clk, Rst, debug, rx, prog, 
+    input logic clk, Rst, debug, prog, //rx, prog, 
     input logic [4:0] debug_input,
 //    output logic [31:0] debug_output
     input logic [95:0] key
@@ -18,7 +18,7 @@ interface riscv_bus (
     logic [31:0] imem_dout, imem_din; 
     
     modport core(
-        input clk, Rst, debug, rx, prog, debug_input, mem_dout, imem_dout,
+        input clk, Rst, debug, prog, debug_input, mem_dout, imem_dout, //rx,
         output debug_output, mem_wea, mem_rea, mem_en, mem_addr, mem_din, imem_en, 
         output imem_addr, imem_din, imem_prog_ena,
         input key
@@ -32,8 +32,9 @@ interface riscv_bus (
 endinterface
 
 interface mmio_bus (
-        input logic clk, Rst, 
+        input logic clk, Rst, rx, uart_clk,
         input logic [4:0] debug_input,
+        output logic tx,
         output logic[31:0] led
     );
     
@@ -41,16 +42,28 @@ interface mmio_bus (
     logic [31:0] disp_dat; 
     logic [31:0] disp_out;
     
+    //uart ports
+    logic [7:0] uart_din, uart_dout; 
+    logic rx_ren, tx_wen, rx_data_present;
+    
     
     
     modport memcon(
         input clk, Rst,
-        output disp_dat, disp_wea, led
+        output disp_dat, disp_wea, led, 
+        
+        input uart_dout, rx_data_present ,
+        output uart_din, rx_ren, tx_wen
     );
     
     modport display(
         input clk, Rst, disp_wea, disp_dat, debug_input, 
         output disp_out
+    );
+    
+    modport uart(
+        input clk, Rst, rx, rx_ren, tx_wen, uart_din, uart_clk,
+        output rx_data_present, tx, uart_dout
     );
     
 endinterface
@@ -94,10 +107,10 @@ assign key[11:0]=12'h3cf;
 //  logic [3:0] mem_en;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
-  riscv_bus rbus(.*);
-  mmio_bus mbus(.*);
-//  riscv_bus rbus(.clk(clk_50M), .*);
-//  mmio_bus mbus(.clk(clk_50M), .*);
+//  riscv_bus rbus(.*);
+//  mmio_bus mbus(.*);
+  riscv_bus rbus(.clk(clk_50M), .*);
+  mmio_bus mbus(.clk(clk_50M), .uart_clk(clk), .*);
   
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
@@ -115,6 +128,8 @@ assign key[11:0]=12'h3cf;
     Memory_Controller memcon0(rbus.memcon, mbus.memcon);
     
     Debug_Display d0(mbus.display);
+    
+    uart_controller u0(mbus.uart);
     
 //    Memory_byteaddress mem0(.clk(clk_50M), .rst(Rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr),
 //        .din(mem_din), .dout(mem_dout));
