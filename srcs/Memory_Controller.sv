@@ -55,6 +55,7 @@ always_comb begin
 //    end
     mbus.tx_wen = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_wea : 1'b0;
     mbus.uart_din = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_din[7:0] : 8'h00;
+    mbus.rx_ren = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_rea : 1'b0;
 //    if (mmio_region) begin
 //        if (mem_addr_lower == 12'h400) begin
 //            mem_dout = mbus.uart_dout;
@@ -87,7 +88,7 @@ always_ff @(posedge clk) begin
         if (mmio_region && ((mem_addr_lower == 12'h400) || (mem_addr_lower == 12'h404))) begin
             uart_last_cond <= 1;
             if (mem_addr_lower == 12'h400) uart_dout <= mbus.uart_dout; 
-            else uart_dout <= mbus.rx_data_present;
+            else uart_dout <= {6'b000000, mbus.tx_full, mbus.rx_data_present};
         end else begin
             uart_last_cond <= 0; 
         end

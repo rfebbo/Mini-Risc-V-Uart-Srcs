@@ -32,7 +32,7 @@ interface riscv_bus (
 endinterface
 
 interface mmio_bus (
-        input logic clk, Rst, rx, uart_clk,
+        input logic clk, Rst, rx,// uart_clk,
         input logic [4:0] debug_input,
         output logic tx,
         output logic[31:0] led
@@ -45,14 +45,14 @@ interface mmio_bus (
     //uart ports
     logic [7:0] uart_din, uart_dout; 
     logic rx_ren, tx_wen, rx_data_present;
-    
+    logic tx_full;
     
     
     modport memcon(
         input clk, Rst,
         output disp_dat, disp_wea, led, 
         
-        input uart_dout, rx_data_present ,
+        input uart_dout, rx_data_present , tx_full,
         output uart_din, rx_ren, tx_wen
     );
     
@@ -62,8 +62,8 @@ interface mmio_bus (
     );
     
     modport uart(
-        input clk, Rst, rx, rx_ren, tx_wen, uart_din, uart_clk,
-        output rx_data_present, tx, uart_dout
+        input clk, Rst, rx, rx_ren, tx_wen, uart_din, //uart_clk,
+        output rx_data_present, tx, uart_dout, tx_full
     );
     
 endinterface
@@ -110,7 +110,7 @@ assign key[11:0]=12'h3cf;
 //  riscv_bus rbus(.*);
 //  mmio_bus mbus(.*);
   riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus mbus(.clk(clk_50M), .uart_clk(clk), .*);
+  mmio_bus mbus(.clk(clk_50M),  .*);
   
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   

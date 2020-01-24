@@ -14,3 +14,31 @@ void uart_put(int c) {
 	volatile int * p = (int *)0xaaaaa400; 
 	*p = c; 
 }
+
+int uart_get() {
+	volatile int *p = (int *)0xaaaaa400;
+	return *p; 
+}
+
+int uart_poll() {
+	volatile int * p = (int *)0xaaaaa404; 
+	return *p; 
+}
+
+void uart_write_blocking(int c) {
+	int s; 
+	do {
+		s = uart_poll() & 2;
+	} while(s != 0);
+	uart_put(c);
+}
+
+int uart_read_blocking() {
+	int s;
+	do {
+		s = uart_poll() & 1; 
+	} while(s != 0);
+
+	return uart_get();
+
+}
