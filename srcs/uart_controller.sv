@@ -30,7 +30,7 @@ module uart_controller(
     
     logic clk, rst, rx, rx_ren, tx_wen;
     logic [7:0] din;
-    logic tx, rx_data_present;
+    logic tx;//, rx_data_present;
     logic [7:0] dout; 
 //    logic uart_clk;
     
@@ -103,8 +103,11 @@ module uart_controller(
 //    assign tx_din = rx_fifo_dout;
 //    assign tx_write = tx_wen; 
     assign tx_fifo_wen = tx_wen;
-    assign tx_write = ~tx_fifo_empty & ~tx_full;
-    assign tx_fifo_ren = tx_write;
+    
+//    assign tx_write = ~tx_fifo_empty & ~tx_full;
+//    assign tx_fifo_ren = tx_write;
+    assign tx_fifo_ren = ~tx_fifo_empty & ~tx_full; 
+    
     assign tx_fifo_din = din;
 //    always_ff @(posedge clk) begin
 //        if (rst) begin
@@ -133,6 +136,8 @@ module uart_controller(
     
     
     always_ff @(posedge clk) begin
+        tx_write <= tx_fifo_ren;
+        rx_fifo_wen <= rx_read;
         if (baud_count == cnt) begin
             baud_count <= 0;
             en_baud <= 1;

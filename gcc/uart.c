@@ -37,7 +37,7 @@ int uart_read_blocking() {
 	int s;
 	do {
 		s = uart_poll() & 1; 
-	} while(s != 0);
+	} while(s == 0);
 
 	return uart_get();
 

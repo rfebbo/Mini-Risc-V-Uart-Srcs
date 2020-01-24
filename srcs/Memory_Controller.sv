@@ -22,6 +22,7 @@ logic mmio_region;
 logic [31:0] blkmem_dout; 
 logic [7:0] uart_dout;
 logic uart_last_cond;
+logic [11:0] uart_last_addr; 
 
 always_comb begin
     clk = rbus.clk;
@@ -67,7 +68,9 @@ always_comb begin
 //    end else begin
 //        mem_dout = blkmem_dout;
 //    end
-    mem_dout = uart_last_cond ? uart_dout : blkmem_dout;
+//    uart_dout = (mmio_region & (mem_addr_lower == 12'h404)) ? {6'b000000, mbus.tx_full, mbus.rx_data_present} : mbus.uart_dout;
+//    mem_dout = uart_last_cond ? uart_dout : blkmem_dout;
+    mem_dout = uart_last_cond ? ((uart_last_addr == 12'h404) ? {6'b000000, mbus.tx_full, mbus.rx_data_present} : mbus.uart_dout) : blkmem_dout;
 end
 
 always_ff @(posedge clk) begin
@@ -87,8 +90,9 @@ always_ff @(posedge clk) begin
         end
         if (mmio_region && ((mem_addr_lower == 12'h400) || (mem_addr_lower == 12'h404))) begin
             uart_last_cond <= 1;
-            if (mem_addr_lower == 12'h400) uart_dout <= mbus.uart_dout; 
-            else uart_dout <= {6'b000000, mbus.tx_full, mbus.rx_data_present};
+            uart_last_addr <= mem_addr_lower;
+//            if (mem_addr_lower == 12'h400) uart_dout <= mbus.uart_dout; 
+//            else uart_dout <= {6'b000000, mbus.tx_full, mbus.rx_data_present};
         end else begin
             uart_last_cond <= 0; 
         end
