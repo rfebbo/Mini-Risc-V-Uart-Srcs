@@ -1,10 +1,12 @@
 #ifndef UART
 #define UART 
 
-void uart_put(int c); 
-int uart_get(); 
-int uart_poll(); 
-void uart_write_blocking(int c);
-int uart_read_blocking();
+void uart_put(char c); 
+char uart_get(); 
+char uart_poll(); 
+void uart_write_blocking(char c);
+char uart_read_blocking();
+
+void print(char c[], int strlen);
 
 #endif

@@ -7,7 +7,7 @@ module Memory_Controller (
 
 logic clk, rst;
 logic mem_wea, mem_rea;
-logic [3:0] mem_en;
+logic [3:0] mem_en, mem_en_last;
 logic [11:0] mem_addr_lower;
 logic [19:0] mem_addr_upper;
 logic [31:0] mem_din, mem_dout; 
@@ -19,7 +19,7 @@ logic [31:0] imem_addr, imem_dout, imem_din;
 logic imem_en, imem_state;
 
 logic mmio_region;
-logic [31:0] blkmem_dout; 
+logic [31:0] blkmem_dout, doutb, blkmem_din; 
 logic [7:0] uart_dout;
 logic uart_last_cond;
 logic [11:0] uart_last_addr; 
@@ -96,14 +96,73 @@ always_ff @(posedge clk) begin
         end else begin
             uart_last_cond <= 0; 
         end
+        mem_en_last <= mem_en;
     end
 end
 
+always_comb begin
+    case (mem_en_last) 
+        4'b0001: begin
+            blkmem_dout = {24'h0, doutb[7:0]}; 
+        end
+        4'b0010: begin 
+            blkmem_dout = {24'h0, doutb[15:8]};
+        end
+        4'b0100: begin
+            blkmem_dout = {24'h0, doutb[23:16]};
+        end
+        4'b1000: begin
+            blkmem_dout = {24'h0, doutb[31:24]};
+        end
+        4'b0011: begin 
+            blkmem_dout = {16'h0, doutb[15:0]};
+        end
+        4'b0110: begin 
+            blkmem_dout = {16'h0, doutb[23:8]};
+        end
+        4'b1100: begin
+            blkmem_dout = {16'h0, doutb[31:16]}; 
+        end
+        default: begin
+            blkmem_dout = doutb;
+        end 
+    endcase
+end
+
+always_comb begin
+    case (mem_en) 
+        4'b0001: begin
+            blkmem_din = {24'h0, mem_din[7:0]};
+        end
+        4'b0010: begin 
+            blkmem_din = {16'h0, mem_din[7:0], 8'h0};  
+        end
+        4'b0100: begin
+            blkmem_din = {8'h0, mem_din[7:0], 16'h0};
+        end
+        4'b1000: begin
+            blkmem_din = {mem_din[7:0], 24'h0};
+        end
+        4'b0011: begin 
+            blkmem_din = {16'h0, mem_din[15:0]}; 
+        end
+        4'b0110: begin 
+            blkmem_din = {8'h0, mem_din[15:0], 8'h0};
+        end
+        4'b1100: begin
+            blkmem_din = {mem_din[15:0], 16'h0};
+        end
+        default: begin
+            blkmem_din = mem_din;
+        end 
+    endcase
+end
 
 
 blk_mem_gen_1 sharedmem(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
     .douta(imem_dout), .clkb(clk), .enb((mem_wea | mem_rea) & (~mmio_region)), 
-    .web(mem_en), .addrb(rbus.mem_addr[12:2]), .dinb(mem_din), .doutb(blkmem_dout));
+    .web(mem_en), .addrb(rbus.mem_addr[12:2]), .dinb(blkmem_din), .doutb(doutb));
+    
 
 //Memory_byteaddress mem0(.clk(clk), .rst(rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr_lower), 
 //    .din(mem_din), .dout(mem_dout));
