@@ -9,6 +9,10 @@ char uart_read_blocking();
 
 void print(char c[]);
 
-void readline(char c[]);
+void readline(char c[], int len);
 
+int strlen(char c[]);
+
+int atoi(char *c);
+void itoa(int a, char *c);
 #endif

@@ -38,13 +38,13 @@
 //to reprogram the instruction memory through UART.
 module Fetch_Reprogrammable(main_bus bus);
 
-logic [11:0] pc_incr;
+logic [31:0] pc_incr;
 logic [31:0] memdout;
-logic [11:0] next_addr;
-logic [11:0] pres_addr;
-logic [9:0] addr_in;
+logic [31:0] next_addr;
+logic [31:0] pres_addr;
+logic [31:0] addr_in;
 logic En_sig, En_mem, state_load_prog;
-logic [9:0] debug_addr_imm;
+logic [31:0] debug_addr_imm;
 //logic [11:0] branoff;
 
 assign debug_addr_imm[9:5] = 5'b00000;
@@ -65,15 +65,15 @@ assign En_sig=(bus.PC_En&&(!bus.debug));
 assign En_mem=En_sig || bus.prog;
 assign bus.ins=bus.Rst?32'h00000000:memdout;
 //assign bus.ins=bus.Rst?32'h00000000:En_sig?memdout:32'h00000013;
-assign addr_in=bus.prog?debug_addr_imm:pres_addr[11:2];
-
+//assign addr_in=bus.prog?debug_addr_imm:pres_addr[11:2];
+assign addr_in=bus.prog?debug_addr_imm:pres_addr;
 assign bus.imem_en = En_mem; 
 
 assign bus.imem_addr = addr_in; 
 
 always_ff @(posedge bus.clk) begin
 	if (bus.Rst || bus.memcon_prog_ena) begin
-	   pres_addr <= 12'h000;
+	   pres_addr <= 32'h000;
 //	   bus.ins<=32'h00000000;
 	end
 	else if (En_sig) begin

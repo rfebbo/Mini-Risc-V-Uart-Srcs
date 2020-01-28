@@ -34,8 +34,8 @@ interface main_bus (
     logic         PC_En;
     logic         hz;
     logic         branch;
-    logic  [11:0]  branoff;
-    logic  [11:0]  ID_EX_pres_addr;
+    logic  [31:0]  branoff;
+    logic  [31:0]  ID_EX_pres_addr;
     logic  [31:0] ins;
     logic  [4:0]  ID_EX_rd;
     logic         ID_EX_memread,ID_EX_regwrite;
@@ -43,7 +43,7 @@ interface main_bus (
     logic  [4:0]  ID_EX_rs1,ID_EX_rs2;
     logic  [31:0] ID_EX_dout_rs1,ID_EX_dout_rs2,EX_MEM_dout_rs2;
     logic  [31:0] IF_ID_dout_rs1,IF_ID_dout_rs2;
-    logic  [11:0]  IF_ID_pres_addr;
+    logic  [31:0]  IF_ID_pres_addr;
     logic         IF_ID_jalr;
     logic         ID_EX_jal,ID_EX_jalr;
     logic         ID_EX_compare;
@@ -90,7 +90,7 @@ interface main_bus (
        
     logic [31:0] imem_dout;
     logic imem_en;
-    logic [11:0] imem_addr;
+    logic [31:0] imem_addr;
     
     //CSR signals 
 //    logic [11:0] IF_ID_CSR_addr; 

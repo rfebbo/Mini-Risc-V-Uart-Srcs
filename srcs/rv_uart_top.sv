@@ -14,7 +14,7 @@ interface riscv_bus (
     logic [31:0] debug_output;
     
     logic imem_en, imem_prog_ena;
-    logic [9:0] imem_addr;
+    logic [31:0] imem_addr;
     logic [31:0] imem_dout, imem_din; 
     
     modport core(

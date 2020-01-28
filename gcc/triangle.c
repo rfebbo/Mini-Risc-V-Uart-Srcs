@@ -1,4 +1,5 @@
-#include"print.h" 
+// #include"print.h" 
+#include"uart.h"
 
 int main(void) {
 	int a = 3; 
