@@ -1,4 +1,5 @@
 #include"uart.h" 
+#include"string.h"
 
 void uart_put(char c) {
 	volatile char * p = (char *)0xaaaaa400; 
@@ -32,8 +33,17 @@ char uart_read_blocking() {
 
 }
 
-void print(char c[], int strlen) {
-	for (int i = 0; i < strlen; i++) {
+void print(char c[]) {
+	int len = strlen(c);
+	for (int i = 0; i < len; i++) {
 		uart_write_blocking(c[i]); 
+	}
+}
+
+void readline(char c[]) {
+	int len = strlen(c);
+	for (int i = 0; i < len; i++) {
+		c[i] = uart_read_blocking(); 
+		if (c[i] == 13) return;
 	}
 }
