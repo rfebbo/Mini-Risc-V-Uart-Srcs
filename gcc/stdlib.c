@@ -1,3 +1,14 @@
+#include"stdlib.h"
+
+void * malloc(size_t size) {
+	void *ptr; 
+	char c[size+4]; 
+	for (int i = 0; i < (size + 4); i++) 
+		c[i] = 0; 
+	ptr = &c[0];
+	return ptr;
+}
+
 int __mulsi3(int a, int b) {
 	int product = 0; 
 	int i;

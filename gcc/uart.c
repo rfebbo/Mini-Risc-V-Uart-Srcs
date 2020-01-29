@@ -50,13 +50,17 @@ void print(char c[]) {
 void readline(char c[], int len) {
 	// int len = strlen(c);
 	for (int i = 0; i < len; i++) {
-		c[i] = uart_read_blocking(); 
-		uart_write_blocking(c[i]);
-		if (c[i] == 13) {
-			uart_write_blocking('\n');
+		char tmp;
+		tmp = uart_read_blocking(); 
+		// uart_write_blocking(tmp);
+		if (tmp == 13) {
+			for (int j = i; j < len; j++) c[j] = 0;
 			uart_write_blocking('\r');
+			uart_write_blocking('\n');
 			return;
 		}
+		uart_write_blocking(tmp);
+		c[i] = tmp;
 	}
 }
 
@@ -78,44 +82,44 @@ int strlen(char c[]) {
 // 	return offset; 
 // }
 
-int atoi(char *c) {
-	int len = strlen(c); 
-	int i; 
-	int sum = 0;
-	int mult = 1;
-	for (i == (len-1); i >= 0; i--) {
-		int tmp = c[i] - INT_OFFSET; 
-		if (tmp == -3) {
-			return (0 - sum); 
-		} else if ((tmp >= 0) && (tmp <= 9)) {
-			sum += (tmp * mult); 
-		} else return -1;
-	}
-	return sum;
-}
+// int atoi(char *c) {
+// 	int len = strlen(c); 
+// 	int i; 
+// 	int sum = 0;
+// 	int mult = 1;
+// 	for (i == (len-1); i >= 0; i--) {
+// 		int tmp = c[i] - INT_OFFSET; 
+// 		if (tmp == -3) {
+// 			return (0 - sum); 
+// 		} else if ((tmp >= 0) && (tmp <= 9)) {
+// 			sum += (tmp * mult); 
+// 		} else return -1;
+// 	}
+// 	return sum;
+// }
 
-void itoa(int a, char *c) {
-	int p1, p2; 
-	int idx = 0;
-	if (a < 0) {
-		c[idx] = '-';
-		a = 0 - a;
-		idx++;
-	}
-	//get placing
-	if (a < 10) {
-		c[idx] = a + INT_OFFSET;
-		return ;
-	}
-	p1 = 1;
-	while((a / p1) > 0) p1 *= 10; 
-	p2 = p1 / 10; 
-	while(1) {
-		int tmp = (a % p1) / p2; 
-		c[idx] = tmp + INT_OFFSET; 
-		idx++;
-		if ((p2 == 1) || (idx == 12)) return ;
-		p2 = p2 / 10;
-		p1 = p1 / 10; 
-	}
-}
+// void itoa(int a, char *c) {
+// 	int p1, p2; 
+// 	int idx = 0;
+// 	if (a < 0) {
+// 		c[idx] = '-';
+// 		a = 0 - a;
+// 		idx++;
+// 	}
+// 	//get placing
+// 	if (a < 10) {
+// 		c[idx] = a + INT_OFFSET;
+// 		return ;
+// 	}
+// 	p1 = 1;
+// 	while((a / p1) > 0) p1 *= 10; 
+// 	p2 = p1 / 10; 
+// 	while(1) {
+// 		int tmp = (a % p1) / p2; 
+// 		c[idx] = tmp + INT_OFFSET; 
+// 		idx++;
+// 		if ((p2 == 1) || (idx == 12)) return ;
+// 		p2 = p2 / 10;
+// 		p1 = p1 / 10; 
+// 	}
+// }
