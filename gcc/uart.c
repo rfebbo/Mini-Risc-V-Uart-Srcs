@@ -53,7 +53,8 @@ void readline(char c[], int len) {
 		c[i] = uart_read_blocking(); 
 		uart_write_blocking(c[i]);
 		if (c[i] == 13) {
-			uart_write_blocking(10);
+			uart_write_blocking('\n');
+			uart_write_blocking('\r');
 			return;
 		}
 	}
