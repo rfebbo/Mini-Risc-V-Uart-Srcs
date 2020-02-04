@@ -23,10 +23,10 @@ int main(void) {
 	// char in[32];
 	// readline(in); 
 	// print(in);
-	// char c; 
-	// while(1) {
-	// 	c = uart_read_blocking();
-	// 	uart_write_blocking(c);
-	// }
+	char c; 
+	while(1) {
+		c = uart_read_blocking();
+		uart_write_blocking(c);
+	}
 	return 0;
 }
