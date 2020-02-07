@@ -66,6 +66,19 @@ Other Options:
   Fill Remaining Memory Locations: 0
 ```
 
+```
+Fifo Generator
+
+Basic
+  Interface Type: Native
+  Implementation: Common Clock Builtin FIFO 
+  
+Native Ports
+  Read Mode: Standard FIFO
+  Data Port Parameters
+    Write Width: 8
+    Write Depth: 512 
+```
 <!-- <hr>
 As with the original Mini-Risc-V, instruction memory is currently implemented using a Vivado IP core. Use the Block Memory Generator from the Vivado IP catalog, and configure it as follows:
 
