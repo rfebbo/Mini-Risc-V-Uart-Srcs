@@ -34,10 +34,10 @@ endinterface
 interface mmio_bus (
         input logic clk, Rst, rx,// uart_clk,
         input logic [4:0] debug_input,
-        output logic tx,
-        output logic[31:0] led
+        output logic tx
+        //output logic[31:0] led
     );
-    
+    logic [31:0] led;
     logic disp_wea;
     logic [31:0] disp_dat; 
     logic [31:0] disp_out;
@@ -111,6 +111,8 @@ assign key[11:0]=12'h3cf;
 //  mmio_bus mbus(.*);
   riscv_bus rbus(.clk(clk_50M), .*);
   mmio_bus mbus(.clk(clk_50M),  .*);
+  
+  assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};
   
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
