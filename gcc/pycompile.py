@@ -44,6 +44,8 @@ args = parser.parse_args()
 
 cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ',-e,0 -o '
 
+asm = 'heapthing.S'
+
 if ('.coe' in args.output):
 	args.output = args.output.replace('.coe', '')
 if ('.hex' in args.output):
@@ -51,6 +53,7 @@ if ('.hex' in args.output):
 
 cmd += (args.output + '.elf ')
 cmd += args.bootloader
+cmd += (' ' + asm)
 for f in args.files:
 	cmd += (' ' + f)
 

@@ -20,9 +20,11 @@ int main(void) {
 	char h[] = "Hello, world!\r\n"; 
 	// // int strlen = 13; 
 	print(h);
-	// char in[32];
-	// readline(in); 
-	// print(in);
+	char in[32];
+	for (int i = 0; i < 32; i++)
+		in[i] = 0;
+	readline(in, 32); 
+	print(in);
 	char c; 
 	while(1) {
 		c = uart_read_blocking();

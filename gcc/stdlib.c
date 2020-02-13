@@ -1,5 +1,20 @@
 #include"stdlib.h"
 
+extern usize HEAP_SIZE;
+extern usize HEAP_START; 
+
+
+
+void * alloc(usize pages) {
+	usize num_pages = HEAP_SIZE / PAGE_SIZE; 
+	struct Page * ptr = (struct Page *)HEAP_START; 
+	int i;
+	for (i = 0; i < (num_pages - pages); i++) {
+		char found = 0; 
+		Page p = (struct Page *)(ptr + i); 
+	}
+}
+
 void * memcpy(void * dest, void * src, size_t num) {
 	size_t i = 0; 
 	char c;
