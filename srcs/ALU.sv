@@ -55,11 +55,12 @@
 module ALU
  (input  logic [31:0] a,
   input  logic [31:0] b,
-  input  logic [11:0]  ID_EX_pres_adr, //jal instr
+  input  logic [31:0]  ID_EX_pres_adr, //jal instr
   input  logic [2:0]  alusel,
   input  logic        ID_EX_lui,
   input  logic        ID_EX_jal,
   input  logic        ID_EX_jalr,
+  input  logic        ID_EX_auipc,
   input  logic        ID_EX_compare,
   input logic [95:0] key,
   output logic [31:0] res,
@@ -94,7 +95,7 @@ module ALU
 //    assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
 //                                         ((ID_EX_compare&&comp_res_temp) ? 
 //                                          32'h1 : s);
-    assign res = (ID_EX_lui) ? b : (ID_EX_jal) ? {24'h000000,(ID_EX_pres_adr+4)} : (ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
+    assign res = (ID_EX_lui) ? b : (ID_EX_auipc) ? (b + ID_EX_pres_adr[11:0]) :  (ID_EX_jal) ? (ID_EX_pres_adr+4) : (ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
                                          ((ID_EX_compare&&comp_res_temp) ? 
                                           32'h1 : s);
 endmodule: ALU
