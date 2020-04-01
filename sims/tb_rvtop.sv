@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -43,7 +43,21 @@ rv_top dut(.*);
 
 always #5 clk=!clk; 
 
+task rxchar(input [7:0] c);
+begin
+    dut.u0.rx_dout = c;
+    dut.u0.rx_pres = 1'b1;
+    #10 
+    dut.u0.rx_pres = 1'b0;
+end
+endtask
+
+//    always_ff @(posedge dut.mbus.tx_wen) begin
+//        $strobe("%h", dut.mbus.uart_din);
+//    end
+
 initial begin
+    $display("Begin simulaton");
     clk = 0;
     Rst = 1; 
     debug = 0;
@@ -52,6 +66,13 @@ initial begin
     debug_input = 0; 
     #10;
     Rst=0;
+    
+    #75000;
+    rxchar("H");
+    rxchar("e");
+    rxchar("l");
+    rxchar("l");
+    rxchar("o");
     
 //    #9000;
 //    rx = 0; //start bit

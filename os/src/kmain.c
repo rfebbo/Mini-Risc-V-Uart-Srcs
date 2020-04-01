@@ -1,10 +1,21 @@
 #include"uart.h"
-// #include"printf.h" 
+#include"printf.h" 
 #include"page.h" 
+
+void kinit(void) {
+	printf("kinit\n");
+	mem_init();
+	printf("kmem init\n");
+	return;
+}
 
 int main(void) {
 	// mem_init();
-	print("Entered Main\n");
+	printf("Entered Main\n");
+	while(1) {
+		char c = uart_read_blocking();
+		uart_write_blocking(c);
+	}
 	// float f = 0.5f; 
 	// float f2 = 0.75f;
 	// float sum = f + f2; 

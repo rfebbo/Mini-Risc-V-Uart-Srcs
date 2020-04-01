@@ -50,7 +50,7 @@ module uart_controller(
     end
     
     
-    integer cnt = 27; 
+    integer cnt = 26; 
 //    integer cnt = 81; 
 //    integer cnt = 53; 
     integer baud_count = 0; 
@@ -73,17 +73,9 @@ module uart_controller(
     logic tx_fifo_wen, tx_fifo_ren; 
     logic tx_fifo_full, tx_fifo_empty; 
     logic [7:0] tx_fifo_din; 
-    
-//    logic F8_empty, F8_full, F8_ren, F8_wen;
-//    logic [31:0] F8_dout; 
-    
-//    logic F32_empty, F32_full, F32_ren, F32_wen;
-//    logic [31:0] F32_din; 
 
-//    assign rx_data_present = rx_pres;
     assign rx_read = rx_pres & ~rx_fifo_full;
-//    assign rx_fifo_wen = rx_pres;
-//    assign rx_fifo_ren = tx_wen & ~rx_fifo_empty;
+
     assign rx_fifo_ren = rx_ren;
     assign dout = rx_fifo_dout;
 
@@ -93,47 +85,38 @@ module uart_controller(
     fifo_generator_0 rxfifo( .clk(clk), .rst(rst), .din(rx_dout), .wr_en(rx_read), .rd_en(rx_fifo_ren), 
         .dout(rx_fifo_dout), .full(rx_fifo_full), .empty(rx_fifo_empty)); 
 
+//    uart_tx6 tx0( .data_in(tx_din), .en_16_x_baud(en_baud), .serial_out(tx), .buffer_write(tx_write), .buffer_data_present(tx_pres),
+//        .buffer_half_full(tx_half), .buffer_full(tx_full), .buffer_reset(rst), .clk(clk));
+    
+//    fifo_generator_0 txfifo( .clk(clk), .rst(rst), .din(tx_fifo_din), .wr_en(tx_fifo_wen), .rd_en(tx_fifo_ren),
+//        .dout(tx_din), .full(tx_fifo_full), .empty(tx_fifo_empty)); 
+    assign tx_fifo_wen = tx_wen;
+    assign tx_fifo_ren = ~tx_fifo_empty & ~tx_full; 
+    
+    assign tx_fifo_din = din;
+    
+    `ifndef SYNTHESIS
+    assign tx_fifo_full = 0;
+    assign tx_fifo_empty = 0;
+    always_comb begin 
+        tx = 1;
+        tx_pres = 0;
+        tx_half = 0;
+        tx_full = 0;
+//        tx_fifo_full = 0;
+//        tx_fifo_empty = 0;
+    end 
+    
+    always_ff @(posedge clk) begin
+        if (tx_wen == 1) $write("%s", din);
+    end
+    `else 
     uart_tx6 tx0( .data_in(tx_din), .en_16_x_baud(en_baud), .serial_out(tx), .buffer_write(tx_write), .buffer_data_present(tx_pres),
         .buffer_half_full(tx_half), .buffer_full(tx_full), .buffer_reset(rst), .clk(clk));
     
     fifo_generator_0 txfifo( .clk(clk), .rst(rst), .din(tx_fifo_din), .wr_en(tx_fifo_wen), .rd_en(tx_fifo_ren),
         .dout(tx_din), .full(tx_fifo_full), .empty(tx_fifo_empty)); 
-//    assign led_out = rx_fifo_dout; 
-//    assign led_out = rx_fifo_dout;
-//    assign tx_din = rx_fifo_dout;
-//    assign tx_write = tx_wen; 
-    assign tx_fifo_wen = tx_wen;
-    
-//    assign tx_write = ~tx_fifo_empty & ~tx_full;
-//    assign tx_fifo_ren = tx_write;
-    assign tx_fifo_ren = ~tx_fifo_empty & ~tx_full; 
-    
-    assign tx_fifo_din = din;
-//    always_ff @(posedge clk) begin
-//        if (rst) begin
-            
-//        end else begin
-////            tx_write <= rx_fifo_ren; 
-////            if (rx_read == 1) begin
-////                rx_read <= 0;
-////                tx_write <= 0;
-////            end else if (rx_read == 0 && rx_pres == 1) begin
-////                rx_read <= 1;
-////                tx_write <= 1;
-////                tx_din <= rx_dout;
-////                led_out <= rx_dout;
-////            end
-////            if ((rx_pres == 1) && (rx_fifo_full == 0)) begin
-////                rx_read <= 1; 
-////                rx_fifo_wen <= 1;
-////            end
-////            else begin
-////                rx_read <= 0;
-////                rx_fifo_wen <= 0; 
-////            end
-//        end
-//    end
-    
+    `endif
     
     always_ff @(posedge clk) begin
         tx_write <= tx_fifo_ren;
