@@ -24,6 +24,8 @@ logic [7:0] uart_dout;
 logic uart_last_cond;
 logic [11:0] uart_last_addr; 
 
+logic mem_hold;
+
 always_comb begin
     clk = rbus.clk;
     rst = rbus.Rst; 
@@ -38,7 +40,7 @@ always_comb begin
     imem_addr = rbus.imem_addr; 
     imem_din = rbus.imem_din; 
     rbus.imem_dout = imem_dout;
-    
+    rbus.mem_hold = mem_hold;
     mmio_region = (mem_addr_upper == 20'haaaaa); 
 end
 
@@ -75,7 +77,7 @@ end
 
 always_ff @(posedge clk) begin
     if (rst) begin
-    
+        mem_hold <= 0;
     end else begin
         if ((mem_wea == 1) && (mem_addr_upper == 20'haaaaa)) begin 
             if ((mem_addr_lower == 12'h004)) begin
@@ -97,6 +99,13 @@ always_ff @(posedge clk) begin
             uart_last_cond <= 0; 
         end
         mem_en_last <= mem_en;
+        
+        if (mem_hold == 1) begin
+            mem_hold <= 0;
+        end
+        else if ((mem_wea == 1) && (~mmio_region)) begin
+            mem_hold <= 1;
+        end
     end
 end
 

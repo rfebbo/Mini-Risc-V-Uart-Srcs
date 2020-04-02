@@ -25,7 +25,7 @@
 
 //Interface bus between all pipeline stages
 interface main_bus (
-    input logic clk, Rst, debug,  prog, //rx, //addr_dn, addr_up,
+    input logic clk, Rst, debug, dbg, prog, //rx, //addr_dn, addr_up,
     input logic[4:0] debug_input, 
     input logic [95:0] key
 //    output logic tx
@@ -50,6 +50,9 @@ interface main_bus (
     logic  [31:0] EX_MEM_alures,MEM_WB_alures,MEM_WB_memres;
     logic         EX_MEM_comp_res;
     
+    logic [31:0] EX_MEM_pres_addr;
+    logic [31:0] MEM_WB_pres_addr;
+    
     logic  [4:0]  EX_MEM_rs1, EX_MEM_rs2;
     
     logic  [2:0]  ID_EX_alusel;
@@ -70,7 +73,7 @@ interface main_bus (
     logic  [4:0]  IF_ID_rs1,IF_ID_rs2;
     logic         ID_EX_lb,ID_EX_lh,ID_EX_lw,ID_EX_lbu,ID_EX_lhu,ID_EX_sb,ID_EX_sh,ID_EX_sw;
     logic         EX_MEM_lb,EX_MEM_lh,EX_MEM_lw,EX_MEM_lbu,EX_MEM_lhu,EX_MEM_sb,EX_MEM_sh,EX_MEM_sw;
-    logic dbg;
+//    logic dbg;
     logic [31:0] uart_dout;
     logic memcon_prog_ena;
     
@@ -159,18 +162,21 @@ interface main_bus (
         output EX_MEM_memread, EX_MEM_rd,
         input MEM_WB_rd, WB_ID_rd,
         output EX_MEM_memwrite, EX_MEM_regwrite, EX_MEM_comp_res, 
+        output EX_MEM_pres_addr,
         input key
     );
     
     //modport for memory stage
     modport memory (
         input clk, Rst, dbg, EX_MEM_storecntrl, mmio_read,
+        input EX_MEM_pres_addr,
         input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res, EX_MEM_rs1,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
         output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
         output mmio_wea, mmio_dat, 
         
         input mem_dout, 
+        output MEM_WB_pres_addr,
         output mem_din, mem_addr, mem_wea, mem_en, mem_rea
     );
     
@@ -249,7 +255,7 @@ module RISCVcore_uart(
     end
     
     
-    main_bus bus(.key(rbus.key), .*);
+    main_bus bus(.key(rbus.key), .dbg(rbus.mem_hold), .*);
     
     assign mem_wea = bus.mem_wea;
 //    assign mem_clk = bus.clk;

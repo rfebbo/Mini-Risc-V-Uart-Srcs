@@ -67,12 +67,12 @@ initial begin
     #10;
     Rst=0;
     
-    #75000;
-    rxchar("H");
-    rxchar("e");
-    rxchar("l");
-    rxchar("l");
-    rxchar("o");
+//    #75000;
+//    rxchar("H");
+//    rxchar("e");
+//    rxchar("l");
+//    rxchar("l");
+//    rxchar("o");
     
 //    #9000;
 //    rx = 0; //start bit

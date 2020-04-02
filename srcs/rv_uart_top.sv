@@ -17,17 +17,19 @@ interface riscv_bus (
     logic [31:0] imem_addr;
     logic [31:0] imem_dout, imem_din; 
     
+    logic mem_hold;
+    
     modport core(
         input clk, Rst, debug, prog, debug_input, mem_dout, imem_dout, //rx,
         output debug_output, mem_wea, mem_rea, mem_en, mem_addr, mem_din, imem_en, 
         output imem_addr, imem_din, imem_prog_ena,
-        input key
+        input key, input mem_hold
     );
     
     modport memcon(
         input clk, Rst, mem_wea, mem_en, mem_addr, mem_din, imem_en, 
         input imem_addr, imem_din, imem_prog_ena, mem_rea,
-        output mem_dout, imem_dout
+        output mem_dout, imem_dout, mem_hold
     );
 endinterface
 
@@ -107,10 +109,14 @@ assign key[11:0]=12'h3cf;
 //  logic [3:0] mem_en;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
-//  riscv_bus rbus(.*);
-//  mmio_bus mbus(.*);
+`ifndef SYNTHESIS
+  riscv_bus rbus(.*);
+  mmio_bus mbus(.*);
+`else
+ clk_wiz_0 c0(.*);
   riscv_bus rbus(.clk(clk_50M), .*);
   mmio_bus mbus(.clk(clk_50M),  .*);
+`endif
   
   assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};
   
@@ -152,7 +158,7 @@ assign key[11:0]=12'h3cf;
 //     end
 //  end
  
- clk_wiz_0 c0(.*);
+
   //clk_wiz_0 clk_div0(clk_50M, clk);
   //clk_wiz_1 clk_div1(clk_5M, clk_50M);
 

@@ -95,7 +95,7 @@ module ALU
 //    assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
 //                                         ((ID_EX_compare&&comp_res_temp) ? 
 //                                          32'h1 : s);
-    assign res = (ID_EX_lui) ? b : (ID_EX_auipc) ? (b + ID_EX_pres_adr[11:0]) :  (ID_EX_jal) ? (ID_EX_pres_adr+4) : (ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
+    assign res = (ID_EX_lui) ? b : (ID_EX_auipc) ? (b + ID_EX_pres_adr[11:0]) :  (ID_EX_jal) ? (ID_EX_pres_adr+4) : (ID_EX_jalr) ? (ID_EX_pres_adr+4) : 
                                          ((ID_EX_compare&&comp_res_temp) ? 
                                           32'h1 : s);
 endmodule: ALU

@@ -120,6 +120,7 @@ module Execute(main_bus bus);
             bus.EX_MEM_comp_res<=1'b0;
             bus.EX_MEM_loadcntrl<=5'h0;
             bus.EX_MEM_storecntrl<=3'h0;
+            bus.EX_MEM_pres_addr<= 32'h0;
         end
         else if(!bus.dbg) begin
             EX_MEM_rd_sig<=bus.ID_EX_rd;
@@ -133,6 +134,7 @@ module Execute(main_bus bus);
             bus.EX_MEM_comp_res<=comp_res;
             bus.EX_MEM_loadcntrl<=bus.ID_EX_loadcntrl;
             bus.EX_MEM_storecntrl<=bus.ID_EX_storecntrl;
+            bus.EX_MEM_pres_addr<=bus.ID_EX_pres_addr; 
         end
   end
   
