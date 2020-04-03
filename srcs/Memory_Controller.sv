@@ -44,11 +44,11 @@ always_comb begin
     mmio_region = (mem_addr_upper == 20'haaaaa); 
 end
 
-always_comb begin
-    mbus.disp_wea = disp_wea;
-    mbus.disp_dat = disp_dat; 
+//always_comb begin
+//    mbus.disp_wea = disp_wea;
+//    mbus.disp_dat = disp_dat; 
     
-end
+//end
 
 always_comb begin
 //    if (mmio_region) begin
@@ -59,6 +59,8 @@ always_comb begin
     mbus.tx_wen = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_wea : 1'b0;
     mbus.uart_din = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_din[7:0] : 8'h00;
     mbus.rx_ren = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_rea : 1'b0;
+    mbus.disp_wea = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_wea : 1'b0;
+    mbus.disp_dat = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_din : 32'h0;
 //    if (mmio_region) begin
 //        if (mem_addr_lower == 12'h400) begin
 //            mem_dout = mbus.uart_dout;
@@ -79,17 +81,18 @@ always_ff @(posedge clk) begin
     if (rst) begin
         mem_hold <= 0;
     end else begin
-        if ((mem_wea == 1) && (mem_addr_upper == 20'haaaaa)) begin 
-            if ((mem_addr_lower == 12'h004)) begin
-                disp_wea = mem_din[0]; 
-            end
-            else if ((mem_addr_lower == 12'h008)) begin
-                disp_dat = mem_din;
-            end
-            else if ((mem_addr_lower == 12'h00c)) begin
-                mbus.led = mem_din[15:0];
-            end
-        end
+//        if ((mem_wea == 1) && (mem_addr_upper == 20'haaaaa)) begin 
+////            if ((mem_addr_lower == 12'h004)) begin
+////                disp_wea = mem_din[0]; 
+////            end
+////            else 
+//            if ((mem_addr_lower == 12'h008)) begin
+//                disp_dat = mem_din;
+//            end
+//            else if ((mem_addr_lower == 12'h00c)) begin
+//                mbus.led = mem_din[15:0];
+//            end
+//        end
         if (mmio_region && ((mem_addr_lower == 12'h400) || (mem_addr_lower == 12'h404))) begin
             uart_last_cond <= 1;
             uart_last_addr <= mem_addr_lower;
@@ -103,9 +106,9 @@ always_ff @(posedge clk) begin
         if (mem_hold == 1) begin
             mem_hold <= 0;
         end
-        else if ((mem_wea == 1) && (~mmio_region)) begin
-            mem_hold <= 1;
-        end
+//        else if (((mem_rea == 1) || (mem_wea == 1)) && (~mmio_region)) begin
+//            mem_hold <= 1;
+//        end
     end
 end
 

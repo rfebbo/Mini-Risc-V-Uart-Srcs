@@ -95,28 +95,28 @@ module uart_controller(
     
     assign tx_fifo_din = din;
     
-    `ifndef SYNTHESIS
-    assign tx_fifo_full = 0;
-    assign tx_fifo_empty = 0;
-    always_comb begin 
-        tx = 1;
-        tx_pres = 0;
-        tx_half = 0;
-        tx_full = 0;
-//        tx_fifo_full = 0;
-//        tx_fifo_empty = 0;
-    end 
-    
-    always_ff @(posedge clk) begin
-        if (tx_wen == 1) $write("%s", din);
-    end
-    `else 
+//    `ifdef SYNTHESIS
     uart_tx6 tx0( .data_in(tx_din), .en_16_x_baud(en_baud), .serial_out(tx), .buffer_write(tx_write), .buffer_data_present(tx_pres),
         .buffer_half_full(tx_half), .buffer_full(tx_full), .buffer_reset(rst), .clk(clk));
     
     fifo_generator_0 txfifo( .clk(clk), .rst(rst), .din(tx_fifo_din), .wr_en(tx_fifo_wen), .rd_en(tx_fifo_ren),
-        .dout(tx_din), .full(tx_fifo_full), .empty(tx_fifo_empty)); 
-    `endif
+        .dout(tx_din), .full(tx_fifo_full), .empty(tx_fifo_empty));
+//    `else 
+//    assign tx_fifo_full = 0;
+//    assign tx_fifo_empty = 0;
+//    always_comb begin 
+//        tx = 1;
+//        tx_pres = 0;
+//        tx_half = 0;
+//        tx_full = 0;
+////        tx_fifo_full = 0;
+////        tx_fifo_empty = 0;
+//    end 
+    
+//    always_ff @(posedge clk) begin
+//        if (tx_wen == 1) $write("%s", din);
+//    end
+//    `endif
     
     always_ff @(posedge clk) begin
         tx_write <= tx_fifo_ren;

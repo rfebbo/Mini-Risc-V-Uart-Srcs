@@ -25,7 +25,7 @@
 
 //Interface bus between all pipeline stages
 interface main_bus (
-    input logic clk, Rst, debug, dbg, prog, //rx, //addr_dn, addr_up,
+    input logic clk, Rst, debug, dbg, prog, mem_hold, //rx, //addr_dn, addr_up,
     input logic[4:0] debug_input, 
     input logic [95:0] key
 //    output logic tx
@@ -95,6 +95,7 @@ interface main_bus (
     logic imem_en;
     logic [31:0] imem_addr;
     
+    
     //CSR signals 
 //    logic [11:0] IF_ID_CSR_addr; 
 //    logic [31:0] IF_ID_CSR_dout, ID_EX_CSR_dout;
@@ -116,7 +117,7 @@ interface main_bus (
     //modport for fetch stage
     modport fetch(
         input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
-        input dbg,
+        input dbg, mem_hold,
         //input rx,
         input uart_dout, memcon_prog_ena,
         input debug_input, branoff,
@@ -134,7 +135,7 @@ interface main_bus (
         
     //modport for decode stage
     modport decode(
-        input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res,
+        input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res, mem_hold,
         input EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
         inout ID_EX_memread, ID_EX_regwrite,
@@ -149,7 +150,7 @@ interface main_bus (
      
     //modport for execute stage    
     modport execute(
-        input clk, Rst, dbg, ID_EX_lui, ID_EX_auipc, ID_EX_loadcntrl,
+        input clk, Rst, dbg, ID_EX_lui, ID_EX_auipc, ID_EX_loadcntrl, mem_hold,
         input ID_EX_storecntrl, ID_EX_cmpcntrl, 
         output EX_MEM_loadcntrl, EX_MEM_storecntrl, 
         input ID_EX_compare, ID_EX_pres_addr, ID_EX_alusel, ID_EX_alusrc,
@@ -168,7 +169,7 @@ interface main_bus (
     
     //modport for memory stage
     modport memory (
-        input clk, Rst, dbg, EX_MEM_storecntrl, mmio_read,
+        input clk, Rst, dbg, EX_MEM_storecntrl, mmio_read, mem_hold,
         input EX_MEM_pres_addr,
         input EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res, EX_MEM_rs1,
         input EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
@@ -182,7 +183,7 @@ interface main_bus (
     
     //modport for writeback stage
     modport writeback(
-        input clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, 
+        input clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
         input MEM_WB_regwrite, MEM_WB_rd,
         output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
     );
@@ -228,7 +229,7 @@ module RISCVcore_uart(
     );
     //logic addr_dn = 0, addr_up = 0;
     
-    logic clk, Rst, debug, prog, mem_wea; //rx,
+    logic clk, Rst, debug, prog, mem_wea, dbg; //rx,
     logic [4:0] debug_input;
     logic [31:0] debug_output, mem_addr, mem_din, mem_dout; 
     logic [3:0] mem_en; 
@@ -255,7 +256,7 @@ module RISCVcore_uart(
     end
     
     
-    main_bus bus(.key(rbus.key), .dbg(rbus.mem_hold), .*);
+    main_bus bus(.key(rbus.key), .mem_hold(rbus.mem_hold), .*);
     
     assign mem_wea = bus.mem_wea;
 //    assign mem_clk = bus.clk;
@@ -267,7 +268,7 @@ module RISCVcore_uart(
     
 //    assign bus.PC_En=!bus.hz;
     assign bus.PC_En=(!bus.hz);
-    assign bus.dbg=(debug || prog); //added to stop pipeline on prog and/or debug
+    assign dbg=(debug || prog); //added to stop pipeline on prog and/or debug
     //debugging resister
     assign bus.adr_rs1=debug ? debug_input:bus.IF_ID_rs1;
     

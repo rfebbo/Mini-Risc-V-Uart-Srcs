@@ -232,7 +232,7 @@ assign bus.hz=hz_sig;
             bus.ID_EX_lui<=1'b0;
             bus.ID_EX_auipc<=1'b0;
             end
-        else if(!bus.dbg) begin
+        else if(!bus.dbg && !bus.mem_hold) begin
             if (!hz_sig) begin
                 bus.ID_EX_alusel<=IF_ID_alusel;
                 bus.ID_EX_alusrc<=IF_ID_alusrc;

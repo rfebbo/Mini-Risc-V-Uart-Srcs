@@ -122,7 +122,7 @@ module Execute(main_bus bus);
             bus.EX_MEM_storecntrl<=3'h0;
             bus.EX_MEM_pres_addr<= 32'h0;
         end
-        else if(!bus.dbg) begin
+        else if(!bus.dbg && !bus.mem_hold) begin
             EX_MEM_rd_sig<=bus.ID_EX_rd;
             EX_MEM_memread_sig<=bus.ID_EX_memread;
             bus.EX_MEM_memwrite<=bus.ID_EX_memwrite;

@@ -43,6 +43,7 @@ parser.add_argument('-o', '--output', type=str, default='a.hex')
 args = parser.parse_args()
 
 cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ',-e,0 -o '
+dmp = 'riscv32-unknown-elf-objdump -d '
 
 asm = 'heapthing.S'
 
@@ -70,3 +71,6 @@ cmd2 = 'riscv32-unknown-elf-objcopy -O binary ' + args.output + '.elf' + ' ' + a
 runbash(cmd2)
 
 prep_hex(args.output, iscoe = not(args.hex))
+
+if (args.save_temps):
+	runbash(dmp + args.output + '.elf > ' + args.output + '.dump')

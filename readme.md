@@ -6,7 +6,7 @@ The original Mini-Risc-V Core was designed by Md Badruddoja Majumder. I've made 
 
 <hr>
 
-##Software Toolchain
+## Software Toolchain
 
 Also included in the `gcc` folder is a python script, called `pycompile.py`, that allows you to compile c code into a coe file for use with the core.  This requires the riscv toolchain to be installed, targeted for rv32i. Additionally you'll need to use the included `boot.S` and `test.ld` files, but you may supply a bootloader or linker script of your own if you wish.
 
@@ -14,7 +14,7 @@ Also included in the `gcc` folder is a python script, called `pycompile.py`, tha
 
 <hr>
 
-###Installing the Software Toolchain
+### Installing the Software Toolchain
 
 In order to compile c code, you must install the RISC-V toolchain. We use the one provided by UC-Berkely for their rocket chip, because it also includes the spike simulator.
 
@@ -77,6 +77,7 @@ Component name: blk_mem_gen_1
 Basic
   Interface Type: Native
   Memory Type: True Dual Port RAM
+  Check generate address interface with 32 bits
   ECC Type: No ECC
   Write Enable:
     Byte Write Enable: Checked

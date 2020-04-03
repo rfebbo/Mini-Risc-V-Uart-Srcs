@@ -186,7 +186,7 @@ module Memory(main_bus bus);
             bus.MEM_WB_pres_addr<= 32'h0;
 //            MEM_WB_alures<=32'h00000000;
         end
-        else if(!bus.dbg) begin
+        else if(!bus.dbg && !bus.mem_hold) begin
             bus.MEM_WB_alures<=bus.EX_MEM_alures;
             bus.MEM_WB_memread<=bus.EX_MEM_memread;
             bus.MEM_WB_regwrite<=bus.EX_MEM_regwrite;
