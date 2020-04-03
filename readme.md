@@ -87,7 +87,7 @@ Basic
 
 Port A Options:
   Write & Read Width: 32
-  Write & Read Depth: 2048 (could probably do more?)
+  Write & Read Depth: 65536 (could probably do more?)
   Operating Mode: Write First
   Enable Port Type: Use ENA pin
   Uncheck Primitves output register & RSTA pin
