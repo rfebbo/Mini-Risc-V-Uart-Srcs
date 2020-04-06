@@ -110,13 +110,13 @@ assign key[11:0]=12'h3cf;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
 //`ifdef SYNTHESIS
-clk_wiz_0 c0(.*);
-  riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus mbus(.clk(clk_50M),  .*);
+//clk_wiz_0 c0(.*);
+//  riscv_bus rbus(.clk(clk_50M), .*);
+//  mmio_bus mbus(.clk(clk_50M),  .*);
   
 //`else
-// riscv_bus rbus(.*);
-//  mmio_bus mbus(.*);
+ riscv_bus rbus(.*);
+  mmio_bus mbus(.*);
 //`endif
   
   assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};

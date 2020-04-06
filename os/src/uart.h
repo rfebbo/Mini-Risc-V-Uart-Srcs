@@ -14,6 +14,6 @@ void readline(char c[], int len);
 
 int strlen(char c[]);
 
-int atoi(char *c);
-void itoa(int a, char *c);
+// int atoi(char *c);
+// void itoa(int a, char *c);
 #endif

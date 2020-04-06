@@ -40,4 +40,15 @@ void * alloc(usize pages) {
 			return (void *)(ALLOC_START + PAGE_SIZE * i); 
 		}
 	}
+} 
+
+void * zalloc(usize pages) {
+	void * ptr = alloc(pages); 
+	int size = (PAGE_SIZE * pages); 
+	int i;
+	for (i = 0; i < size; i+=4) {
+		usize * bigptr = (usize *)(ptr + i);
+		*bigptr = 0;
+	}
+	return ptr;
 }
