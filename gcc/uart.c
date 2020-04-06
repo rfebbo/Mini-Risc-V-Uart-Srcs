@@ -34,7 +34,7 @@ char uart_read_blocking() {
 
 }
 
-void print(char c[]) {
+void uart_print(char c[]) {
 	char *ptr = &c[0];
 	int offset = 0;
 	while(*(ptr + offset) != '\0') {

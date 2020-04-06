@@ -87,7 +87,7 @@ Basic
 
 Port A Options:
   Write & Read Width: 32
-  Write & Read Depth: 65536 (could probably do more?)
+  Write & Read Depth: 131072 (could probably do more?)
   Operating Mode: Write First
   Enable Port Type: Use ENA pin
   Uncheck Primitves output register & RSTA pin
@@ -113,6 +113,19 @@ Native Ports
     Write Width: 8
     Write Depth: 512
 ```
+
+<hr> 
+
+## Mini-RISC-V Program Kernel 
+
+This feature is currently in development. It is a software kernel that is loaded by default onto the core, that allows binaries to be loaded over a serial port and executed. 
+
+The kernel can be compiled using the `pycompile.py` script as so: 
+```
+./pycompile.py -s -l kernel.ld -b kboot.S -o kernel kernel.c uart.c 
+```
+
+Load the resulting `kernel.coe` file into the Block RAM IP. Compile the program you want to load using pycompile normally, then use `reprogram.py` to transmit the hex file to the board. 
 <!-- <hr>
 As with the original Mini-Risc-V, instruction memory is currently implemented using a Vivado IP core. Use the Block Memory Generator from the Vivado IP catalog, and configure it as follows:
 

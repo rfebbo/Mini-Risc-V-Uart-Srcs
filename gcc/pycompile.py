@@ -37,15 +37,20 @@ parser.add_argument('files', nargs='+', help='File Names (Takes .c and .s')
 # parser.add_argument('-c', '--coe', action='store_true', help='generate .coe file instead of .hex file')
 parser.add_argument('-x', '--hex', action='store_true', help='generate .hex instead of .coe file')
 parser.add_argument('-s', '--save_temps', action='store_true', help='save intermediate .s and .o files')
-parser.add_argument('-l', '--linker_script', type=str, default='test.ld')
+parser.add_argument('-l', '--linker_script', type=str, default='prog.ld')
 parser.add_argument('-b', '--bootloader', type=str, default='boot.S')
 parser.add_argument('-o', '--output', type=str, default='a.hex')
+parser.add_argument('-k', '--compile_kernel', action='store_true')
 args = parser.parse_args()
 
-cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ',-e,0 -o '
+cmd = 'riscv32-unknown-elf-gcc -nostdlib -Wl,-T,' + args.linker_script + ' -o ' #',-e,0 -o '
 dmp = 'riscv32-unknown-elf-objdump -d '
 
-asm = 'heapthing.S'
+# asm = 'heapthing.S'
+
+if (args.compile_kernel):
+	args.linker_script = 'kernel.ld'
+	args.bootloader = 'kboot.S' 
 
 if ('.coe' in args.output):
 	args.output = args.output.replace('.coe', '')
@@ -54,7 +59,7 @@ if ('.hex' in args.output):
 
 cmd += (args.output + '.elf ')
 cmd += args.bootloader
-cmd += (' ' + asm)
+# cmd += (' ' + asm)
 for f in args.files:
 	cmd += (' ' + f)
 

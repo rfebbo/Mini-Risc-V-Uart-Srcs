@@ -37,7 +37,7 @@ always_comb begin
     mem_addr_lower = rbus.mem_addr[11:0]; 
     mem_addr_upper = rbus.mem_addr[31:12]; 
 //    mem_en = (mem_addr_upper < 20'haaaaa) & (mem_wea) ? rbus.mem_en : 4'b0000; 
-    mem_en = (kernel_region & mem_wea) ? rbus.mem_en : 4'b0000;
+    mem_en = ((kernel_region | prog_region) & mem_wea) ? rbus.mem_en : 4'b0000;
     imem_en = rbus.imem_en; 
     imem_addr = rbus.imem_addr; 
     imem_din = rbus.imem_din; 
