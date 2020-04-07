@@ -104,7 +104,7 @@ initial begin
     rxchar(8'had);
     rxchar(8'hde);
     
-    readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/pgtest.hex");
+    readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/rop1.hex");
 //    rxchar("a");
 //    rxchar("b");
 //    rxchar("c");
