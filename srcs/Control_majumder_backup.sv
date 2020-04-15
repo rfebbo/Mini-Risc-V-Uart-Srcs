@@ -68,10 +68,13 @@ module Control
   output logic      lui,
   output logic      jal,
   output logic      jalr,
-  output logic      illegal_ins);
+  output logic      illegal_ins, 
+  output logic [2:0] csrsel, 
+  output logic      csrwrite);
 
   // intruction classification signal
   
+  logic stall;
 
   always_comb begin
     alusel=3'b000;
@@ -95,6 +98,8 @@ module Control
 	jal=1'b0;
 	jalr=1'b0;
 	illegal_ins=1'b0;
+	csrsel = 3'b000;
+	csrwrite = 1'b0;
   
     unique case (opcode)
       7'b0000011:               // load
@@ -248,15 +253,33 @@ module Control
             alusrc=1'b1;
             regwrite=stall ? 1'b0 : 1'b1;
         end
-//      7'b1110011:               //SYSTEM
-//        begin
-//            unique case(funct3) 
-//              3'b001: begin
+      7'b1110011:               //SYSTEM
+        begin
+            csrsel = funct3;
+            regwrite = ~stall;
+            csrwrite = ~stall;
+            unique case(funct3) 
+                3'b001: begin //CSRRW
+//                regwrite=stall ? 1'b0: 1'b1; 
+                end
+                3'b010: begin //CSRRS
+//                regwrite = ~stall;
+                end
+                3'b011: begin //CSRRC
                 
-//              end
+                end
+                3'b101: begin //CSRRWI
+                    alusrc = 1'b1;
+                end
+                3'b110: begin //CSRRSI
+                    alusrc = 1'b1;
+                end
+                3'b111: begin //CSRRCI
+                    alusrc = 1'b1;
+                end
             
-//            endcase
-//        end
+            endcase
+        end
      default:
         illegal_ins=(!flush)&&(1'b1);
     endcase

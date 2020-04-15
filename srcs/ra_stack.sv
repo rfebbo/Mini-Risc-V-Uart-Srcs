@@ -24,11 +24,27 @@ module ra_stack #(
     DATA_WIDTH = 32, 
     DEPTH = 512
 )(
-    input logic clk, rst, ena,
-    input logic push, pop, 
-    input logic [DATA_WIDTH-1:0] din, 
-    output logic mismatch, full, empty
+//    input logic clk, rst, ena,
+//    input logic push, pop, 
+//    input logic [DATA_WIDTH-1:0] din, 
+//    output logic mismatch, full, empty
+        main_bus bus
     );
+    
+    logic clk, rst, ena, push, pop, mismatch, full, empty; 
+    logic [DATA_WIDTH - 1:0] din; 
+    
+    always_comb begin : bus_interface
+        clk = bus.clk;
+        rst = bus.Rst; 
+        ena = bus.stack_ena; 
+        push = bus.push;
+        pop = bus.pop; 
+        din = bus.stack_din; 
+        bus.stack_mismatch = mismatch;
+        bus.stack_full = full;
+        bus.stack_empty = empty; 
+    end
     
     logic [DATA_WIDTH-1:0] data [DEPTH-1:0]; 
     

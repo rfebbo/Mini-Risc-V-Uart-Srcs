@@ -18,11 +18,19 @@ void badfunc() {
 
 }
 
+void vuln_func(int x) {
+	char buf[8];
+	void (*fun_ptr)(void) = &badfunc;
+	print(x); 
+	memcpy(buf + 20, &fun_ptr, sizeof(size_t)); 
+	return;
+}
+
 int main(void) {
 
 	char buf[8]; 
 	void (*fun_ptr)(void) = &badfunc; 
-
+	print(0x100);
 	memcpy(buf + 20, &fun_ptr, sizeof(size_t));
 
 	return 0;

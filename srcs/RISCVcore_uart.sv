@@ -70,7 +70,7 @@ interface main_bus (
     logic  [31:0] ID_EX_imm;
     logic  [31:0] WB_res,WB_ID_res;
     logic  [4:0]  adr_rs1;//used for debug option
-    logic  [4:0]  IF_ID_rs1,IF_ID_rs2;
+    logic  [4:0]  IF_ID_rs1,IF_ID_rs2, IF_ID_rd;
     logic         ID_EX_lb,ID_EX_lh,ID_EX_lw,ID_EX_lbu,ID_EX_lhu,ID_EX_sb,ID_EX_sh,ID_EX_sw;
     logic         EX_MEM_lb,EX_MEM_lh,EX_MEM_lw,EX_MEM_lbu,EX_MEM_lhu,EX_MEM_sb,EX_MEM_sh,EX_MEM_sw;
 //    logic dbg;
@@ -95,24 +95,27 @@ interface main_bus (
     logic imem_en;
     logic [31:0] imem_addr;
     
+    logic push, pop, stack_ena; 
+    logic stack_mismatch, stack_full, stack_empty; 
+    logic [31:0] stack_din; 
+    
     
     //CSR signals 
-//    logic [11:0] IF_ID_CSR_addr; 
-//    logic [31:0] IF_ID_CSR_dout, ID_EX_CSR_dout;
-//    logic [31:0] WB_CSR_res;
-//    logic [11:0] MEM_WB_CSR_addr;
-//    logic MEM_WB_CSR_write;
+    logic [11:0] IF_ID_CSR_addr, ID_EX_CSR_addr; 
+    logic [31:0] IF_ID_CSR, ID_EX_CSR;
+    logic [31:0] EX_CSR_res;
+    logic [11:0] EX_CSR_addr;
+    logic ID_EX_CSR_write;
+    logic EX_CSR_write;
+    
+    logic [2:0] csrsel;
     
 //    logic ID_EX_CSR_write;
 
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
     
-//    modport CSR(
-//        input clk, IF_ID_CSR_addr, MEM_WB_CSR_addr,
-//        input WB_CSR_res, MEM_WB_CSR_write,
-//        output IF_ID_CSR_dout
-//    );
+    
     
     //modport for fetch stage
     modport fetch(
@@ -140,7 +143,7 @@ interface main_bus (
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
         inout ID_EX_memread, ID_EX_regwrite,
         output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch, IF_ID_jal,
-        output IF_ID_rs1, IF_ID_rs2,
+        output IF_ID_rs1, IF_ID_rs2, IF_ID_rd,
         output ID_EX_dout_rs1, ID_EX_dout_rs2, branoff, hz,
         output ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_alusel,
         output ID_EX_storecntrl, ID_EX_loadcntrl, ID_EX_cmpcntrl,
@@ -186,6 +189,11 @@ interface main_bus (
         input clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
         input MEM_WB_regwrite, MEM_WB_rd,
         output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
+    );
+    
+    modport rstack(
+        input clk, Rst, stack_ena, push, pop, stack_din,
+        output stack_mismatch, stack_full, stack_empty
     );
     
     //modport for UART programmer
@@ -272,6 +280,13 @@ module RISCVcore_uart(
     //debugging resister
     assign bus.adr_rs1=debug ? debug_input:bus.IF_ID_rs1;
     
+    always_comb begin : stackstuff
+        bus.push = (bus.IF_ID_jal | bus.IF_ID_jalr) & (bus.IF_ID_rd != 0);
+        bus.pop = (bus.IF_ID_jalr) & (bus.IF_ID_rd == 0); 
+        bus.stack_ena = 1;
+        bus.stack_din = bus.push ? (bus.IF_ID_pres_addr + 4) : bus.pop ? (bus.branoff) : 32'h0; 
+    end
+    
     always_ff @(posedge clk) begin
         if(Rst) begin
             debug_output<=32'h00000000;
@@ -300,6 +315,8 @@ module RISCVcore_uart(
     Memory u4(bus.memory);
     
     Writeback u5(bus.writeback);
+    
+    ra_stack uS(bus.rstack);
     
 //    UART_Programmer uart(bus.UART_Programmer);
    

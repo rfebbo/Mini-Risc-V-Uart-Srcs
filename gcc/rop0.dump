@@ -1,0 +1,90 @@
+
+rop0.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010000 <_start>:
+   10000:	00001117          	auipc	sp,0x1
+   10004:	14010113          	addi	sp,sp,320 # 11140 <_sp0>
+   10008:	00000097          	auipc	ra,0x0
+   1000c:	00c08093          	addi	ra,ra,12 # 10014 <_endloop>
+   10010:	024000ef          	jal	ra,10034 <main>
+
+00010014 <_endloop>:
+   10014:	0000006f          	j	10014 <_endloop>
+
+00010018 <badfunc>:
+   10018:	ff010113          	addi	sp,sp,-16
+   1001c:	00112623          	sw	ra,12(sp)
+   10020:	00812423          	sw	s0,8(sp)
+   10024:	01010413          	addi	s0,sp,16
+   10028:	06400513          	li	a0,100
+   1002c:	044000ef          	jal	ra,10070 <print>
+   10030:	0000006f          	j	10030 <badfunc+0x18>
+
+00010034 <main>:
+   10034:	fe010113          	addi	sp,sp,-32
+   10038:	00112e23          	sw	ra,28(sp)
+   1003c:	00812c23          	sw	s0,24(sp)
+   10040:	02010413          	addi	s0,sp,32
+   10044:	000107b7          	lui	a5,0x10
+   10048:	01878793          	addi	a5,a5,24 # 10018 <badfunc>
+   1004c:	fef42623          	sw	a5,-20(s0)
+   10050:	10000513          	li	a0,256
+   10054:	01c000ef          	jal	ra,10070 <print>
+   10058:	00000793          	li	a5,0
+   1005c:	00078513          	mv	a0,a5
+   10060:	01c12083          	lw	ra,28(sp)
+   10064:	01812403          	lw	s0,24(sp)
+   10068:	02010113          	addi	sp,sp,32
+   1006c:	00008067          	ret
+
+00010070 <print>:
+   10070:	fd010113          	addi	sp,sp,-48
+   10074:	02812623          	sw	s0,44(sp)
+   10078:	03010413          	addi	s0,sp,48
+   1007c:	fca42e23          	sw	a0,-36(s0)
+   10080:	aaaaa7b7          	lui	a5,0xaaaaa
+   10084:	00878793          	addi	a5,a5,8 # aaaaa008 <_sp0+0xaaa98ec8>
+   10088:	fef42623          	sw	a5,-20(s0)
+   1008c:	fec42783          	lw	a5,-20(s0)
+   10090:	fdc42703          	lw	a4,-36(s0)
+   10094:	00e7a023          	sw	a4,0(a5)
+   10098:	00000013          	nop
+   1009c:	02c12403          	lw	s0,44(sp)
+   100a0:	03010113          	addi	sp,sp,48
+   100a4:	00008067          	ret
+
+000100a8 <memcpy>:
+   100a8:	fd010113          	addi	sp,sp,-48
+   100ac:	02812623          	sw	s0,44(sp)
+   100b0:	03010413          	addi	s0,sp,48
+   100b4:	fca42e23          	sw	a0,-36(s0)
+   100b8:	fcb42c23          	sw	a1,-40(s0)
+   100bc:	fcc42a23          	sw	a2,-44(s0)
+   100c0:	fe042623          	sw	zero,-20(s0)
+   100c4:	0400006f          	j	10104 <memcpy+0x5c>
+   100c8:	fd842703          	lw	a4,-40(s0)
+   100cc:	fec42783          	lw	a5,-20(s0)
+   100d0:	00f707b3          	add	a5,a4,a5
+   100d4:	0007c783          	lbu	a5,0(a5)
+   100d8:	fef405a3          	sb	a5,-21(s0)
+   100dc:	fdc42703          	lw	a4,-36(s0)
+   100e0:	fec42783          	lw	a5,-20(s0)
+   100e4:	00f707b3          	add	a5,a4,a5
+   100e8:	fef42223          	sw	a5,-28(s0)
+   100ec:	fe442783          	lw	a5,-28(s0)
+   100f0:	feb44703          	lbu	a4,-21(s0)
+   100f4:	00e78023          	sb	a4,0(a5)
+   100f8:	fec42783          	lw	a5,-20(s0)
+   100fc:	00178793          	addi	a5,a5,1
+   10100:	fef42623          	sw	a5,-20(s0)
+   10104:	fec42703          	lw	a4,-20(s0)
+   10108:	fd442783          	lw	a5,-44(s0)
+   1010c:	faf76ee3          	bltu	a4,a5,100c8 <memcpy+0x20>
+   10110:	fdc42783          	lw	a5,-36(s0)
+   10114:	00078513          	mv	a0,a5
+   10118:	02c12403          	lw	s0,44(sp)
+   1011c:	03010113          	addi	sp,sp,48
+   10120:	00008067          	ret

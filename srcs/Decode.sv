@@ -92,6 +92,9 @@ logic [4:0]IF_ID_loadcntrl;
 logic [3:0]IF_ID_cmpcntrl;
 logic      IF_ID_auipc;
 
+logic [2:0] csrsel;
+logic csrwrite;
+
 //imm gen
 logic [31:0]imm;
 logic hz_sig;
@@ -102,7 +105,10 @@ assign funct3=bus.ins[14:12];
 assign funct7=bus.ins[31:25];
 assign bus.IF_ID_rs1=bus.ins[19:15];
 assign bus.IF_ID_rs2=bus.ins[24:20];
-assign IF_ID_rd=bus.ins[11:7];
+assign bus.IF_ID_rd=bus.ins[11:7];
+assign IF_ID_rd=bus.IF_ID_rd;
+
+assign bus.IF_ID_CSR_addr = bus.ins[31:20];
 
 //assign flush=branch_taken_sig;
 //assign debug_out=debug;
@@ -132,7 +138,9 @@ assign bus.hz=hz_sig;
        .jalr(IF_ID_jalr_sig),
        .storecntrl(IF_ID_storecntrl),
        .loadcntrl(IF_ID_loadcntrl),
-       .cmpcntrl(IF_ID_cmpcntrl)
+       .cmpcntrl(IF_ID_cmpcntrl), 
+       .csrsel(csrsel), 
+       .csrwrite(csrwrite)
        
    );
    //branchforward
@@ -231,6 +239,9 @@ assign bus.hz=hz_sig;
             bus.ID_EX_jalr<=1'b0;
             bus.ID_EX_lui<=1'b0;
             bus.ID_EX_auipc<=1'b0;
+            bus.ID_EX_CSR_addr <= 12'b0;
+            bus.ID_EX_CSR <= 32'b0; 
+//            bus
             end
         else if(!bus.dbg && !bus.mem_hold) begin
             if (!hz_sig) begin
@@ -256,6 +267,8 @@ assign bus.hz=hz_sig;
                 bus.ID_EX_jalr<=IF_ID_jalr_sig;
                 bus.ID_EX_lui<=IF_ID_lui;
                 bus.ID_EX_auipc<=IF_ID_auipc;
+                bus.ID_EX_CSR_addr <= bus.IF_ID_CSR_addr; 
+                bus.ID_EX_CSR <= bus.IF_ID_CSR;
             end else begin
                 bus.ID_EX_alusel<=3'b000;
                 bus.ID_EX_alusrc<=1'b1;
@@ -279,6 +292,8 @@ assign bus.hz=hz_sig;
                 bus.ID_EX_jalr<=1'b0;
                 bus.ID_EX_lui<=1'b0;
                 bus.ID_EX_auipc<=1'b0;
+                bus.ID_EX_CSR_addr <= 12'b0;
+                bus.ID_EX_CSR <= 32'b0; 
             end
         end
     end
