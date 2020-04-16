@@ -237,11 +237,11 @@ SECTIONS
    *
    * Align _heap_start to cache line size
    */
-  . = ALIGN(64);
+  . = ALIGN(32);
   PROVIDE( _end = ABSOLUTE(.) );
   /* Leave 2 holes for stack & TLS, the size can set in kconfig */
   PROVIDE( _heap_start = ABSOLUTE(.) + _stack_size * 2 );
-  PROVIDE( _tp0 = (_end + 63) & (-64) );
+  PROVIDE( _tp0 = (_end + 32) & (-32) );
   PROVIDE( _tp1 = _tp0 + _stack_size );
   PROVIDE( _sp0 = _tp0 + _stack_size );
   PROVIDE( _sp1 = _tp1 + _stack_size );

@@ -2,6 +2,9 @@
 // #include"printf.h" 
 #include"stdlib.h"
 #include"page.h" 
+#include"trap.h"
+
+extern TrapFrame KERNEL_TRAP_FRAME;
 
 void kinit(void) {
 	print("kinit\n");
@@ -9,21 +12,29 @@ void kinit(void) {
 	// int a = 5;
 	// itoa(a, buf, 10);
 	// print(buf);
-	mem_init();
-	print("kmem init\n");
+	// mem_init();
+	// print("kmem init\n");
+	init_trap();
+	print("trap init");
+	asm volatile ("csrw mscratch, %0"
+		: : "r" (&KERNEL_TRAP_FRAME));
+
+
 	return;
 }
 
 int main(void) {
 	// mem_init();
 	print("Entered Main\n");
+	asm volatile ("ecall");
 
-	void * ptr = alloc(2); 
+	return 0;
+	// void * ptr = alloc(2); 
 
-	print("Alloced 2 pages\n");
-	char buf[32];
-	itoa((int)ptr, buf, 16); 
-	print(buf);
+	// print("Alloced 2 pages\n");
+	// char buf[32];
+	// itoa((int)ptr, buf, 16); 
+	// print(buf);
 	// while(1) {
 	// 	char c = uart_read_blocking();
 	// 	uart_write_blocking(c);

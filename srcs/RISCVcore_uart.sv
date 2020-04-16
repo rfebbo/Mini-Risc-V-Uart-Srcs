@@ -148,7 +148,7 @@ interface main_bus (
         input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res, mem_hold,
         input EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
-        input IF_ID_CSR,
+        input IF_ID_CSR, trap,
         inout ID_EX_memread, ID_EX_regwrite,
         output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch, IF_ID_jal,
         output IF_ID_rs1, IF_ID_rs2, IF_ID_rd,

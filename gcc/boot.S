@@ -8,7 +8,6 @@ _start:
 	csrw mtvec, a0
 	la sp, _sp0
 	la ra, _endloop
-	ecall
 	jal main
 
 _endloop:

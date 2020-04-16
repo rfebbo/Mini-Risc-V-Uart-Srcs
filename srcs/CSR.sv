@@ -64,16 +64,19 @@ module CSR (
         bus.mtvec <= csr[mtvec];
     end
     
+    event triggered;
+    
     always_ff @(posedge clk) begin
         if (rst) begin
         
         end else begin
             if (bus.trap) begin
                csr[mepc] <= bus.IF_ID_pres_addr; 
-               csr[mcause] <= build_mcause();
-               triggerTrap(1'b0);
+               ->triggered;
+//               csr[mcause] <= build_mcause();
+//               triggerTrap();
             end else begin
-                if (bus.ecall) triggerTrap(1'b1);
+//                if (bus.ecall) triggerTrap();
                 if (wea) begin
                     if (csr.exists(w_addr))
                         csr[w_addr] <= din;
@@ -82,15 +85,22 @@ module CSR (
         end
     end
     
-    always_ff @(posedge bus.stack_mismatch) begin
-        triggerTrap(1'b1);
+    always @(posedge bus.stack_mismatch) begin
+        triggerTrap();
     end
+    
+    always @(posedge bus.ecall) triggerTrap();
     
 
     
-    task triggerTrap(input logic t);
+    task triggerTrap();
     begin
-        bus.trap = t;
+        
+        csr[mcause] <= build_mcause();
+        bus.trap = 1;
+        
+        @ (triggered); 
+        bus.trap = 0;
     end
     endtask
     

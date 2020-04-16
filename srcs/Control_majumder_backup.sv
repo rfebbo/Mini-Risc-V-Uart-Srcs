@@ -102,6 +102,7 @@ module Control
 	illegal_ins=1'b0;
 	csrsel = 3'b000;
 	csrwrite = 1'b0;
+	csrread = 0;
   
     unique case (opcode)
       7'b0000011:               // load
@@ -297,7 +298,11 @@ module Control
                     csrread = ~stall; 
                     csrwrite = (rs1 == 0) ? 1'b0 : ~stall;
                 end
-            
+                default: begin
+                    regwrite = 0;
+                    csrread = 0;
+                    csrwrite = 0; 
+                end 
             endcase
         end
      default:

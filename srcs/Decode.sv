@@ -270,7 +270,7 @@ assign bus.ecall = (bus.ins == 32'b00000000000000000000000001110011);
                 bus.ID_EX_dout_rs2<=bus.IF_ID_dout_rs2;
                 bus.ID_EX_imm<=imm;
                 bus.ID_EX_pres_addr<=bus.IF_ID_pres_addr;
-                flush_sig<=branch_taken_sig;
+                flush_sig<=branch_taken_sig | bus.trap;
                 bus.ID_EX_jal<=IF_ID_jal;
                 bus.ID_EX_jalr<=IF_ID_jalr_sig;
                 bus.ID_EX_lui<=IF_ID_lui;
