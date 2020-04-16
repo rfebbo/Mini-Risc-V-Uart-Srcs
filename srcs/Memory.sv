@@ -185,6 +185,8 @@ module Memory(main_bus bus);
             mmio_dat <= 0;
             bus.MEM_WB_pres_addr<= 32'h0;
 //            MEM_WB_alures<=32'h00000000;
+            bus.MEM_WB_CSR <= 0;
+            bus.MEM_WB_CSR_read <= 0;
         end
         else if(!bus.dbg && !bus.mem_hold) begin
             bus.MEM_WB_alures<=bus.EX_MEM_alures;
@@ -199,6 +201,8 @@ module Memory(main_bus bus);
 //            mmio_wea <= set_mmio_wea ? memforward[0] : mmio_wea;
 //            mmio_dat <= set_mmio_dat ? memforward : mmio_dat;
 //            MEM_WB_alures <= bus.EX_MEM_alures;
+            bus.MEM_WB_CSR <= bus.EX_MEM_CSR;
+            bus.MEM_WB_CSR_read <= bus.EX_MEM_CSR_read;
         end
      end
         

@@ -98,32 +98,27 @@ initial begin
     #10;
     Rst=0;
     
-    #5000;
-    rxchar(8'hef);
-    rxchar(8'hbe);
-    rxchar(8'had);
-    rxchar(8'hde);
+//    #1000
+//    dut.rv_core.trap = 1;
+//    #10
+//    dut.rv_core.trap = 0;
     
-    readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/rop1.hex");
-//    rxchar("a");
-//    rxchar("b");
-//    rxchar("c");
-//    rxchar("d");
-//    rxchar("e");
-//    rxchar("f");
-//    rxchar("g");
-//    rxchar("h");
+//    #5000;
+//    rxchar(8'hef);
+//    rxchar(8'hbe);
+//    rxchar(8'had);
+//    rxchar(8'hde);
     
-    rxchar(8'hef);
-    rxchar(8'hbe);
-    rxchar(8'had);
-    rxchar(8'hde);
-//    rxchar("H");
-//    rxchar("e");
-//    rxchar("l");
-//    rxchar("l");
-//    rxchar("o");
+//    readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/rop1.hex");
+
     
+//    rxchar(8'hef);
+//    rxchar(8'hbe);
+//    rxchar(8'had);
+//    rxchar(8'hde);
+
+
+
 //    #9000;
 //    rx = 0; //start bit
 //    #9000;

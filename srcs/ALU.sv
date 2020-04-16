@@ -63,31 +63,47 @@ module ALU
   input  logic        ID_EX_auipc,
   input  logic        ID_EX_compare,
   input logic [95:0] key,
+  input logic [2:0] csrsel,
   output logic [31:0] res,
-  output logic        comp_res);
+  output logic        comp_res, 
+  output logic [31:0] CSR_res, 
+  input logic [31:0] CSR_in);
   
   logic [31:0] s;
   logic [32:0] comp_res_temp;
+//  logic [31:0] csr_s; 
 
 //  assign comp_res_temp = a - b;
 //  assign comp_res= (a < b);
     assign comp_res_temp = (a < b);
 
-//  always_comb
-//    case(alusel)
-//      3'b000 : s = a+b;
-//      3'b001 : s = a-b;
-//      3'b010 : s = a&b;
-//      3'b011 : s = a|b;
-//      3'b100 : s = a^b;
-//      3'b101 : s = a<<b[4:0];
-//      3'b110 : s = a>>b[4:0];
-//      3'b111 : s = a>>>b[4:0];
-//    endcase
+  always_comb
+    case(alusel)
+      3'b000 : s = a+b;
+      3'b001 : s = a-b;
+      3'b010 : s = a&b;
+      3'b011 : s = a|b;
+      3'b100 : s = a^b;
+      3'b101 : s = a<<b[4:0];
+      3'b110 : s = a>>b[4:0];
+      3'b111 : s = a>>>b[4:0];
+    endcase
+    
+ always_comb begin
+    case (csrsel)
+        3'b001: CSR_res = a; //CSRRW
+        3'b010: CSR_res = CSR_in | a; //CSRRS
+        3'b011: CSR_res = CSR_in | ~a; //CSRRC
+        3'b101: CSR_res = b; //CSRRWI
+        3'b110: CSR_res = CSR_in | b; //CSRRSI
+        3'b111: CSR_res = CSR_in | ~b; //CSRRCI
+        default: CSR_res = 0;
+    endcase
+ end
 
 //    logic [95:0] key;
 
-    ALU_chaos ac0(.a(a), .b(b), .opcode(alusel), .key(key), .y(s));
+//    ALU_chaos ac0(.a(a), .b(b), .opcode(alusel), .key(key), .y(s));
 
 //  assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
 //                                         ((ID_EX_compare&&comp_res) ? 

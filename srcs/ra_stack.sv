@@ -87,7 +87,7 @@ module ra_stack #(
             end else if (pop & ~empty) begin
                 stack_pop();
             end
-        end
+        end 
     end
     
     

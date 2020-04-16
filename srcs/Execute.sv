@@ -66,7 +66,7 @@ module Execute(main_bus bus);
   logic [31:0] ALUop1,ALUop2,rs2_mod;
   logic [31:0] rs2_mod_final;//new
   
-  
+  logic [31:0] CSR_res;
  
   
 
@@ -104,7 +104,10 @@ module Execute(main_bus bus);
         .ID_EX_auipc(bus.ID_EX_auipc),
         .key(bus.key),
         .res(alures),
-        .comp_res(comp_res)
+        .comp_res(comp_res), 
+        .CSR_res(CSR_res),
+        .CSR_in(bus.ID_EX_CSR), 
+        .csrsel(bus.csrsel)
         );
         
  always_ff @(posedge bus.clk) begin
@@ -121,6 +124,11 @@ module Execute(main_bus bus);
             bus.EX_MEM_loadcntrl<=5'h0;
             bus.EX_MEM_storecntrl<=3'h0;
             bus.EX_MEM_pres_addr<= 32'h0;
+            bus.EX_CSR_res <= 0;
+            bus.EX_CSR_addr <= 0;
+            bus.EX_CSR_write <= 0;
+            bus.EX_MEM_CSR <= 0;
+            bus.EX_MEM_CSR_read <= 0;
         end
         else if(!bus.dbg && !bus.mem_hold) begin
             EX_MEM_rd_sig<=bus.ID_EX_rd;
@@ -135,6 +143,11 @@ module Execute(main_bus bus);
             bus.EX_MEM_loadcntrl<=bus.ID_EX_loadcntrl;
             bus.EX_MEM_storecntrl<=bus.ID_EX_storecntrl;
             bus.EX_MEM_pres_addr<=bus.ID_EX_pres_addr; 
+            bus.EX_CSR_res <= CSR_res;
+            bus.EX_CSR_addr <= bus.ID_EX_CSR_addr;
+            bus.EX_CSR_write <= bus.ID_EX_CSR_write;
+            bus.EX_MEM_CSR <= bus.ID_EX_CSR;
+            bus.EX_MEM_CSR_read <= bus.ID_EX_CSR_read;
         end
   end
   

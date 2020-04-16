@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps 
 
 module CSR (
-//	main_bus bus
+	main_bus bus
 	);
 
     logic clk, wea, rst;
@@ -61,6 +61,7 @@ module CSR (
         end else begin
             dout <= 32'h0; 
         end
+        bus.mtvec <= csr[mtvec];
     end
     
     always_ff @(posedge clk) begin
@@ -70,7 +71,9 @@ module CSR (
             if (bus.trap) begin
                csr[mepc] <= bus.IF_ID_pres_addr; 
                csr[mcause] <= build_mcause();
+               triggerTrap(1'b0);
             end else begin
+                if (bus.ecall) triggerTrap(1'b1);
                 if (wea) begin
                     if (csr.exists(w_addr))
                         csr[w_addr] <= din;
@@ -78,6 +81,19 @@ module CSR (
             end
         end
     end
+    
+    always_ff @(posedge bus.stack_mismatch) begin
+        triggerTrap(1'b1);
+    end
+    
+
+    
+    task triggerTrap(input logic t);
+    begin
+        bus.trap = t;
+    end
+    endtask
+    
     
 //    always_comb begin
 //        bus.csr = csr;

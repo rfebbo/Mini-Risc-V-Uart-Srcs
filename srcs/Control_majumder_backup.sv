@@ -48,6 +48,7 @@ module Control
   input  logic ins_zero,
   input  logic flush,
   input  logic hazard,
+  input  logic [4:0] rs1,rd,
   output logic [2:0]alusel,
   output logic [2:0]storecntrl, //sw,sh,sb
   output logic [4:0]loadcntrl, //lhu,lbu,lw,lh,lb
@@ -70,7 +71,8 @@ module Control
   output logic      jalr,
   output logic      illegal_ins, 
   output logic [2:0] csrsel, 
-  output logic      csrwrite);
+  output logic      csrwrite, 
+  output logic      csrread);
 
   // intruction classification signal
   
@@ -256,26 +258,44 @@ module Control
       7'b1110011:               //SYSTEM
         begin
             csrsel = funct3;
-            regwrite = ~stall;
-            csrwrite = ~stall;
+//            regwrite = ~stall;
+//            csrwrite = ~stall;
+//            csrread = ~stall;
             unique case(funct3) 
                 3'b001: begin //CSRRW
-//                regwrite=stall ? 1'b0: 1'b1; 
+//                regwrite=stall ? 1'b0: 1'b1;
+                    regwrite = (rd == 0) ? 1'b0 : ~stall;
+                    csrread = (rd == 0) ? 1'b0 : ~stall; 
+                    csrwrite = ~stall;
                 end
                 3'b010: begin //CSRRS
 //                regwrite = ~stall;
+                    regwrite = ~stall;
+                    csrread = ~stall; 
+                    csrwrite = (rs1 == 0) ? 1'b0 : ~stall;
                 end
                 3'b011: begin //CSRRC
-                
+                    regwrite = ~stall;
+                    csrread = ~stall; 
+                    csrwrite = (rs1 == 0) ? 1'b0 : ~stall;
                 end
                 3'b101: begin //CSRRWI
                     alusrc = 1'b1;
+                    regwrite = (rd == 0) ? 1'b0 : ~stall;
+                    csrread = (rd == 0) ? 1'b0 : ~stall; 
+                    csrwrite = ~stall;
                 end
                 3'b110: begin //CSRRSI
                     alusrc = 1'b1;
+                    regwrite = ~stall;
+                    csrread = ~stall; 
+                    csrwrite = (rs1 == 0) ? 1'b0 : ~stall;
                 end
                 3'b111: begin //CSRRCI
                     alusrc = 1'b1;
+                    regwrite = ~stall;
+                    csrread = ~stall; 
+                    csrwrite = (rs1 == 0) ? 1'b0 : ~stall;
                 end
             
             endcase

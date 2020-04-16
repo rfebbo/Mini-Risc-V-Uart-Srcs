@@ -104,11 +104,17 @@ interface main_bus (
     logic [11:0] IF_ID_CSR_addr, ID_EX_CSR_addr; 
     logic [31:0] IF_ID_CSR, ID_EX_CSR;
     logic [31:0] EX_CSR_res;
+    logic [31:0] EX_MEM_CSR, MEM_WB_CSR;
     logic [11:0] EX_CSR_addr;
     logic ID_EX_CSR_write;
     logic EX_CSR_write;
+    logic MEM_WB_CSR_write;
+    logic ID_EX_CSR_read, EX_MEM_CSR_read, MEM_WB_CSR_read;
     
     logic [2:0] csrsel;
+    
+    logic trap, ecall;
+    logic [31:0] mtvec;
     
 //    logic ID_EX_CSR_write;
 
@@ -121,6 +127,7 @@ interface main_bus (
     modport fetch(
         input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
         input dbg, mem_hold,
+        input trap, mtvec,
         //input rx,
         input uart_dout, memcon_prog_ena,
         input debug_input, branoff,
@@ -141,6 +148,7 @@ interface main_bus (
         input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res, mem_hold,
         input EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
+        input IF_ID_CSR,
         inout ID_EX_memread, ID_EX_regwrite,
         output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch, IF_ID_jal,
         output IF_ID_rs1, IF_ID_rs2, IF_ID_rd,
@@ -148,7 +156,8 @@ interface main_bus (
         output ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_alusel,
         output ID_EX_storecntrl, ID_EX_loadcntrl, ID_EX_cmpcntrl,
         output ID_EX_auipc, ID_EX_lui, ID_EX_alusrc, 
-        output ID_EX_memwrite, ID_EX_imm, ID_EX_compare, ID_EX_jal
+        output ID_EX_memwrite, ID_EX_imm, ID_EX_compare, ID_EX_jal, 
+        output IF_ID_CSR_addr, ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read, ecall
     );
      
     //modport for execute stage    
@@ -167,7 +176,9 @@ interface main_bus (
         input MEM_WB_rd, WB_ID_rd,
         output EX_MEM_memwrite, EX_MEM_regwrite, EX_MEM_comp_res, 
         output EX_MEM_pres_addr,
-        input key
+        input key, 
+        input ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read,
+        output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read
     );
     
     //modport for memory stage
@@ -181,13 +192,17 @@ interface main_bus (
         
         input mem_dout, 
         output MEM_WB_pres_addr,
-        output mem_din, mem_addr, mem_wea, mem_en, mem_rea
+        output mem_din, mem_addr, mem_wea, mem_en, mem_rea,
+        
+        input EX_MEM_CSR, EX_MEM_CSR_read,
+        output MEM_WB_CSR, MEM_WB_CSR_read
     );
     
     //modport for writeback stage
     modport writeback(
         input clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
         input MEM_WB_regwrite, MEM_WB_rd,
+        input MEM_WB_CSR, MEM_WB_CSR_read,
         output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
     );
     
@@ -242,6 +257,8 @@ module RISCVcore_uart(
     logic [31:0] debug_output, mem_addr, mem_din, mem_dout; 
     logic [3:0] mem_en; 
     
+    logic trap;
+    
     always_comb begin
         clk = rbus.clk; 
         Rst = rbus.Rst; 
@@ -280,6 +297,8 @@ module RISCVcore_uart(
     //debugging resister
     assign bus.adr_rs1=debug ? debug_input:bus.IF_ID_rs1;
     
+    assign bus.trap = trap;
+    
     always_comb begin : stackstuff
         bus.push = (bus.IF_ID_jal | bus.IF_ID_jalr) & (bus.IF_ID_rd != 0);
         bus.pop = (bus.IF_ID_jalr) & (bus.IF_ID_rd == 0); 
@@ -290,6 +309,7 @@ module RISCVcore_uart(
     always_ff @(posedge clk) begin
         if(Rst) begin
             debug_output<=32'h00000000;
+            trap <= 0;
         end
         else if (prog) begin //debug instruction memory
             debug_output<=bus.ins;
@@ -317,6 +337,8 @@ module RISCVcore_uart(
     Writeback u5(bus.writeback);
     
     ra_stack uS(bus.rstack);
+    
+    CSR uC(.bus(bus));
     
 //    UART_Programmer uart(bus.UART_Programmer);
    

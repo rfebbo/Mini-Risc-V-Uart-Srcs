@@ -94,6 +94,8 @@ logic      IF_ID_auipc;
 
 logic [2:0] csrsel;
 logic csrwrite;
+logic csrread;
+logic [11:0] IF_ID_CSR_addr;
 
 //imm gen
 logic [31:0]imm;
@@ -105,16 +107,18 @@ assign funct3=bus.ins[14:12];
 assign funct7=bus.ins[31:25];
 assign bus.IF_ID_rs1=bus.ins[19:15];
 assign bus.IF_ID_rs2=bus.ins[24:20];
-assign bus.IF_ID_rd=bus.ins[11:7];
-assign IF_ID_rd=bus.IF_ID_rd;
+assign IF_ID_rd=bus.ins[11:7];
+assign bus.IF_ID_rd=IF_ID_rd;
 
-assign bus.IF_ID_CSR_addr = bus.ins[31:20];
+assign IF_ID_CSR_addr = bus.ins[31:20];
+assign bus.IF_ID_CSR_addr = IF_ID_CSR_addr;
 
 //assign flush=branch_taken_sig;
 //assign debug_out=debug;
 assign bus.branch=branch_taken_sig;
 assign ins_zero=!(|bus.ins);
 assign bus.hz=hz_sig;
+assign bus.ecall = (bus.ins == 32'b00000000000000000000000001110011);
    
    
    //control signal generation
@@ -125,6 +129,8 @@ assign bus.hz=hz_sig;
        .ins_zero(ins_zero),
        .flush(flush),
        .hazard(hz_sig),
+       .rs1(bus.ins[19:15]),
+       .rd(bus.ins[11:7]), 
        .alusel(IF_ID_alusel),
        .branch(IF_ID_branch),
        .memwrite(IF_ID_memwrite),
@@ -140,8 +146,8 @@ assign bus.hz=hz_sig;
        .loadcntrl(IF_ID_loadcntrl),
        .cmpcntrl(IF_ID_cmpcntrl), 
        .csrsel(csrsel), 
-       .csrwrite(csrwrite)
-       
+       .csrwrite(csrwrite),
+       .csrread(csrread)
    );
    //branchforward
    branchforward u0(
@@ -241,7 +247,9 @@ assign bus.hz=hz_sig;
             bus.ID_EX_auipc<=1'b0;
             bus.ID_EX_CSR_addr <= 12'b0;
             bus.ID_EX_CSR <= 32'b0; 
-//            bus
+            bus.ID_EX_CSR_write <= 1'b0;
+            bus.csrsel <= 3'b000;
+            bus.ID_EX_CSR_read <= 0;
             end
         else if(!bus.dbg && !bus.mem_hold) begin
             if (!hz_sig) begin
@@ -267,8 +275,11 @@ assign bus.hz=hz_sig;
                 bus.ID_EX_jalr<=IF_ID_jalr_sig;
                 bus.ID_EX_lui<=IF_ID_lui;
                 bus.ID_EX_auipc<=IF_ID_auipc;
-                bus.ID_EX_CSR_addr <= bus.IF_ID_CSR_addr; 
+                bus.ID_EX_CSR_addr <= IF_ID_CSR_addr; 
                 bus.ID_EX_CSR <= bus.IF_ID_CSR;
+                bus.ID_EX_CSR_write <= csrwrite;
+                bus.csrsel <= csrsel;
+                bus.ID_EX_CSR_read <= csrread;
             end else begin
                 bus.ID_EX_alusel<=3'b000;
                 bus.ID_EX_alusrc<=1'b1;
@@ -294,6 +305,9 @@ assign bus.hz=hz_sig;
                 bus.ID_EX_auipc<=1'b0;
                 bus.ID_EX_CSR_addr <= 12'b0;
                 bus.ID_EX_CSR <= 32'b0; 
+                bus.ID_EX_CSR_write <= 1'b0;
+                bus.csrsel <= 3'b000;
+                bus.ID_EX_CSR_read <= 0;
             end
         end
     end

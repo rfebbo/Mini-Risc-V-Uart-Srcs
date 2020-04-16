@@ -4,8 +4,11 @@
 .global _start 
 _start: 
 	# li sp, 2044
+	la a0, m_trap_vector
+	csrw mtvec, a0
 	la sp, _sp0
-	la ra, _endloop 
+	la ra, _endloop
+	ecall
 	jal main
 
 _endloop:
