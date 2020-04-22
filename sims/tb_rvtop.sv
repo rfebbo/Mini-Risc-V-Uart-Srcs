@@ -39,7 +39,7 @@ assign key[11:0]=12'h3cf;
 //assign key[47:24]=24'h000000;
 //assign key[23:12]=12'h000;
 //assign key[11:0] = 12'h000;
-rv_top dut(.*); 
+rv_uart_top dut(.*); 
 
 always #5 clk=!clk; 
 
