@@ -274,7 +274,7 @@ module RISCVcore_uart(
     
     always_ff @(posedge clk) begin
         if(Rst) begin
-            debug_output<=32'h00000000;
+            debug_output<=32'h0000000;
         end
         else if (prog) begin //debug instruction memory
             debug_output<=bus.ins;

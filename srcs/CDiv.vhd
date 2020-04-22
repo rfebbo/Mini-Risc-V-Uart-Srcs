@@ -9,7 +9,7 @@ ENTITY CDiv IS
 END CDiv ;
 
 ARCHITECTURE Behavior OF CDiv IS
-	constant TC: integer := 84; --Time Constant for 100Mhz to ~1.5Hz 
+	constant TC: integer := 20; --Time Constant for 100Mhz to ~1.5Hz 
                                 --Use TC 15 for 100Mhz to ~1Khz
 	signal c0,c1,c2,c3: integer range 0 to 1000;
 	signal D: std_logic := '0';

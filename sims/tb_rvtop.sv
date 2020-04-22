@@ -39,7 +39,7 @@ assign key[11:0]=12'h3cf;
 //assign key[47:24]=24'h000000;
 //assign key[23:12]=12'h000;
 //assign key[11:0] = 12'h000;
-rv_top dut(.*); 
+rv_uart_top dut(.*); 
 
 always #5 clk=!clk; 
 
@@ -98,13 +98,13 @@ initial begin
     #10;
     Rst=0;
     
-    #5000;
-    rxchar(8'hef);
-    rxchar(8'hbe);
-    rxchar(8'had);
-    rxchar(8'hde);
+//    #5000;
+//    rxchar(8'hef);
+//    rxchar(8'hbe);
+//    rxchar(8'had);
+//    rxchar(8'hde);
     
-    readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/pgtest.hex");
+    //readfile("/home/gray/Projects/Mini-Risc-V-Uart-Srcs/gcc/pgtest.hex");
 //    rxchar("a");
 //    rxchar("b");
 //    rxchar("c");
@@ -114,10 +114,10 @@ initial begin
 //    rxchar("g");
 //    rxchar("h");
     
-    rxchar(8'hef);
-    rxchar(8'hbe);
-    rxchar(8'had);
-    rxchar(8'hde);
+//    rxchar(8'hef);
+//    rxchar(8'hbe);
+//    rxchar(8'had);
+//    rxchar(8'hde);
 //    rxchar("H");
 //    rxchar("e");
 //    rxchar("l");
