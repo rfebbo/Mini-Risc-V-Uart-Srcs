@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 
+// Interface for RISCV bus.
 interface riscv_bus
   (
     input logic        clk, Rst, debug, prog,
@@ -9,14 +10,14 @@ interface riscv_bus
   );
 
   logic        mem_wea, mem_rea;
-  logic [3:0]  mem_en; 
+  logic [3:0]  mem_en;
   logic [31:0] mem_addr;
-  logic [31:0] mem_din, mem_dout; 
+  logic [31:0] mem_din, mem_dout;
   logic [31:0] debug_output;
     
   logic        imem_en, imem_prog_ena;
   logic [31:0] imem_addr;
-  logic [31:0] imem_dout, imem_din; 
+  logic [31:0] imem_dout, imem_din;
     
   logic mem_hold;
     
@@ -37,6 +38,7 @@ interface riscv_bus
 endinterface
 
 
+// Interface for MMIO bus.
 interface mmio_bus
   (
     input  logic       clk, Rst, rx,
@@ -119,15 +121,19 @@ module rv_uart_top
                     a6=8'b10111111, a7=8'b01111111} 
                     an_cur, an_nxt;
 
+  // RISCV Bus Core instantiation.
   RISCVcore_uart    rv_core(rbus.core);
   Memory_Controller memcon0(rbus.memcon, mbus.memcon);
-    
+
+  // MMIO Bus Display and UART instantiation.
   Debug_Display   d0(mbus.display);
   uart_controller u0(mbus.uart);
 
+  // Outputs current anode and clock.
   assign an      = an_cur[3:0];
   assign clk_out = clk_50M;
   
+  // Updates current anode and what it displays, along with resetting the anode.
   always_ff @(posedge clk_7seg) begin
     if (Rst) begin
       an_cur  <= a0;
@@ -139,6 +145,7 @@ module rv_uart_top
     end
   end
 
+  // Anode activating signals for 4 LEDs - decoder to generate anode signals.
   always_comb begin
     case(an_cur)
       a0: begin 
@@ -180,6 +187,7 @@ module rv_uart_top
     endcase
   end
 
+  // Cathode patterns of the 7-segment LED display.
   always_comb begin
     case (seg_cur)
       4'b0000: sev_out = 7'b0000001;
