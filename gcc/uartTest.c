@@ -1,5 +1,5 @@
 #include"uart.h" 
-// #include"print.h" 
+#include"print.h" 
 
 int main(void) {
 	// int c = 65; 
@@ -17,14 +17,16 @@ int main(void) {
 	// 	uart_write_blocking(c);
 
 	// }
+/*
 	char h[] = "Hello, world!\r\n"; 
 	// // int strlen = 13; 
-	print(h);
+	//print(h);
 	char in[32];
 	for (int i = 0; i < 32; i++)
 		in[i] = 0;
 	readline(in, 32); 
-	print(in);
+	//print(in);
+*/
 	char c; 
 	while(1) {
 		c = uart_read_blocking();
