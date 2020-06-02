@@ -81,53 +81,55 @@ endinterface
 
 module rv_uart_top
   (
-    input  logic        clk,
-    input  logic        Rst,
-    input  logic        debug,
-    input  logic        rx,   // UART receive pin.
-    input  logic        prog, // Similar to debug, but shows memory address, and allows reprogramming.
-    input  logic [4:0]  debug_input,
-    output logic        tx, clk_out,
-    output logic [6:0]  sev_out,
-    output logic [3:0]  an,
-    output logic [15:0] led
+    input  logic        clk,         // Clock
+    input  logic        Rst,         // Reset
+    input  logic        debug,       // Enables RISCV bus output to be displayed on 7-segment display
+    input  logic        rx,          // UART receive pin
+    input  logic        prog,        // Similar to debug, but shows memory address, and allows reprogramming
+    input  logic [4:0]  debug_input, // Tied to RISCV bus core and MMIO bus display input
+    output logic        tx, clk_out, // UART and clock output
+    output logic [6:0]  sev_out,     // 7-segment display cathode output
+    output logic [3:0]  an,          // 7-segment display anode output
+    output logic [15:0] led          // LED output
   );
 
-  logic [31:0] debug_output;
-  logic [3:0]  seg_cur, seg_nxt;
-  logic        clk_50M, clk_5M,clk_7seg;
-  logic        addr_dn, addr_up;
-  logic [95:0] key; 
+  logic [31:0] debug_output;             // Program output
+  logic [3:0]  seg_cur, seg_nxt;         // 7-segment cathode values
+  logic        clk_50M, clk_5M,clk_7seg; // Clocks
+  logic        addr_dn, addr_up;         // [UNUSED]
+  logic [95:0] key;                      // Key inputted to RISCV bus core
 
-  assign key[95:48] = 48'h3cf3cf3cf3cf;
-  assign key[47:24] = 24'h30c30c;
-  assign key[23:12] = 12'hbae;
-  assign key[11:0]  = 12'h3cf;
+  assign key[95:48] = 48'h3cf3cf3cf3cf; // 0b0011_1100_1111_0011_1100_1111_0011_1100_1111_0011_1100_1111
+  assign key[47:24] = 24'h30c30c;       // 0b0011_0000_1100_0011_0000_1100
+  assign key[23:12] = 12'hbae;          // 0b1011_1010_1110
+  assign key[11:0]  = 12'h3cf;          // 0b0011_1100_1111
 
-  logic rst_in, rst_last;
+  logic rst_in, rst_last; // [UNUSED]
 
-  clk_wiz_0 c0(.*);
-  riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus  mbus(.clk(clk_50M),  .*);
-  clk_div   cdiv(clk,Rst,16'd500,clk_7seg);
+  clk_wiz_0 c0(.*);                            // Clock wizard module instantiation
+  riscv_bus rbus(.clk(clk_50M), .*);           // RISCV bus interface instantiation
+  mmio_bus  mbus(.clk(clk_50M), .*);           // MMIO bus interface instantiation
+  clk_div   cdiv(clk, Rst, 16'd500, clk_7seg); // Clock divider module instantiation
 
-  assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};
+  // 2 LEDs are lit up depending on if MMIO bus tx is full or rx has data present.
+  assign led = {14'h0, mbus.tx_full, mbus.rx_data_present}; // LED output on board from MMIO bus memory controller
 
-  assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
+  // 7-segment display output is RISCV bus output if either prog or debug are enabled
+  //                          or MMIO bus output if both are disabled.
+  assign debug_output = (prog | debug) ? rbus.debug_output : mbus.disp_out;
 
+  // 1 anode for each digit on 7-segment display.
   enum logic [7:0] {a0=8'b11111110, a1=8'b11111101,
                     a2=8'b11111011, a3=8'b11110111,
                     a4=8'b11101111, a5=8'b11011111,
                     a6=8'b10111111, a7=8'b01111111} 
-                    an_cur, an_nxt;
+                    an_cur, an_nxt; // 7-segment anode values
 
-  // RISCV Bus Core instantiation.
-  RISCVcore_uart    rv_core(rbus.core);
-  Memory_Controller memcon0(rbus.memcon, mbus.memcon);
+  RISCVcore_uart    rv_core(rbus.core);                // RISCV bus core module instantiation.
+  Memory_Controller memcon0(rbus.memcon, mbus.memcon); // RISCV and MMIO bus memory controller module instantiation.
 
-  // MMIO Bus Display and UART instantiation.
-  Debug_Display   d0(mbus.display);
-  uart_controller u0(mbus.uart);
+  Debug_Display   d0(mbus.display); // MMIO bus display module instantiation.
+  uart_controller u0(mbus.uart);    // MMIO bus UART module instantiation.
 
   // Outputs current anode and clock.
   assign an      = an_cur[3:0];
@@ -146,6 +148,7 @@ module rv_uart_top
   end
 
   // Anode activating signals for 4 LEDs - decoder to generate anode signals.
+  // Outputs debug output from MMIO bus onto 7-segment display.
   always_comb begin
     case(an_cur)
       a0: begin 
@@ -188,6 +191,7 @@ module rv_uart_top
   end
 
   // Cathode patterns of the 7-segment LED display.
+  // Converts the number to be displayed into corresponding cathode values.
   always_comb begin
     case (seg_cur)
       4'b0000: sev_out = 7'b0000001;
