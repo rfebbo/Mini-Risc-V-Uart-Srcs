@@ -55,14 +55,14 @@ Disassembly of section .text:
   9c:	02812423          	sw	s0,40(sp)
   a0:	03010413          	addi	s0,sp,48
   a4:	deadc7b7          	lui	a5,0xdeadc
-  a8:	eef78793          	addi	a5,a5,-273 # deadbeef <_ram_end+0xdeacbeef>
+  a8:	eef78793          	addi	a5,a5,-273 # deadbeef <_sp0+0xdeadaa2f>
   ac:	fef42423          	sw	a5,-24(s0)
   b0:	f75ff0ef          	jal	ra,24 <uart_read_word>
   b4:	fea42223          	sw	a0,-28(s0)
   b8:	fe442703          	lw	a4,-28(s0)
   bc:	fe842783          	lw	a5,-24(s0)
   c0:	00f70a63          	beq	a4,a5,d4 <load_program+0x40>
-  c4:	46000513          	li	a0,1120
+  c4:	45400513          	li	a0,1108
   c8:	200000ef          	jal	ra,2c8 <uart_print>
   cc:	00000793          	li	a5,0
   d0:	0780006f          	j	148 <load_program+0xb4>
@@ -75,24 +75,24 @@ Disassembly of section .text:
   ec:	fe442703          	lw	a4,-28(s0)
   f0:	fe842783          	lw	a5,-24(s0)
   f4:	00f71a63          	bne	a4,a5,108 <load_program+0x74>
-  f8:	46400513          	li	a0,1124
+  f8:	45800513          	li	a0,1112
   fc:	1cc000ef          	jal	ra,2c8 <uart_print>
- 100:	4b402783          	lw	a5,1204(zero) # 4b4 <base_addr>
+ 100:	4a802783          	lw	a5,1192(zero) # 4a8 <base_addr>
  104:	0440006f          	j	148 <load_program+0xb4>
- 108:	4b402703          	lw	a4,1204(zero) # 4b4 <base_addr>
+ 108:	4a802703          	lw	a4,1192(zero) # 4a8 <base_addr>
  10c:	fec42783          	lw	a5,-20(s0)
  110:	00f707b3          	add	a5,a4,a5
  114:	fcf42e23          	sw	a5,-36(s0)
  118:	fdc42783          	lw	a5,-36(s0)
  11c:	fe442703          	lw	a4,-28(s0)
- 120:	00e7a023          	sw	a4,0(a5) # 10000 <_ram_end>
+ 120:	00e7a023          	sw	a4,0(a5) # 10000 <_sp0+0xeb40>
  124:	fec42783          	lw	a5,-20(s0)
  128:	00478793          	addi	a5,a5,4
  12c:	fef42623          	sw	a5,-20(s0)
  130:	fec42703          	lw	a4,-20(s0)
  134:	fe042783          	lw	a5,-32(s0)
  138:	faf766e3          	bltu	a4,a5,e4 <load_program+0x50>
- 13c:	47400513          	li	a0,1140
+ 13c:	46800513          	li	a0,1128
  140:	188000ef          	jal	ra,2c8 <uart_print>
  144:	00000793          	li	a5,0
  148:	00078513          	mv	a0,a5
@@ -106,7 +106,7 @@ Disassembly of section .text:
  160:	00112623          	sw	ra,12(sp)
  164:	00812423          	sw	s0,8(sp)
  168:	01010413          	addi	s0,sp,16
- 16c:	4a000513          	li	a0,1184
+ 16c:	49400513          	li	a0,1172
  170:	158000ef          	jal	ra,2c8 <uart_print>
  174:	f21ff0ef          	jal	ra,94 <load_program>
  178:	00050793          	mv	a5,a0
@@ -123,7 +123,7 @@ Disassembly of section .text:
  19c:	00050793          	mv	a5,a0
  1a0:	fcf40fa3          	sb	a5,-33(s0)
  1a4:	aaaaa7b7          	lui	a5,0xaaaaa
- 1a8:	40078793          	addi	a5,a5,1024 # aaaaa400 <_ram_end+0xaaa9a400>
+ 1a8:	40078793          	addi	a5,a5,1024 # aaaaa400 <_sp0+0xaaaa8f40>
  1ac:	fef42623          	sw	a5,-20(s0)
  1b0:	fec42783          	lw	a5,-20(s0)
  1b4:	fdf44703          	lbu	a4,-33(s0)
@@ -138,7 +138,7 @@ Disassembly of section .text:
  1d0:	00812e23          	sw	s0,28(sp)
  1d4:	02010413          	addi	s0,sp,32
  1d8:	aaaaa7b7          	lui	a5,0xaaaaa
- 1dc:	40078793          	addi	a5,a5,1024 # aaaaa400 <_ram_end+0xaaa9a400>
+ 1dc:	40078793          	addi	a5,a5,1024 # aaaaa400 <_sp0+0xaaaa8f40>
  1e0:	fef42623          	sw	a5,-20(s0)
  1e4:	fec42783          	lw	a5,-20(s0)
  1e8:	0007c783          	lbu	a5,0(a5)
@@ -153,7 +153,7 @@ Disassembly of section .text:
  204:	00812e23          	sw	s0,28(sp)
  208:	02010413          	addi	s0,sp,32
  20c:	aaaaa7b7          	lui	a5,0xaaaaa
- 210:	40478793          	addi	a5,a5,1028 # aaaaa404 <_ram_end+0xaaa9a404>
+ 210:	40478793          	addi	a5,a5,1028 # aaaaa404 <_sp0+0xaaaa8f44>
  214:	fef42623          	sw	a5,-20(s0)
  218:	fec42783          	lw	a5,-20(s0)
  21c:	0007c783          	lbu	a5,0(a5)

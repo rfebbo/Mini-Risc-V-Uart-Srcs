@@ -99,6 +99,7 @@ module rv_uart_top
   logic        addr_dn, addr_up;         // [UNUSED]
   logic [95:0] key;                      // Key inputted to RISCV bus core
 
+  // Redundant
   assign key[95:48] = 48'h3cf3cf3cf3cf; // 0b0011_1100_1111_0011_1100_1111_0011_1100_1111_0011_1100_1111
   assign key[47:24] = 24'h30c30c;       // 0b0011_0000_1100_0011_0000_1100
   assign key[23:12] = 12'hbae;          // 0b1011_1010_1110
@@ -114,7 +115,7 @@ module rv_uart_top
   // 2 LEDs are lit up depending on if MMIO bus tx is full or rx has data present.
   assign led = {14'h0, mbus.tx_full, mbus.rx_data_present}; // LED output on board from MMIO bus memory controller
 
-  // 7-segment display output is RISCV bus output if either prog or debug are enabled
+  // 7-segment display output is RISCV bus output if either programmable or debug are enabled
   //                          or MMIO bus output if both are disabled.
   assign debug_output = (prog | debug) ? rbus.debug_output : mbus.disp_out;
 
@@ -125,11 +126,11 @@ module rv_uart_top
                     a6=8'b10111111, a7=8'b01111111} 
                     an_cur, an_nxt; // 7-segment anode values
 
-  RISCVcore_uart    rv_core(rbus.core);                // RISCV bus core module instantiation.
-  Memory_Controller memcon0(rbus.memcon, mbus.memcon); // RISCV and MMIO bus memory controller module instantiation.
+  RISCVcore_uart    rv_core(rbus.core);                // RISCV bus core module instantiation
+  Memory_Controller memcon0(rbus.memcon, mbus.memcon); // RISCV and MMIO bus memory controller module instantiation
 
-  Debug_Display   d0(mbus.display); // MMIO bus display module instantiation.
-  uart_controller u0(mbus.uart);    // MMIO bus UART module instantiation.
+  Debug_Display   d0(mbus.display); // MMIO bus display module instantiation
+  uart_controller u0(mbus.uart);    // MMIO bus UART module instantiation
 
   // Outputs current anode and clock.
   assign an      = an_cur[3:0];

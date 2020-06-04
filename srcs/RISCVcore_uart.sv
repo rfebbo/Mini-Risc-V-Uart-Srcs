@@ -27,9 +27,9 @@
 // Interface bus between all pipeline stages.
 interface main_bus
   (
-    input logic        clk, Rst, debug, dbg, prog, mem_hold,
-    input logic [4:0]  debug_input, 
-    input logic [95:0] key
+    input logic        clk, Rst, debug, dbg, prog, mem_hold, // Clock, reset, debug, dbg, programmable, memory hold
+    input logic [4:0]  debug_input,                          // Debug input
+    input logic [95:0] key                                   // Key
   );
     
   logic        PC_En;
@@ -178,14 +178,15 @@ endinterface
 
 module RISCVcore_uart
   (    
-    riscv_bus rbus 
+    riscv_bus rbus // RISCV bus
   );
     
-  logic        clk, Rst, debug, prog, mem_wea, dbg;
-  logic [4:0]  debug_input;
-  logic [31:0] debug_output, mem_addr, mem_din, mem_dout; 
-  logic [3:0]  mem_en; 
-    
+  logic        clk, Rst, debug, prog, mem_wea, dbg;       // Pins connected to main bus.
+  logic [4:0]  debug_input;                               // ??
+  logic [31:0] debug_output, mem_addr, mem_din, mem_dout; // Memory address, data, and output.
+  logic [3:0]  mem_en;                                    // ??
+
+  // Connects the RISCV bus and main bus together.
   always_comb begin
     clk                = rbus.clk; 
     Rst                = rbus.Rst; 
@@ -205,19 +206,21 @@ module RISCVcore_uart
     rbus.imem_din      = bus.uart_dout;
     rbus.imem_prog_ena = bus.memcon_prog_ena;
   end
-    
-  main_bus bus(.key(rbus.key), .mem_hold(rbus.mem_hold), .*);
-    
+
+  main_bus bus(.key(rbus.key), .mem_hold(rbus.mem_hold), .*); // Main bus interface instantiation.
+
+  // Connects the main bus to the module pins.
   assign mem_wea      = bus.mem_wea;
   assign mem_en       = bus.mem_en;
   assign mem_addr     = bus.mem_addr;
   assign mem_din      = bus.mem_din;
   assign bus.mem_dout = mem_dout;
 
-  assign bus.PC_En   = (!bus.hz);
+  assign bus.PC_En   = (!bus.hz);                         // Main bus signals.
   assign dbg         = (debug || prog);                   // Added to stop pipeline on prog and/or debug.
   assign bus.adr_rs1 = debug ? debug_input:bus.IF_ID_rs1; // Debugging resistor.
-    
+
+  // Controls what is sent to debug output (7-segment display).
   always_ff @(posedge clk) begin
     if (Rst) begin
       debug_output <= 32'h0000000;
@@ -233,16 +236,10 @@ module RISCVcore_uart
     end
   end
 
-  Fetch_Reprogrammable u1(bus.fetch);
-    
-  // Register file.
-  Regfile u0(bus.regfile);
-    
-  Decode u2(bus.decode);
-    
-  Execute u3(bus.execute);
-    
-  Memory u4(bus.memory);
-    
-  Writeback u5(bus.writeback);
+  Fetch_Reprogrammable u1(bus.fetch); // Main bus fetch module instantiation.
+  Regfile u0(bus.regfile);            // Main bus register file module instantiation.
+  Decode u2(bus.decode);              // Main bus decode module instantiation.
+  Execute u3(bus.execute);            // Main bus execute module instantiation.
+  Memory u4(bus.memory);              // Main bus memory module instantiation.
+  Writeback u5(bus.writeback);        // Main bus writeback module instantiation.
 endmodule

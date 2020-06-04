@@ -3,31 +3,31 @@
 
 module Memory_Controller
   (
-    riscv_bus rbus, 
-    mmio_bus  mbus
+    riscv_bus rbus, // RISCV bus
+    mmio_bus  mbus  // MMIO bus
   );
 
-  logic        clk, rst;
-  logic        mem_wea, mem_rea;
-  logic [3:0]  mem_en, mem_en_last;
-  logic [11:0] mem_addr_lower;
-  logic [19:0] mem_addr_upper;
-  logic [31:0] mem_din, mem_dout; 
+  logic        clk, rst;            // Clock, reset
+  logic        mem_wea, mem_rea;    // Memory write, read enable
+  logic [3:0]  mem_en, mem_en_last; // Memory enable, enable last
+  logic [11:0] mem_addr_lower;      // Memory lower address
+  logic [19:0] mem_addr_upper;      // Memory upper address
+  logic [31:0] mem_din, mem_dout;   // Memory data in, out
 
-  logic        disp_wea;
-  logic [31:0] disp_dat;
+  logic        disp_wea; // Display write enable
+  logic [31:0] disp_dat; // Display data
 
-  logic [31:0] imem_addr, imem_dout, imem_din; 
-  logic        imem_en, imem_state;
+  logic [31:0] imem_addr, imem_dout, imem_din; // Instruction memory address, data out, in
+  logic        imem_en, imem_state;            // Instruction memory enable, state
 
 
-  logic        mmio_region, kernel_region, prog_region;
-  logic [31:0] blkmem_dout, doutb, blkmem_din; 
-  logic [7:0]  uart_dout;
-  logic        uart_last_cond;
-  logic [11:0] uart_last_addr; 
+  logic        mmio_region, kernel_region, prog_region; // MMIO, kernel, programmable region
+  logic [31:0] blkmem_dout, doutb, blkmem_din;          // Block memory data out a, b, data in
+  logic [7:0]  uart_dout;                               // UART data out
+  logic        uart_last_cond;                          // UART last conditional
+  logic [11:0] uart_last_addr;                          // UART last address
 
-  logic mem_hold;
+  logic mem_hold; // Hold signal to memory
 
   always_comb begin
     clk            = rbus.clk;

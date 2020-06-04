@@ -67,6 +67,7 @@ Output Clocks
     port name: clk_5M
     output freq: 5
     Duty Cycle: 50
+  Enable Optional Inputs: uncheck reset and locked
 ```
 
 ```
