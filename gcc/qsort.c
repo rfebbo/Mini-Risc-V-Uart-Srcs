@@ -2,7 +2,7 @@
 #define NSTACK 50
 #define DATA_SIZE 4
 #include "print.h"
-//#include "uart.h" 
+#include "uart.h" 
 
 #define SWAP(a, b)            \
     do                        \
@@ -122,6 +122,7 @@ void sort(unsigned int n, int arr[])
     for(i = 0; i < n; i++)
     {
         print(arr[i]);
+		uart_write_blocking(h[i]);
     }
 }
 
