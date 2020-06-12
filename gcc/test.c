@@ -1,15 +1,11 @@
-#include "uart.h"
+#include "print.h"
+#include "utils.h"
 
 int main(void)
 {
-	char c;
-	int num = 3;
-	char d = "Hi";
-	while (1)
-	{
-		c = uart_read_blocking();
-		uart_write_blocking(c);
-		uart_write_blocking(d);
-	}
-	return 0;
+	int num1 = 20;
+	int num2 = -6;
+	print(num1);
+	print(num2);
+	print(divide(num1, num2));
 }
