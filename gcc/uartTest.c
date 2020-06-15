@@ -16,20 +16,26 @@ int main(void)
 	int i;
 	char c[30];
 
+	/* Counts number of digits in num */
 	size = count_digits(num);
+	/* Converts integer to char array */
 	itoa(num, c);
 	
+	/* Prints out 'A' */
 	uart_write_blocking(65);
 
+	/* NOT WORKING */
 	for (i = 0; i < size; i++)
 	{
 		uart_write_blocking(c[i]);
 	}
 	
+	/* WORKING */
 	uart_write_blocking(c[0]);
 	uart_write_blocking(c[1]);
 	uart_write_blocking(c[2]);
 
+	/* Prints out 'E' */
 	uart_write_blocking(69);
 /*
 	int c = 65;
