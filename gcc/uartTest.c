@@ -3,23 +3,22 @@
 //#include "print.h"
 
 int main(void)
-{
+{/*
 	int i;
 	char h[] = "Hello.\r\n";
 	for (i = 0; i < 8; i++)
 	{
 		uart_write_blocking(h[i]);
-	}
+	}*/
 
-	int num = 9;
+	int num = 298;
 	char c[30];
 
 	itoa(num, c);
 
-	for (i = 0; i < 1; i++)
-	{
-		uart_write_blocking(c[i]);
-	}
+	uart_write_blocking(c[0]);
+	uart_write_blocking(c[1]);
+	uart_write_blocking(c[2]);
 /*
 	int c = 65;
 	for (c = 65; c < 70; c++)
