@@ -100,3 +100,16 @@ int modulo(int x, int y)
 
     return multiply(sign, x);
 }
+
+int count_digits(long n)
+{
+    int count = 0;
+
+    while (n != 0)
+    {
+        n = divide(n, 10);
+        ++count;
+    }
+
+    return count;
+}
