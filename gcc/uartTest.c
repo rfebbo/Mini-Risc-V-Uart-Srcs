@@ -15,7 +15,7 @@ int main(void)
         uart_write_blocking(str[i]);
     }
 
-    //int num = nothing();
+    int num = nothing();
 
     for(i = 0; i < 6; i++)
     {
