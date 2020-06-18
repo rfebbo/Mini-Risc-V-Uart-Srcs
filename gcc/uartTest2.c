@@ -1,16 +1,32 @@
-#include "uart.h"
-#include "print.h"
+#include"uart.h"
+#include"utils.h"
+
+int nothing()
+{
+    return 1;
+}
 
 int main(void)
 {
-	int c = 65;
-	int i = 0;
-	for (i = 0; i < 5; i++)
-	{
-		print(c);
-		uart_write_blocking(c);
-	}
+    char str[20];
+	char num_str[10];
+    int i = 0;
+    int num = 298;
+	int size = count_digits(num);
 
-	while (1)
-		;
+	itoa(num, str);
+	itoa(size, num_str);
+
+	uart_write_blocking(num_str[0]);
+	uart_write_blocking(str[0]);
+	uart_write_blocking(str[1]);
+	uart_write_blocking(str[2]);
+
+    for (i = 0; i < size; i++)
+    {
+        uart_write_blocking(str[i]);
+    }
+
+    while (1)
+        ;
 }
