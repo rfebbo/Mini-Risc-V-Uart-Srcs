@@ -22,9 +22,10 @@ int main(void)
 	uart_write_blocking(str[1]);
 	uart_write_blocking(str[2]);
 
-    for (i = 0; i < size; i++)
+    while(i < size)
     {
         uart_write_blocking(str[i]);
+        i++;
     }
 
     while (1)

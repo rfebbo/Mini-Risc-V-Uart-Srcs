@@ -19,9 +19,10 @@ int main(void)
 
     int num = nothing();
 
-    for(j = 0; j < 6; j++)
+    while(j < 6)
     {
         uart_write_blocking(str2[j]);
+        j++;
     }
 
     while (1)
