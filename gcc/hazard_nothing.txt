@@ -1,0 +1,162 @@
+
+hazard.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010000 <_start>:
+   10000:	00001117          	auipc	sp,0x1
+   10004:	10010113          	addi	sp,sp,256 # 11100 <_sp0>
+   10008:	00000097          	auipc	ra,0x0
+   1000c:	00c08093          	addi	ra,ra,12 # 10014 <_endloop>
+   10010:	084000ef          	jal	ra,10094 <main>
+
+00010014 <_endloop>:
+   10014:	0000006f          	j	10014 <_endloop>
+
+00010018 <nothing>:
+   10018:	ff010113          	addi	sp,sp,-16 // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+   1001c:	00812623          	sw	s0,12(sp)    // Stores main's frame pointer at start of stack.
+   10020:	01010413          	addi	s0,sp,16  // Sets frame pointer to start of new stack.
+
+   10024:	00100793          	li	a5,1         // Sets 1 to be returned.
+   10028:	00078513          	mv	a0,a5        // Moves 1 to a0 to be returned.
+
+   1002c:	00c12403          	lw	s0,12(sp)    // Loads main's frame pointer back.
+   10030:	01010113          	addi	sp,sp,16  // Moves stack pointer back to main's stack.
+   10034:	00008067          	ret             // Return from function.
+
+00010038 <print>:
+   10038:	fd010113          	addi	sp,sp,-48  // Sets stack pointer to end of stack. (allocates 12 words on the stack).
+   1003c:	02812623          	sw	s0,44(sp)     // Stores main's frame pointer at start of stack.
+   10040:	03010413          	addi	s0,sp,48   // Sets frame pointer to start of new stack.
+
+   10044:	fca42e23          	sw	a0,-36(s0)    // Stores function argument (int a) in memory.
+
+   10048:	aaaaa7b7          	lui	a5,0xaaaaa // int *p = (int *)0xaaaaa___;
+   1004c:	00878793          	addi	a5,a5,8 # aaaaa008 <_sp0+0xaaa98f08> // int *p = (int *)0x_____008;
+   10050:	fef42623          	sw	a5,-20(s0)    // Stores int *p in memory.
+
+   10054:	fec42783          	lw	a5,-20(s0)    // Loads int *p from memory to be modified.
+   10058:	fdc42703          	lw	a4,-36(s0)    // Loads int a from memory.
+
+   1005c:	00e7a023          	sw	a4,0(a5)      // *p = a;
+
+   10060:	00000013          	nop              // No operation.
+
+   10064:	02c12403          	lw	s0,44(sp)     // Loads main's frame pointer back.
+   10068:	03010113          	addi	sp,sp,48   // Moves stack pointer back to main's stack.
+   1006c:	00008067          	ret              // Return from function.
+
+00010070 <res>:
+   10070:	fe010113          	addi	sp,sp,-32 // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+   10074:	00812e23          	sw	s0,28(sp)    // Stores main's frame pointer at start of stack.
+   10078:	02010413          	addi	s0,sp,32  // Sets frame pointer to start of new stack.
+
+   1007c:	fea42623          	sw	a0,-20(s0)   // Stores function argument (int a) in memory.
+
+   10080:	fec42783          	lw	a5,-20(s0)   // Loads int a from memory to be returned.
+   10084:	00078513          	mv	a0,a5        // Moves int a to a0 to be returned.
+
+   10088:	01c12403          	lw	s0,28(sp)    // Loads main's frame pointer back.
+   1008c:	02010113          	addi	sp,sp,32  // Moves stack pointer back to main's stack.
+   10090:	00008067          	ret             // Return from function.
+
+00010094 <main>:
+   10094:	fe010113          	addi	sp,sp,-32               // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+   10098:	00112e23          	sw	ra,28(sp)                  // Stores return address at start of stack.
+   1009c:	00812c23          	sw	s0,24(sp)                  // Stores frame pointer at 2nd from start of stack.
+   100a0:	02010413          	addi	s0,sp,32                // Sets frame pointer to start of stack.
+
+   100a4:	00100793          	li	a5,1                       // int num = 1; (temp register).
+   100a8:	fef42623          	sw	a5,-20(s0)                 // Stores num into memory.
+
+   100ac:	fe042423          	sw	zero,-24(s0)               // Initializes i in memory to 0.
+
+   100b0:	f69ff0ef          	jal	ra,10018 <nothing>      // int temp = nothing();
+   100b4:	fea42223          	sw	a0,-28(s0)                 // Stores int temp into memory.
+
+   100b8:	fe042423          	sw	zero,-24(s0)               // Initializes i in memory to 0.
+   100bc:	0180006f          	j	100d4 <main+0x40>          // Check conditional of for loop before starting.
+   100c0:	00200793          	   li	a5,2                       // Sets num = 2;
+   100c4:	fef42623          	   sw	a5,-20(s0)                 // Stores num in memory.
+
+   100c8:	fe842783          	   lw	a5,-24(s0)                 // Loads i to be modified.
+   100cc:	00178793          	   addi	a5,a5,1                 // i++;
+   100d0:	fef42423          	   sw	a5,-24(s0)                 // Stores i in memory.
+   100d4:	fe842703          	   lw	a4,-24(s0)                 // Loads i to be compared.
+   100d8:	00200793          	   li	a5,2                       // Loop condition to be checked against.
+   100dc:	fee7d2e3          	ble	a4,a5,100c0 <main+0x2c> // Continue looping if i <= 2.
+
+   100e0:	fec42503          	lw	a0,-20(s0)                 // Loads num to be passed to res.
+   100e4:	f8dff0ef          	jal	ra,10070 <res>          // res(num)
+   100e8:	fea42023          	sw	a0,-32(s0)                 // int result = res(num);
+   
+   100ec:	0000006f          	j	100ec <main+0x58>          // while(1);
+
+
+// After int temp = nothing();
+ra    = 0x100b4
+sp    = 4256
+gp    = 0
+tp    = 0
+
+t0    = 0
+t1    = 0
+t2    = 0
+
+s0/fp = 4288
+s1    = 0
+
+a0    = 1
+a1    = 0
+a2    = 0
+a3    = 0x1470 (pre-main usage)
+a4    = 0x0464 (pre-main usage and print which isn't called)
+a5    = 0x0001 
+a6    = 0
+a7    = 0
+
+// After int result = res(num);
+ra    = 0x100e4
+sp    = 4320
+gp    = 0
+tp    = 0
+
+t0    = 0
+t1    = 0
+t2    = 0
+
+s0/fp = 4352
+s1    = 0
+
+a0    = 1
+a1    = 0
+a2    = 0
+a3    = 0x1470 (pre-main usage)
+a4    = 0x0464 (pre-main usage and print which isn't called)
+a5    = 0x0001 
+a6    = 0
+a7    = 0
+
+// After start of for loop
+ra    = 0x100e4
+sp    = 4320
+gp    = 0
+tp    = 0
+
+t0    = 0
+t1    = 0
+t2    = 0
+
+s0/fp = 4352
+s1    = 0
+
+a0    = 1
+a1    = 0
+a2    = 0
+a3    = 0x1470 (pre-main usage)
+a4    = 0x0464 (pre-main usage and print which isn't called)
+a5    = 0x0001 
+a6    = 0
+a7    = 0

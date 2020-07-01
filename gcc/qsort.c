@@ -2,7 +2,6 @@
 #define NSTACK 50
 #define DATA_SIZE 4
 #include "print.h"
-#include "uart.h" 
 
 #define SWAP(a, b)            \
     do                        \
@@ -118,12 +117,6 @@ void sort(unsigned int n, int arr[])
             }
         }
     }
-
-    for(i = 0; i < n; i++)
-    {
-        print(arr[i]);
-		uart_write_blocking(h[i]);
-    }
 }
 
 //--------------------------------------------------------------------------
@@ -136,11 +129,11 @@ int main(void)
     int input_data[DATA_SIZE] = {3, 4, 2, 1};
 
     sort(DATA_SIZE, input_data);
-/*
+
     for(i = 0; i < DATA_SIZE; i++)
     {
         print(input_data[i]);
     }
-*/
+
     return 0;
 }
