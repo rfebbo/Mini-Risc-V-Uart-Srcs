@@ -93,17 +93,35 @@ module rv_uart_top
   //clock divider variable
 //  integer      count;
   logic [95:0] key; 
+  logic        key_wen; 
   
   
-  assign key[95:48]=48'h3cf3cf3cf3cf;
-assign key[47:24]=24'h30c30c;
-assign key[23:12]=12'hbae;
-assign key[11:0]=12'h3cf;
+//  assign key[95:48]=48'h3cf3cf3cf3cf;
+//assign key[47:24]=24'h30c30c;
+//assign key[23:12]=12'hbae;
+//assign key[11:0]=12'h3cf;
 //  assign key[95:48]=48'haaaaaaaaaaaa;
 //assign key[47:24]=24'h000000;
 //assign key[23:12]=12'h000;
 //assign key[11:0] = 12'h000;
   logic rst_in, rst_last;
+  
+   //new: key load using memory mapped key interface
+  always_ff @ (posedge clk_50M)begin
+    if(Rst)begin
+        key[95:48]<= 48'h3cf3cf3cf3cf;
+        key[47:24]<= 24'h30c30c;
+        key[23:12]<= 12'hbae;
+        key[11:0] <= 12'h3cf;
+    end
+    else if (key_wen)begin
+        for(int i=0;i<3;i++)begin
+            if(rbus.mem_addr[7:0]==i)
+                key[32*(i+1)-1-:32]=rbus.mem_din;
+        end
+        
+    end
+  end
   
 //  logic mem_wea;
 //  logic [3:0] mem_en;
@@ -119,8 +137,8 @@ clk_div cdiv(clk,Rst,16'd500,clk_7seg);
 // mmio_bus mbus(.*);
 //`endif
   
-  assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};
-  
+  //assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};
+   assign led = key[15:0];
   assign debug_output = (prog | debug ) ? rbus.debug_output : mbus.disp_out;
   
 
@@ -134,7 +152,7 @@ clk_div cdiv(clk,Rst,16'd500,clk_7seg);
 //  RISCVcore_uart rv_core(.*);
 //    RISCVcore_uart rv_core(.clk(clk_50M), .*);  
     RISCVcore_uart rv_core(rbus.core);    
-    Memory_Controller memcon0(rbus.memcon, mbus.memcon);
+    Memory_Controller memcon0(key_wen,rbus.memcon, mbus.memcon);
     
     Debug_Display d0(mbus.display);
     

@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps 
 
 module Memory_Controller (
+    output logic key_wen, //added for loading key using memory mapped interface
     riscv_bus rbus, 
     mmio_bus mbus
 );
@@ -68,6 +69,10 @@ always_comb begin
     mbus.rx_ren = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_rea : 1'b0;
     mbus.disp_wea = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_wea : 1'b0;
     mbus.disp_dat = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_din : 32'h0;
+    
+    //memory mapped interface for key register
+    key_wen  = (mmio_region & (mem_addr_lower[11:8] == 4'hf)) ? mem_wea : 1'b0;
+    
 //    if (mmio_region) begin
 //        if (mem_addr_lower == 12'h400) begin
 //            mem_dout = mbus.uart_dout;
