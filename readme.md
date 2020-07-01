@@ -54,9 +54,11 @@ Clocking Options
   Clocking Features: Frequency Synthesis
   Jitter Optimization: Balanced
   Input Clock Information:
+    Input Clock:Primary 
     Port Name: clk
     Input Frequency: 100
     Input Jitter 0.010
+  Leave other options as default
 
 Output Clocks
   clk_out1:
@@ -67,7 +69,12 @@ Output Clocks
     port name: clk_5M
     output freq: 5
     Duty Cycle: 50
+<<<<<<< HEAD
   Enable Optional Inputs: uncheck reset and locked
+=======
+
+  uncheck the "reset" and "locked" options under Enable Optional Inputs/Outputs for MMCM/PLL
+>>>>>>> 136f278f5a8755238308d558a792ea500ac960ac
 ```
 
 ```
@@ -147,7 +154,23 @@ Note: disable contrandicting files from the project hierarchy: rv_uart_top.sv, r
 	see the help menu for reprogram.py for usage. The default port for usb is /dev/ttyUSB1 and default baudrate is 115200. You can also 		input the usb port and baud rate from the terminal while running the program. The required argument is the hex file of the program you 		want to load to the miniRISC-V core. 
   
 Testing print() on 7 seg display:
+Function Mode: 
+debug switch (SW 15) -> OFF
+Prog  switch (SW 14) -> OFF
 Printed out integers can be seen on the 7 seg display. The debug_input[4:0] signal can be used to display printed value according to their order in the code e.g. debug_input=5'b00000 shows the most recent printed value, 5'b00001 shows the second most recent printed value and so on.
+
+Register File Debug Mode:
+debug switch (SW 15) -> ON
+Prog  switch (SW 14) -> OFF
+Registers can be seen on the 7 seg display. The debug_input[4:0] signal can be used to display a particular register file represented by the debug_input value e.g. debug_input=5'b00001 register x1, 5'b00002 shows the register x2 and so on.Register File Debug Mode:
+
+Program Debug Mode:
+debug switch (SW 15) -> OFF
+Prog  switch (SW 14) -> ON
+Loaded instructions can be seen on the 7 seg display. The debug_input[4:0] signal can be used to display the first 32 instructions loaded into the memory.
+
+
+
 
 UART test:
 For a quick test of the UART interface, there is a c code named uartTest.c and python application named pyterminal.py. The c code simply reads a byte from the uart receiver and writes back to the transmitter. You have to program the core with uartTest.hex using reprogram.py. On the PC end, run the pyterminal.py. It will asks user to input a character and then echo back the character sent by the uartTest.c program in the miniRISC-V core.  
