@@ -71,8 +71,8 @@ module Forwarding
                    (EX_MEM_rd==ID_EX_rs2));
   assign cond2_2 = ((MEM_WB_regwrite) && (MEM_WB_rd==ID_EX_rs2));
   assign cond2_3 = ((WB_ID_regwrite) && (WB_ID_rd==ID_EX_rs2));
-  assign sel_fw1=cond1_1 ? 2'b10 : cond1_2 ? 2'b11 : cond1_3 ? 2'b01 : 2'b00;
-  assign sel_fw2=cond2_1 ? 2'b10 : cond2_2 ? 2'b11 : cond2_3 ? 2'b01 : 2'b00;
+  assign sel_fw1 = (ID_EX_rs1==0) ? 2'b00: cond1_1 ? 2'b10 : cond1_2 ? 2'b11 : cond1_3 ? 2'b01 : 2'b00;
+  assign sel_fw2 = (ID_EX_rs2==0) ? 2'b00: cond2_1 ? 2'b10 : cond2_2 ? 2'b11 : cond2_3 ? 2'b01 : 2'b00;
     
   always_comb
     case(sel_fw1)

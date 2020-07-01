@@ -98,7 +98,7 @@ module rv_uart_top
   logic [95:0] key; 
   
   
-  assign key[95:48]=48'h3cf3cf3cf3cf;
+assign key[95:48]=48'h3cf3cf3cf3cf;
 assign key[47:24]=24'h30c30c;
 assign key[23:12]=12'hbae;
 assign key[11:0]=12'h3cf;
@@ -113,6 +113,7 @@ assign key[11:0]=12'h3cf;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
 //`ifndef SYNTHESIS
+
 clk_wiz_0 c0(.*);
   riscv_bus rbus(.clk(clk_50M), .*);
   mmio_bus mbus(.clk(clk_50M), .BR_clk(clk), .*);
@@ -120,6 +121,14 @@ clk_div cdiv(clk,Rst,16'd500,clk_7seg);
 //`else
 // riscv_bus rbus(.*);
 // mmio_bus mbus(.*);
+
+ // riscv_bus rbus(.*);
+ // mmio_bus mbus(.*);
+//`else
+// clk_wiz_0 c0(.*);
+ // riscv_bus rbus(.clk(clk_50M), .*);
+  //mmio_bus mbus(.clk(clk_50M),  .*);
+
 //`endif
   
   assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};

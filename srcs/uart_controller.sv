@@ -121,6 +121,7 @@ module uart_controller(
     
     assign tx_fifo_din = din;
     
+
 //    `ifdef SYNTHESIS
 //    uart_tx6 tx0( .data_in(tx_din), .en_16_x_baud(en_baud), .serial_out(tx), .buffer_write(tx_write), .buffer_data_present(tx_pres),
 //        .buffer_half_full(tx_half), .buffer_full(tx_full), .buffer_reset(rst), .clk(clk));
@@ -143,6 +144,10 @@ module uart_controller(
         if (tx_wen == 1) $write("%s", din);
     end
 //    `endif
+
+       // .dout(tx_din), .full(tx_fifo_full), .empty(tx_fifo_empty)); 
+    //`endif
+
     
     always_ff @(posedge clk) begin
         tx_write <= tx_fifo_ren;
