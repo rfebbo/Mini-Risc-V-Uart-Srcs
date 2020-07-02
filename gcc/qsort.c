@@ -1,7 +1,7 @@
 #define INSERTION_THRESHOLD 10
 #define NSTACK 50
-#define DATA_SIZE 4
-#include "print.h"
+#define DATA_SIZE 6
+#include "uart.h"
 
 #define SWAP(a, b)            \
     do                        \
@@ -125,15 +125,33 @@ void sort(unsigned int n, int arr[])
 int main(void)
 {
     unsigned int i = 0;
+    unsigned char buffer[20];
 
-    int input_data[DATA_SIZE] = {3, 4, 2, 1};
+    int input_data[DATA_SIZE] = {29, 7, 3, 4, 2, 9};
 
-    sort(DATA_SIZE, input_data);
-
-    for(i = 0; i < DATA_SIZE; i++)
+    itoa(298, buffer);
+    uart_print(buffer);
+    itoa(7, buffer);
+    uart_print(buffer);
+/*
+    uart_write_blocking('\n');
+    for (i = 0; i < DATA_SIZE; i++)
     {
-        print(input_data[i]);
+        itoa(input_data[i], buffer);
+        uart_print(buffer);
+        uart_write_blocking('\n');
     }
 
+    uart_write_blocking('\n');
+
+    sort(DATA_SIZE, input_data);
+    
+    for(i = 0; i < DATA_SIZE; i++)
+    {
+        itoa(input_data[i], buffer);
+        uart_print(buffer);
+        uart_write_blocking('\n');
+    }
+*/
     return 0;
 }

@@ -47,20 +47,11 @@ char uart_read_blocking()
 
 void uart_print(char c[])
 {
-	char *ptr = &c[0];
-	int offset = 0;
-
-	while (*(ptr + offset) != '\0')
+	int len = strlen(c);
+	for (int i = 0; i < len; i++)
 	{
-		uart_write_blocking(*(ptr + offset));
-		offset++;
+		uart_write_blocking(c[i]);
 	}
-
-	//int len = strlen(c);
-	//for (int i = 0; i < len; i++)
-	//{
-	//	uart_write_blocking(c[i]);
-	//}
 }
 
 void readline(char c[], int len)
