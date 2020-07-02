@@ -1,4 +1,5 @@
 #include "uart.h"
+#include "print.h"
 #include "utils.h"
 
 #define INT_OFFSET 48
@@ -48,6 +49,7 @@ char uart_read_blocking()
 void uart_print(char c[])
 {
 	int len = strlen(c);
+    print(len);
 	for (int i = 0; i < len; i++)
 	{
 		uart_write_blocking(c[i]);
@@ -134,6 +136,7 @@ void itoa(int a, char *c)
 	if (a < 10)
 	{
 		c[idx] = a + INT_OFFSET;
+        c[idx + 1] = '\0';
 
 		return;
 	}
@@ -152,7 +155,10 @@ void itoa(int a, char *c)
 		idx++;
 
 		if ((p2 == 1) || (idx == 12))
+        {
+            c[idx] = '\0';
 			return;
+        }
 
 		p2 = divide(p2, 10);
 		p1 = divide(p1, 10);

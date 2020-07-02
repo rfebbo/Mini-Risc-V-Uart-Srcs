@@ -129,10 +129,10 @@ int main(void)
 
     int input_data[DATA_SIZE] = {29, 7, 3, 4, 2, 9};
 
-    itoa(298, buffer);
+    itoa(2, buffer);
     uart_print(buffer);
-    itoa(7, buffer);
-    uart_print(buffer);
+    //itoa(7, buffer);
+    //uart_print(buffer);
 /*
     uart_write_blocking('\n');
     for (i = 0; i < DATA_SIZE; i++)
