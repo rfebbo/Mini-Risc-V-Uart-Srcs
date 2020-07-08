@@ -143,8 +143,8 @@ module Memory(main_bus bus);
  
  logic ctrl_fwd; 
  
-// assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd == bus.EX_MEM_rs2);
- assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));    
+assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd == bus.EX_MEM_rs2);
+//assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));  //why the last clause, probably this causing pipeline issues  
 // assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd != bus.EX_MEM_rs1) &&
 //    ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));    
 // assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_alures == bus.EX_MEM_alures);
