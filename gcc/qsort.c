@@ -129,29 +129,26 @@ int main(void)
 
     int input_data[DATA_SIZE] = {29, 7, 3, 4, 2, 9};
 
-    itoa(2, buffer);
-    uart_print(buffer);
-    //itoa(7, buffer);
-    //uart_print(buffer);
-/*
+    for(int i = 0; i < 1000000; i++) {}
     uart_write_blocking('\n');
     for (i = 0; i < DATA_SIZE; i++)
     {
+        if (i != 0)
+            uart_print(", ");
         itoa(input_data[i], buffer);
         uart_print(buffer);
-        uart_write_blocking('\n');
     }
 
     uart_write_blocking('\n');
 
     sort(DATA_SIZE, input_data);
-    
+
     for(i = 0; i < DATA_SIZE; i++)
     {
         itoa(input_data[i], buffer);
         uart_print(buffer);
         uart_write_blocking('\n');
     }
-*/
+
     return 0;
 }

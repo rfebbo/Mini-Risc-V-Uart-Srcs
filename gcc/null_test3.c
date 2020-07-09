@@ -1,3 +1,5 @@
+#include "uart.h"
+
 void print(int a)
 {
     volatile int * p = (int *)0xaaaaa008;
@@ -12,23 +14,13 @@ void test(char c[])
     c[i + 1] = '\0';
 }
 
-int strlen(char c[])
-{
-	int i = 0;
-
-	while (c[i] != '\0')
-	{
-		i++;
-	}
-
-	return i;
-}
-
 int main(void)
 {
     char c[10] = "Hello!!!"; // length of 8
     
-   test(c);
+    test(c);
+
+    uart_print(c);
 /*
     int i = 0;
 

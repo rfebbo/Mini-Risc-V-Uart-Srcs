@@ -1,5 +1,4 @@
 #include "uart.h"
-#include "print.h"
 #include "utils.h"
 
 #define INT_OFFSET 48
@@ -49,7 +48,6 @@ char uart_read_blocking()
 void uart_print(char c[])
 {
 	int len = strlen(c);
-    print(len);
 	for (int i = 0; i < len; i++)
 	{
 		uart_write_blocking(c[i]);
