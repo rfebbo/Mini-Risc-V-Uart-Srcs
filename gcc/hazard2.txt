@@ -11,7 +11,6 @@ Disassembly of section .text:
    1000c:	00c08093          	addi	ra,ra,12 # 10014 <_endloop>
    10010:	060000ef          	jal	ra,10070 <main>
 
-
 00010014 <_endloop>:
    10014:	0000006f          	j	10014 <_endloop>
 
@@ -63,9 +62,9 @@ Disassembly of section .text:
 
    10088:	fe042423          	sw	zero,-24(s0)            // Initializes i in memory to 0.
 
-   1008c:	f8dff0ef          	jal	ra,10018 <nothing>   // int temp = nothing();
-   10090:	fea42223          	sw	a0,-28(s0)              // Stores int temp into memory.
-
+   1008c:	00100793          	li	a5,1                    // int temp = 1;
+   10090:	fef42223          	sw	a5,-28(s0)              // Stores int temp into memory.
+   
    10094:	fe042423          	sw	zero,-24(s0)            // Initializes i in memory to 0.
    10098:	0180006f          	j	100b0 <main+0x40>       // Check conditional of for loop before starting.
    1009c:	00200793          	   li	a5,2                    // num = 2; (temp register)
