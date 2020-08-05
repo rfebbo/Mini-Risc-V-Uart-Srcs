@@ -26,39 +26,40 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-//modport regfile(
-//        input clk, adr_rs1, IF_ID_rs2, MEM_WB_rd,
-//        input WB_res, MEM_WB_regwrite,
-//        output IF_ID_dout_rs1, IF_ID_dout_rs2 ); 
+//modport regfile
+//(
+//  input  clk, adr_rs1, IF_ID_rs2, MEM_WB_rd,
+//  input  WB_res, MEM_WB_regwrite,
+//  output IF_ID_dout_rs1, IF_ID_dout_rs2
+//); 
 
 module Regfile(main_bus bus);
-  
-  
-  logic [31:0] regdata[31:0];  // array of 32 32-bit registers
+  logic [31:0] regdata[31:0]; // array of 32 32-bit registers
   logic        wen;
 
-  //write enable if regwrite is asserted and read address is not zero
+  // write enable if regwrite is asserted and read address is not zero
   assign wen = bus.MEM_WB_regwrite && |bus.MEM_WB_rd;
     
   assign bus.IF_ID_dout_rs1 = |bus.adr_rs1 ? regdata[bus.adr_rs1] : 0;
   assign bus.IF_ID_dout_rs2 = |bus.IF_ID_rs2 ? regdata[bus.IF_ID_rs2] : 0;
 
-  always_ff @(posedge bus.clk)begin
+  always_ff @(posedge bus.clk) begin
     if(bus.Rst)
-        regdata[2] <= 1020;
+      regdata[2] <= 1020;
     if(wen)
       regdata[bus.MEM_WB_rd] <= bus.WB_res;
   end
+  
   `ifndef SYNTHESIS
     integer i;
     initial begin
-      for(i=0; i<32 ;i=i+1)begin
+      for (i = 0; i < 32; i = i + 1) begin
         if (i == 2)
-            regdata[i] = 511; 
+          regdata[i] = 511; 
         else
-            regdata[i] = $random;
+          regdata[i] = $random;
       end
-        end
-      `endif
-    endmodule: Regfile
+    end
+  `endif
+endmodule: Regfile
 

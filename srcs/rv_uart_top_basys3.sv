@@ -83,7 +83,7 @@ module rv_uart_top
   (
     input  logic        clk,         // Clock
     input  logic        Rst,         // Reset
-    input  logic        debug,       // Enables RISCV bus output to be displayed on 7-segment display
+    input  logic        debug,       // Enables RISCV bus output to be displayed on 7-segment display and see register content.
     input  logic        rx,          // UART receive pin
     input  logic        prog,        // Similar to debug, but shows memory address, and allows reprogramming
     input  logic [4:0]  debug_input, // Tied to RISCV bus core and MMIO bus display input

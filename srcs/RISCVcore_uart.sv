@@ -98,19 +98,19 @@ interface main_bus
   // Modport for fetch stage.
   modport fetch
   (
-    input  clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
-    input  dbg, mem_hold,
-    input  uart_dout, memcon_prog_ena,
-    input  debug_input, branoff,
-    output IF_ID_pres_addr, ins, 
-    input  imem_dout, 
-    output imem_en, imem_addr
+    input  clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal, // Clock, PC enable, debug, prog, branch, IF/ID jalr, IF/ID jal
+    input  dbg, mem_hold, // dbg, mem_hold
+    input  uart_dout, memcon_prog_ena, // UART data out, Memory controller program enable
+    input  debug_input, branoff, // debug input, branoff?
+    output IF_ID_pres_addr, ins, // IF/ID present address, ins?
+    input  imem_dout, // Instruction memory data out
+    output imem_en, imem_addr // Instruction memory enable, instruction memory address
   );
     
   // Modport for register file
   modport regfile
   (
-    input  clk, adr_rs1, IF_ID_rs2, MEM_WB_rd, Rst,
+    input  clk, adr_rs1, IF_ID_rs2, MEM_WB_rd, Rst, // Clock, address rs1, 
     input  WB_res, MEM_WB_regwrite,
     output IF_ID_dout_rs1, IF_ID_dout_rs2 
   ); 
