@@ -2,10 +2,10 @@
 
 
 module Memory_Controller
-  (
-    riscv_bus rbus, // RISCV bus
-    mmio_bus  mbus  // MMIO bus
-  );
+(
+  riscv_bus rbus, // RISCV bus
+  mmio_bus  mbus  // MMIO bus
+);
 
   logic        clk, rst;            // Clock, reset
   logic        mem_wea, mem_rea;    // Memory write, read enable

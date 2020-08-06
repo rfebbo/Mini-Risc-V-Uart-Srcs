@@ -26,11 +26,11 @@
 
 // Interface bus between all pipeline stages.
 interface main_bus
-  (
-    input logic        clk, Rst, debug, dbg, prog, mem_hold, // Clock, reset, debug, dbg, programmable, memory hold
-    input logic [4:0]  debug_input,                          // Debug input
-    input logic [95:0] key                                   // Key
-  );
+(
+  input logic        clk, Rst, debug, dbg, prog, mem_hold, // Clock, reset, debug, dbg, programmable, memory hold
+  input logic [4:0]  debug_input,                          // Debug input
+  input logic [95:0] key                                   // Key
+);
     
   logic        PC_En;
   logic        hz;

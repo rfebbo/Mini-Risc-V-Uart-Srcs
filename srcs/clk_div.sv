@@ -2,13 +2,13 @@
 
 
 module clk_div
-  (
-    input  logic        clk_in,
-    input  logic        rst,
-    input  logic [15:0] div,
-    output logic        clk_out
-  );
-    
+(
+  input  logic        clk_in,
+  input  logic        rst,
+  input  logic [15:0] div,
+  output logic        clk_out
+);
+
   logic        clk_sig;
   logic [15:0] cnt;
 

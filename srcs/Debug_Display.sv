@@ -2,9 +2,9 @@
 
 
 module Debug_Display
-  (
-    mmio_bus mbus
-  );
+(
+  mmio_bus mbus
+);
 
   logic 		   clk, rst, mmio_wea;
   logic		     addr_up, addr_dn; 
@@ -12,7 +12,7 @@ module Debug_Display
   logic [4:0]  addr;
   integer      writecount = 0;
 
-  Addressable_FIFO u0 (.wea(mmio_wea), .*);
+  Addressable_FIFO u0(.wea(mmio_wea), .*);
 
   always_comb begin : proc_bustransfer
     clk           = mbus.clk;

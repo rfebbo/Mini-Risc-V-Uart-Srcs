@@ -3,11 +3,11 @@
 
 // Interface for RISCV bus.
 interface riscv_bus
-  (
-    input logic        clk, Rst, debug, prog,
-    input logic [4:0]  debug_input,
-    input logic [95:0] key
-  );
+(
+  input logic        clk, Rst, debug, prog,
+  input logic [4:0]  debug_input,
+  input logic [95:0] key
+);
 
   logic        mem_wea, mem_rea;
   logic [3:0]  mem_en;
@@ -40,11 +40,11 @@ endinterface
 
 // Interface for MMIO bus.
 interface mmio_bus
-  (
-    input  logic       clk, Rst, rx,
-    input  logic [4:0] debug_input,
-    output logic       tx
-  );
+(
+  input  logic       clk, Rst, rx,
+  input  logic [4:0] debug_input,
+  output logic       tx
+);
 
   logic [31:0] led;
   logic        disp_wea;
@@ -80,18 +80,18 @@ endinterface
 
 
 module rv_uart_top
-  (
-    input  logic        clk,         // Clock
-    input  logic        Rst,         // Reset
-    input  logic        debug,       // Enables RISCV bus output to be displayed on 7-segment display and see register content.
-    input  logic        rx,          // UART receive pin
-    input  logic        prog,        // Similar to debug, but shows memory address, and allows reprogramming
-    input  logic [4:0]  debug_input, // Tied to RISCV bus core and MMIO bus display input
-    output logic        tx, clk_out, // UART and clock output
-    output logic [6:0]  sev_out,     // 7-segment display cathode output
-    output logic [3:0]  an,          // 7-segment display anode output
-    output logic [15:0] led          // LED output
-  );
+(
+  input  logic        clk,         // Clock
+  input  logic        Rst,         // Reset
+  input  logic        debug,       // Enables RISCV bus output to be displayed on 7-segment display and see register content.
+  input  logic        rx,          // UART receive pin
+  input  logic        prog,        // Similar to debug, but shows memory address, and allows reprogramming
+  input  logic [4:0]  debug_input, // Tied to RISCV bus core and MMIO bus display input
+  output logic        tx, clk_out, // UART and clock output
+  output logic [6:0]  sev_out,     // 7-segment display cathode output
+  output logic [3:0]  an,          // 7-segment display anode output
+  output logic [15:0] led          // LED output
+);
 
   logic [31:0] debug_output;             // Program output
   logic [3:0]  seg_cur, seg_nxt;         // 7-segment cathode values
@@ -151,7 +151,7 @@ module rv_uart_top
   // Anode activating signals for 4 LEDs - decoder to generate anode signals.
   // Outputs debug output from MMIO bus onto 7-segment display.
   always_comb begin
-    case(an_cur)
+    case (an_cur)
       a0: begin 
         an_nxt  = a1;
         seg_nxt = debug_output[7:4];

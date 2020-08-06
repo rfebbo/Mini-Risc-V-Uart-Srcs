@@ -2,9 +2,9 @@
 
 
 module uart_controller
-  (
-    mmio_bus mbus
-  );
+(
+  mmio_bus mbus
+);
     
   logic       clk, rst, rx, rx_ren, tx_wen;
   logic [7:0] din;
