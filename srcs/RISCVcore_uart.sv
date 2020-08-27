@@ -218,7 +218,7 @@ module RISCVcore_uart
 
   assign bus.PC_En   = (!bus.hz);                         // Main bus signals.
   assign dbg         = (debug || prog);                   // Added to stop pipeline on prog and/or debug.
-  assign bus.adr_rs1 = debug ? debug_input:bus.IF_ID_rs1; // Debugging resistor.
+  assign bus.adr_rs1 = debug ? debug_input : bus.IF_ID_rs1; // Debugging resistor.
 
   // Controls what is sent to debug output (7-segment display).
   always_ff @(posedge clk) begin
