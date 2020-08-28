@@ -20,34 +20,37 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Memory_ff(
-    input  logic       clk,
-    input  logic       Rst,
-    input  logic       wea,
-    input  logic       En,
-    input  logic [7:0] din,
-    input  logic [9:0] addr,
-    output logic [7:0] dout
-    );
-//    logic [7:0] memdata[63:0];
-//    logic [7:0] memdata[16383:0];
-    logic [7:0] memdata[1023:0];    
-    always_ff @(posedge clk)
-        if(Rst)
-            dout<=8'h00;
-        else if(wea & En)begin
-            memdata[addr]<=din;
-            dout<=din;
-            end
-        else
-            dout<=memdata[addr];
-//    `ifndef SYNTHESIS
-//                integer i;
-//                initial begin
-//                  for(i=0; i<1024 ;i=i+1)begin
-//                    memdata[i] = 8'hff;
-//                  end
-//                    end
-//                  `endif        
-        
+module Memory_ff
+(
+  input  logic       clk,
+  input  logic       Rst,
+  input  logic       wea,
+  input  logic       En,
+  input  logic [7:0] din,
+  input  logic [9:0] addr,
+  output logic [7:0] dout
+);
+
+//logic [7:0] memdata[63:0];
+//logic [7:0] memdata[16383:0];
+  logic [7:0] memdata[1023:0];
+
+  always_ff @(posedge clk)
+    if (Rst)
+      dout <= 8'h00;
+    else if (wea & En) begin
+      memdata[addr] <= din;
+      dout          <= din;
+    end
+    else
+      dout <= memdata[addr];
+
+//`ifndef SYNTHESIS
+//  integer i;
+//  initial begin
+//    for (i = 0; i < 1024; i = i + 1) begin
+//      memdata[i] = 8'hff;
+//    end
+//  end
+//`endif
 endmodule : Memory_ff

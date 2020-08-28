@@ -1,0 +1,245 @@
+core   0: 0x0000000000010074 (0x00002197) auipc   gp, 0x2
+core   0: 0x0000000000010078 (0x27c18193) addi    gp, gp, 636
+core   0: 0x000000000001007c (0x80c18513) addi    a0, gp, -2036
+core   0: 0x0000000000010080 (0x82818613) addi    a2, gp, -2008
+core   0: 0x0000000000010084 (0x40a60633) sub     a2, a2, a0
+core   0: 0x0000000000010088 (0x00000593) li      a1, 0
+core   0: 0x000000000001008c (0x350000ef) jal     pc + 0x350
+core   0: 0x00000000000103dc (0x00f00313) li      t1, 15
+core   0: 0x00000000000103e0 (0x00050713) mv      a4, a0
+core   0: 0x00000000000103e4 (0x02c37e63) bgeu    t1, a2, pc + 60
+core   0: 0x00000000000103e8 (0x00f77793) andi    a5, a4, 15
+core   0: 0x00000000000103ec (0x0a079063) bnez    a5, pc + 160
+core   0: 0x000000000001048c (0x00279693) slli    a3, a5, 2
+core   0: 0x0000000000010490 (0x00000297) auipc   t0, 0x0
+core   0: 0x0000000000010494 (0x005686b3) add     a3, a3, t0
+core   0: 0x0000000000010498 (0x00008293) mv      t0, ra
+core   0: 0x000000000001049c (0xfa0680e7) jalr    ra, a3, -96
+core   0: 0x0000000000010460 (0x00b701a3) sb      a1, 3(a4)
+core   0: 0x0000000000010464 (0x00b70123) sb      a1, 2(a4)
+core   0: 0x0000000000010468 (0x00b700a3) sb      a1, 1(a4)
+core   0: 0x000000000001046c (0x00b70023) sb      a1, 0(a4)
+core   0: 0x0000000000010470 (0x00008067) ret
+core   0: 0x00000000000104a0 (0x00028093) mv      ra, t0
+core   0: 0x00000000000104a4 (0xff078793) addi    a5, a5, -16
+core   0: 0x00000000000104a8 (0x40f70733) sub     a4, a4, a5
+core   0: 0x00000000000104ac (0x00f60633) add     a2, a2, a5
+core   0: 0x00000000000104b0 (0xf6c378e3) bgeu    t1, a2, pc - 144
+core   0: 0x00000000000104b4 (0xf3dff06f) j       pc - 0xc4
+core   0: 0x00000000000103f0 (0x08059263) bnez    a1, pc + 132
+core   0: 0x00000000000103f4 (0xff067693) andi    a3, a2, -16
+core   0: 0x00000000000103f8 (0x00f67613) andi    a2, a2, 15
+core   0: 0x00000000000103fc (0x00e686b3) add     a3, a3, a4
+core   0: 0x0000000000010400 (0x00b72023) sw      a1, 0(a4)
+core   0: 0x0000000000010404 (0x00b72223) sw      a1, 4(a4)
+core   0: 0x0000000000010408 (0x00b72423) sw      a1, 8(a4)
+core   0: 0x000000000001040c (0x00b72623) sw      a1, 12(a4)
+core   0: 0x0000000000010410 (0x01070713) addi    a4, a4, 16
+core   0: 0x0000000000010414 (0xfed766e3) bltu    a4, a3, pc - 20
+core   0: 0x0000000000010418 (0x00061463) bnez    a2, pc + 8
+core   0: 0x0000000000010420 (0x40c306b3) sub     a3, t1, a2
+core   0: 0x0000000000010424 (0x00269693) slli    a3, a3, 2
+core   0: 0x0000000000010428 (0x00000297) auipc   t0, 0x0
+core   0: 0x000000000001042c (0x005686b3) add     a3, a3, t0
+core   0: 0x0000000000010430 (0x00c68067) jalr    zero, a3, 12
+core   0: 0x0000000000010450 (0x00b703a3) sb      a1, 7(a4)
+core   0: 0x0000000000010454 (0x00b70323) sb      a1, 6(a4)
+core   0: 0x0000000000010458 (0x00b702a3) sb      a1, 5(a4)
+core   0: 0x000000000001045c (0x00b70223) sb      a1, 4(a4)
+core   0: 0x0000000000010460 (0x00b701a3) sb      a1, 3(a4)
+core   0: 0x0000000000010464 (0x00b70123) sb      a1, 2(a4)
+core   0: 0x0000000000010468 (0x00b700a3) sb      a1, 1(a4)
+core   0: 0x000000000001046c (0x00b70023) sb      a1, 0(a4)
+core   0: 0x0000000000010470 (0x00008067) ret
+core   0: 0x0000000000010090 (0x00000517) auipc   a0, 0x0
+core   0: 0x0000000000010094 (0x23c50513) addi    a0, a0, 572
+core   0: 0x0000000000010098 (0x1ec000ef) jal     pc + 0x1ec
+core   0: 0x0000000000010284 (0x00050593) mv      a1, a0
+core   0: 0x0000000000010288 (0x00000693) li      a3, 0
+core   0: 0x000000000001028c (0x00000613) li      a2, 0
+core   0: 0x0000000000010290 (0x00000513) li      a0, 0
+core   0: 0x0000000000010294 (0x2240006f) j       pc + 0x224
+core   0: 0x00000000000104b8 (0x000127b7) lui     a5, 0x12
+core   0: 0x00000000000104bc (0xaf47a703) lw      a4, -1292(a5)
+core   0: 0x00000000000104c0 (0x00050313) mv      t1, a0
+core   0: 0x00000000000104c4 (0x14872783) lw      a5, 328(a4)
+core   0: 0x00000000000104c8 (0x00079663) bnez    a5, pc + 12
+core   0: 0x00000000000104cc (0x14c70793) addi    a5, a4, 332
+core   0: 0x00000000000104d0 (0x14f72423) sw      a5, 328(a4)
+core   0: 0x00000000000104d4 (0x0047a703) lw      a4, 4(a5)
+core   0: 0x00000000000104d8 (0x01f00813) li      a6, 31
+core   0: 0x00000000000104dc (0xfff00513) li      a0, -1
+core   0: 0x00000000000104e0 (0x04e84a63) blt     a6, a4, pc + 84
+core   0: 0x00000000000104e4 (0x00271893) slli    a7, a4, 2
+core   0: 0x00000000000104e8 (0x02030c63) beqz    t1, pc + 56
+core   0: 0x0000000000010520 (0x00170713) addi    a4, a4, 1
+core   0: 0x0000000000010524 (0x00e7a223) sw      a4, 4(a5)
+core   0: 0x0000000000010528 (0x011787b3) add     a5, a5, a7
+core   0: 0x000000000001052c (0x00b7a423) sw      a1, 8(a5)
+core   0: 0x0000000000010530 (0x00000513) li      a0, 0
+core   0: 0x0000000000010534 (0x00008067) ret
+core   0: 0x000000000001009c (0x2a0000ef) jal     pc + 0x2a0
+core   0: 0x000000000001033c (0xff010113) addi    sp, sp, -16
+core   0: 0x0000000000010340 (0x00812423) sw      s0, 8(sp)
+core   0: 0x0000000000010344 (0x00912223) sw      s1, 4(sp)
+core   0: 0x0000000000010348 (0x00011437) lui     s0, 0x11
+core   0: 0x000000000001034c (0x000114b7) lui     s1, 0x11
+core   0: 0x0000000000010350 (0x6bc48793) addi    a5, s1, 1724
+core   0: 0x0000000000010354 (0x6bc40413) addi    s0, s0, 1724
+core   0: 0x0000000000010358 (0x40f40433) sub     s0, s0, a5
+core   0: 0x000000000001035c (0x01212023) sw      s2, 0(sp)
+core   0: 0x0000000000010360 (0x00112623) sw      ra, 12(sp)
+core   0: 0x0000000000010364 (0x40245413) srai    s0, s0, 2
+core   0: 0x0000000000010368 (0x6bc48493) addi    s1, s1, 1724
+core   0: 0x000000000001036c (0x00000913) li      s2, 0
+core   0: 0x0000000000010370 (0x04891263) bne     s2, s0, pc + 68
+core   0: 0x0000000000010374 (0x000114b7) lui     s1, 0x11
+core   0: 0x0000000000010378 (0xd3dff0ef) jal     pc - 0x2c4
+core   0: 0x00000000000100b4 (0x00008067) ret
+core   0: 0x000000000001037c (0x00011437) lui     s0, 0x11
+core   0: 0x0000000000010380 (0x6bc48793) addi    a5, s1, 1724
+core   0: 0x0000000000010384 (0x6c040413) addi    s0, s0, 1728
+core   0: 0x0000000000010388 (0x40f40433) sub     s0, s0, a5
+core   0: 0x000000000001038c (0x40245413) srai    s0, s0, 2
+core   0: 0x0000000000010390 (0x6bc48493) addi    s1, s1, 1724
+core   0: 0x0000000000010394 (0x00000913) li      s2, 0
+core   0: 0x0000000000010398 (0x02891863) bne     s2, s0, pc + 48
+core   0: 0x00000000000103c8 (0x0004a783) lw      a5, 0(s1)
+core   0: 0x00000000000103cc (0x00190913) addi    s2, s2, 1
+core   0: 0x00000000000103d0 (0x00448493) addi    s1, s1, 4
+core   0: 0x00000000000103d4 (0x000780e7) jalr    a5
+core   0: 0x0000000000010178 (0x000007b7) lui     a5, 0x0
+core   0: 0x000000000001017c (0x00078793) mv      a5, a5
+core   0: 0x0000000000010180 (0x02078663) beqz    a5, pc + 44
+core   0: 0x00000000000101ac (0xf39ff06f) j       pc - 0xc8
+core   0: 0x00000000000100e4 (0x000127b7) lui     a5, 0x12
+core   0: 0x00000000000100e8 (0x00012537) lui     a0, 0x12
+core   0: 0x00000000000100ec (0xaf078593) addi    a1, a5, -1296
+core   0: 0x00000000000100f0 (0xaf050793) addi    a5, a0, -1296
+core   0: 0x00000000000100f4 (0x40f585b3) sub     a1, a1, a5
+core   0: 0x00000000000100f8 (0x4025d593) srai    a1, a1, 2
+core   0: 0x00000000000100fc (0x01f5d793) srli    a5, a1, 31
+core   0: 0x0000000000010100 (0x00b785b3) add     a1, a5, a1
+core   0: 0x0000000000010104 (0x4015d593) srai    a1, a1, 1
+core   0: 0x0000000000010108 (0x00058c63) beqz    a1, pc + 24
+core   0: 0x0000000000010120 (0x00008067) ret
+core   0: 0x00000000000103d8 (0xfc1ff06f) j       pc - 0x40
+core   0: 0x0000000000010398 (0x02891863) bne     s2, s0, pc + 48
+core   0: 0x000000000001039c (0x00c12083) lw      ra, 12(sp)
+core   0: 0x00000000000103a0 (0x00812403) lw      s0, 8(sp)
+core   0: 0x00000000000103a4 (0x00412483) lw      s1, 4(sp)
+core   0: 0x00000000000103a8 (0x00012903) lw      s2, 0(sp)
+core   0: 0x00000000000103ac (0x01010113) addi    sp, sp, 16
+core   0: 0x00000000000103b0 (0x00008067) ret
+core   0: 0x00000000000100a0 (0x00012503) lw      a0, 0(sp)
+core   0: 0x00000000000100a4 (0x00410593) addi    a1, sp, 4
+core   0: 0x00000000000100a8 (0x00000613) li      a2, 0
+core   0: 0x00000000000100ac (0x180000ef) jal     pc + 0x180
+
+/* MAIN */
+core   0: 0x000000000001022c (0xfe010113) addi    sp, sp, -32        // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+core   0: 0x0000000000010230 (0x00112e23) sw      ra, 28(sp)         // Stores return address at start of stack.
+core   0: 0x0000000000010234 (0x00812c23) sw      s0, 24(sp)         // Stores frame pointer at 2nd from start of stack.
+core   0: 0x0000000000010238 (0x02010413) addi    s0, sp, 32         // Sets frame pointer to start of stack.
+
+core   0: 0x000000000001023c (0x00100793) li      a5, 1              // int num = 1; (temp register).
+core   0: 0x0000000000010240 (0xfef42623) sw      a5, -20(s0)        // Stores num into memory.
+
+core   0: 0x0000000000010244 (0xfe042423) sw      zero, -24(s0)      // Initializes i in memory to 0.
+
+core   0: 0x0000000000010248 (0xf69ff0ef) jal     pc - 0x98          // int temp = nothing();
+
+/* NOTHING */
+core   0: 0x00000000000101b0 (0xff010113) addi    sp, sp, -16        // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+core   0: 0x00000000000101b4 (0x00812623) sw      s0, 12(sp)         // Stores main's frame pointer at start of stack.
+core   0: 0x00000000000101b8 (0x01010413) addi    s0, sp, 16         // Sets frame pointer to start of new stack.
+
+core   0: 0x00000000000101bc (0x00100793) li      a5, 1              // Sets 1 to be returned.
+core   0: 0x00000000000101c0 (0x00078513) mv      a0, a5             // Moves 1 to a0 to be returned.
+
+core   0: 0x00000000000101c4 (0x00c12403) lw      s0, 12(sp)         // Loads main's frame pointer back.
+core   0: 0x00000000000101c8 (0x01010113) addi    sp, sp, 16         // Moves stack pointer back to main's stack.
+core   0: 0x00000000000101cc (0x00008067) ret                        // Return from function.
+
+/* MAIN */
+core   0: 0x000000000001024c (0xfea42223) sw      a0, -28(s0)        // Stores int temp into memory.
+
+core   0: 0x0000000000010250 (0xfe042423) sw      zero, -24(s0)      // Initializes i in memory to 0.
+core   0: 0x0000000000010254 (0x0180006f) j       pc + 0x18          // Check conditional of for loop before starting.
+core   0: 0x000000000001026c (0xfe842783)   lw      a5, -24(s0)        // Loads i into temp register to be checked.
+core   0: 0x0000000000010270 (0xfef054e3) bge     zero, a5, pc - 24  // Keep looping if i <= 0. (blez	a5,100c0 <main+0x2c>)
+core   0: 0x0000000000010258 (0x00200793)   li      a5, 2              // num = 2; (temp register)
+core   0: 0x000000000001025c (0xfef42623)   sw      a5, -20(s0)        // Stores num into memory.
+
+core   0: 0x0000000000010260 (0xfe842783)   lw      a5, -24(s0)        // Loads i into temp register to be modified.
+core   0: 0x0000000000010264 (0x00178793)   addi    a5, a5, 1          // i++;
+core   0: 0x0000000000010268 (0xfef42423)   sw      a5, -24(s0)        // Stores i into memory.
+core   0: 0x000000000001026c (0xfe842783)   lw      a5, -24(s0)        // Loads i into temp register to be checked.
+core   0: 0x0000000000010270 (0xfef054e3) bge     zero, a5, pc - 24  // Keep looping if i <= 0. (blez	a5,100c0 <main+0x2c>)
+
+core   0: 0x0000000000010274 (0xfec42503) lw      a0, -20(s0)        // Sets num as argument for res.
+core   0: 0x0000000000010278 (0xf91ff0ef) jal     pc - 0x70          // res(num);
+
+/* RES */
+core   0: 0x0000000000010208 (0xfe010113) addi    sp, sp, -32        // Sets stack pointer to end of stack. (allocates 4 words on the stack).
+core   0: 0x000000000001020c (0x00812e23) sw      s0, 28(sp)         // Stores main's frame pointer at start of stack.
+core   0: 0x0000000000010210 (0x02010413) addi    s0, sp, 32         // Sets frame pointer to start of new stack.
+
+core   0: 0x0000000000010214 (0xfea42623) sw      a0, -20(s0)        // Stores function argument (int a) in memory.
+
+core   0: 0x0000000000010218 (0xfec42783) lw      a5, -20(s0)        // Loads int a from memory to be returned.
+core   0: 0x000000000001021c (0x00078513) mv      a0, a5             // Moves int a to a0 to be returned.
+
+core   0: 0x0000000000010220 (0x01c12403) lw      s0, 28(sp)         // Loads main's frame pointer back.
+core   0: 0x0000000000010224 (0x02010113) addi    sp, sp, 32         // Moves stack pointer back to main's stack.
+core   0: 0x0000000000010228 (0x00008067) ret                        // Return from function.
+
+/* MAIN */
+core   0: 0x000000000001027c (0xfea42023) sw      a0, -32(s0)        // int result = res(num);
+
+core   0: 0x0000000000010280 (0x0000006f) j       pc + 0x0           // while (1);
+
+
+// After int temp = nothing();
+ra    = 0x1024c
+sp    = 6784
+gp    = 0x122c0 (pre-main usage)
+tp    = 0
+
+t0    = 0x103f8 (pre-main usage)
+t1    = 0
+t2    = 0
+
+s0/fp = 6816
+s1    = 0
+
+a0    = 1
+a1    = 0x7fbebda4 (pre-main usage)
+a2    = 0
+a3    = 0
+a4    = 0x0001 (pre-main usage)
+a5    = 0x0001 
+a6    = 0x001f (pre-main usage)
+a7    = 0
+
+// After int result = res(num);
+ra    = 0x1027c
+sp    = 6784
+gp    = 0x122f0 (pre-main usage)
+tp    = 0
+
+t0    = 0x10428 (pre-main usage)
+t1    = 0
+t2    = 0
+
+s0/fp = 6816
+s1    = 0
+
+a0    = 2
+a1    = 0x7fbebda4 (pre-main usage)
+a2    = 0
+a3    = 0
+a4    = 0x0001 (pre-main usage)
+a5    = 0x0002
+a6    = 0x001f (pre-main usage)
+a7    = 0

@@ -69,8 +69,12 @@ Output Clocks
     port name: clk_5M
     output freq: 5
     Duty Cycle: 50
+<<<<<<< HEAD
+  Enable Optional Inputs: uncheck reset and locked
+=======
 
   uncheck the "reset" and "locked" options under Enable Optional Inputs/Outputs for MMCM/PLL
+>>>>>>> 136f278f5a8755238308d558a792ea500ac960ac
 ```
 
 ```

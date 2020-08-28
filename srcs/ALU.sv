@@ -53,49 +53,56 @@
 
 
 module ALU
- (input  logic [31:0] a,
+(
+  input  logic [31:0] a,
   input  logic [31:0] b,
-  input  logic [31:0]  ID_EX_pres_adr, //jal instr
+  input  logic [31:0] ID_EX_pres_adr, //jal instr
   input  logic [2:0]  alusel,
   input  logic        ID_EX_lui,
   input  logic        ID_EX_jal,
   input  logic        ID_EX_jalr,
   input  logic        ID_EX_auipc,
   input  logic        ID_EX_compare,
-  input logic [95:0] key,
+  input  logic [95:0] key,
   output logic [31:0] res,
-  output logic        comp_res);
+  output logic        comp_res
+);
   
   logic [31:0] s;
   logic [32:0] comp_res_temp;
 
-//  assign comp_res_temp = a - b;
-//  assign comp_res= (a < b);
-    assign comp_res_temp = (a < b);
+//assign comp_res_temp = a - b;
+//assign comp_res      = (a < b);
+  assign comp_res_temp = (a < b);
 
   always_comb
-    case(alusel)
-      3'b000 : s = a+b;
-      3'b001 : s = a-b;
-      3'b010 : s = a&b;
-      3'b011 : s = a|b;
-      3'b100 : s = a^b;
-      3'b101 : s = a<<b[4:0];
-      3'b110 : s = a>>b[4:0];
-      3'b111 : s = a>>>b[4:0];
+    case (alusel)
+      3'b000: s = a + b;
+      3'b001: s = a - b;
+      3'b010: s = a & b;
+      3'b011: s = a | b;
+      3'b100: s = a ^ b;
+      3'b101: s = a << b[4:0];
+      3'b110: s = a >> b[4:0];
+      3'b111: s = a >>> b[4:0];
     endcase
 
-//    logic [95:0] key;
+//logic [95:0] key;
 
-   // ALU_chaos ac0(.a(a), .b(b), .opcode(alusel), .key(key), .y(s));
+//ALU_chaos ac0
+//(
+//  .a(a),
+//  .b(b),
+//  .opcode(alusel),
+//  .key(key),
+//  .y(s)
+//);
 
-//  assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
-//                                         ((ID_EX_compare&&comp_res) ? 
-//                                          32'h1 : s);
-//    assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
-//                                         ((ID_EX_compare&&comp_res_temp) ? 
-//                                          32'h1 : s);
-    assign res = (ID_EX_lui) ? b : (ID_EX_auipc) ? (b + ID_EX_pres_adr[11:0]) :  (ID_EX_jal) ? (ID_EX_pres_adr+4) : (ID_EX_jalr) ? (ID_EX_pres_adr+4) : 
-                                         ((ID_EX_compare&&comp_res_temp) ? 
-                                          32'h1 : s);
+//assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
+//             ((ID_EX_compare&&comp_res) ? 32'h1 : s);
+//assign res = (ID_EX_lui) ? b : (ID_EX_jal||ID_EX_jalr) ? {24'h000000,ID_EX_pres_adr} : 
+//             ((ID_EX_compare&&comp_res_temp) ? 32'h1 : s);
+  assign res = (ID_EX_lui) ? b : (ID_EX_auipc) ? (b + ID_EX_pres_adr[11:0]) :
+               (ID_EX_jal) ? (ID_EX_pres_adr+4) : (ID_EX_jalr) ? (ID_EX_pres_adr+4) : 
+               ((ID_EX_compare&&comp_res_temp) ? 32'h1 : s);
 endmodule: ALU
