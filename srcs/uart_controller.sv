@@ -28,7 +28,32 @@ module uart_controller(
 //    output logic [7:0] dout
     );
     
-    logic clk, rst, rx, rx_ren, tx_wen;
+    logic clk, BR_clk, rst, CS, WR;
+    logic [2:0] ADD;
+    logic [7:0] D;
+    logic sRX;
+    logic sTX, DTRn, RTSn, OUT1n, OUT2n, TXRDYn, RXRDYn, IRQ, B_CLK;
+    logic [7:0] RD; 
+    
+    always_comb begin
+        clk = mbus.clk;
+        BR_clk = mbus.BR_clk;
+        rst = mbus.Rst;
+        sRX = mbus.rx;
+        CS = mbus.rx_ren | mbus.tx_wen; 
+        WR = mbus.tx_wen;
+        D = mbus.uart_din; 
+        ADD = mbus.uart_addr;
+        mbus.tx = sTX; 
+        mbus.uart_dout = RD;
+    end
+    
+    gh_uart_16550 u0(.clk(clk), .BR_clk(BR_clk), .rst(rst), .CS(CS), .WR(WR),
+        .ADD(ADD), .D(D), .sRX(sRX), .CTSn(1'b1), .DSRn(1'b1), .RIn(1'b1), 
+        .DCDn(1'b1), .sTX(sTX), .DTRn(DTRn), .RTSn(RTSn), .OUT1n(OUT1n), .OUT2n(OUT2n), 
+        .TXRDYn(TXRDYn), .RXRDYn(RXRDYn), .IRQ(IRQ), .B_CLK(B_CLK), .RD(RD));
+    
+    /*logic clk, rst, rx, rx_ren, tx_wen;
     logic [7:0] din;
     logic tx;//, rx_data_present;
     logic [7:0] dout; 
@@ -128,6 +153,6 @@ module uart_controller(
             baud_count <= baud_count + 1; 
             en_baud <= 0;
         end
-    end
+    end */
     
 endmodule

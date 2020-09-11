@@ -2,27 +2,46 @@
 // #include"string.h"
 #define INT_OFFSET 48
 
+char uart_init() {
+	volatile char * base_ptr = (char *)UART_BASE_ADDR;
+	//set LCR 
+	*(base_ptr + 3) = (1 << 7) | (3);
+	//set baud rate divisor 
+	char baud_lower = 54; 
+	*(base_ptr) = baud_lower; 
+	*(base_ptr + 1) = 0;
+	//reset LCR 
+	*(base_ptr + 3) = 3; 
+	//set FCR 
+	*(base_ptr + 2) = 1; 
+	//set IER
+	*(base_ptr + 1) = 1; 
+	return 1; 
+}
+
 void uart_put(char c) {
-	volatile char * p = (char *)0xaaaaa400; 
+	volatile char * p = (char *)UART_BASE_ADDR; 
 	*p = c; 
 }
 
 char uart_get() {
-	volatile char *p = (char *)0xaaaaa400;
+	volatile char *p = (char *)UART_BASE_ADDR;
 	return *p; 
 }
 char uart_poll() {
-	volatile char * p = (char *)0xaaaaa404; 
-	return *p; 
+	volatile char * base_ptr = (char *)UART_BASE_ADDR; 
+	return *(base_ptr + 5);
+	// volatile char * p = (char *)0xaaaaa404; 
+	// return *p; 
 }
 
-void uart_write_blocking(char c) {
-	char s; 
-	do {
-		s = uart_poll() & 2;
-	} while(s != 0);
-	uart_put(c);
-}
+// void uart_write_blocking(char c) {
+// 	char s; 
+// 	do {
+// 		s = uart_poll() & 2;
+// 	} while(s != 0);
+// 	uart_put(c);
+// }
 
 char uart_read_blocking() {
 	char s;
@@ -38,7 +57,8 @@ void uart_print(char c[]) {
 	char *ptr = &c[0];
 	int offset = 0;
 	while(*(ptr + offset) != '\0') {
-		uart_write_blocking(*(ptr + offset));
+		// uart_write_blocking(*(ptr + offset));
+		uart_put(*(ptr + offset));
 		offset++;
 	}
 	// int len = strlen(c);
@@ -55,11 +75,13 @@ void readline(char c[], int len) {
 		// uart_write_blocking(tmp);
 		if (tmp == 13) {
 			for (int j = i; j < len; j++) c[j] = 0;
-			uart_write_blocking('\r');
-			uart_write_blocking('\n');
+			// uart_write_blocking('\r');
+			// uart_write_blocking('\n');
+			uart_put('\r');
+			uart_put('\n');
 			return;
 		}
-		uart_write_blocking(tmp);
+		uart_put(tmp);
 		c[i] = tmp;
 	}
 }

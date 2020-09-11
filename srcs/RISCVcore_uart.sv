@@ -338,7 +338,7 @@ module RISCVcore_uart(
     
     ra_stack uS(bus.rstack);
     
-    CSR uC(.bus(bus));
+//    CSR uC(.bus(bus));
     
 //    UART_Programmer uart(bus.UART_Programmer);
    

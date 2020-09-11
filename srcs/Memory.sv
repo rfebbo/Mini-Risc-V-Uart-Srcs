@@ -143,8 +143,8 @@ module Memory(main_bus bus);
  
  logic ctrl_fwd; 
  
-// assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd == bus.EX_MEM_rs2);
- assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));    
+ assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd == bus.EX_MEM_rs2);
+// assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));    
 // assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_rd != bus.EX_MEM_rs1) &&
 //    ((bus.MEM_WB_rd == bus.EX_MEM_rs2) || (bus.EX_MEM_alures == bus.MEM_WB_alures));    
 // assign ctrl_fwd = (bus.EX_MEM_memwrite && bus.MEM_WB_regwrite) && (bus.MEM_WB_alures == bus.EX_MEM_alures);
@@ -157,7 +157,7 @@ module Memory(main_bus bus);
             2'b10: MEM_WB_memres_sig  = {d1,d0,d3,d2};
             2'b11: MEM_WB_memres_sig = {d2,d1,d0,d3};
         endcase
-        
+//  always_comb MEM_WB_memres_sig = MEM_WB_memres_temp;
   always_comb
   case(MEM_WB_loadcntrl)
         5'b00001:   MEM_WB_memres={{24{MEM_WB_memres_sig[7]}},MEM_WB_memres_sig[7:0]};

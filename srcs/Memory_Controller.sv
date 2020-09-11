@@ -19,11 +19,12 @@ logic [31:0] imem_addr, imem_dout, imem_din;
 logic imem_en, imem_state;
 
 
-logic mmio_region, kernel_region, prog_region;
+logic mmio_region, kernel_region, prog_region, uart_region;
 logic [31:0] blkmem_dout, doutb, blkmem_din; 
 logic [7:0] uart_dout;
 logic uart_last_cond;
 logic [11:0] uart_last_addr; 
+logic [31:0] uart_last_out;
 
 logic mem_hold;
 
@@ -49,6 +50,8 @@ always_comb begin : mem_region
     mmio_region = (mem_addr_upper == 20'haaaaa); 
     kernel_region = (rbus.mem_addr[31:16] == 16'h0000);
     prog_region = (rbus.mem_addr[31:16] == 16'h0001); 
+    uart_region = (mem_addr_upper == 20'haaaaa) & (mem_addr_lower >= 12'h400) & 
+        (mem_addr_lower < 12'h408); 
 end
 
 //always_comb begin
@@ -63,9 +66,15 @@ always_comb begin
             
 //        end
 //    end
-    mbus.tx_wen = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_wea : 1'b0;
-    mbus.uart_din = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_din[7:0] : 8'h00;
-    mbus.rx_ren = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_rea : 1'b0;
+//    mbus.tx_wen = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_wea : 1'b0;
+//    mbus.uart_din = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_din[7:0] : 8'h00;
+//    mbus.rx_ren = (mmio_region & (mem_addr_lower == 12'h400)) ? mem_rea : 1'b0;
+    mbus.tx_wen = (uart_region) ? mem_wea : 1'b0; 
+    mbus.rx_ren = uart_region ? mem_rea : 1'b0; 
+//    mbus.uart_din = uart_region ? mem_din[7:0] : 8'h00; 
+    mbus.uart_din = mem_din[7:0];
+    mbus.uart_addr = mem_addr_lower[2:0];
+//    mbus.uart_addr = uart_region ? mem_addr_lower[2:0] : 8'h00; 
     mbus.disp_wea = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_wea : 1'b0;
     mbus.disp_dat = (mmio_region & (mem_addr_lower == 12'h008)) ? mem_din : 32'h0;
 //    if (mmio_region) begin
@@ -81,7 +90,7 @@ always_comb begin
 //    end
 //    uart_dout = (mmio_region & (mem_addr_lower == 12'h404)) ? {6'b000000, mbus.tx_full, mbus.rx_data_present} : mbus.uart_dout;
 //    mem_dout = uart_last_cond ? uart_dout : blkmem_dout;
-    mem_dout = uart_last_cond ? ((uart_last_addr == 12'h404) ? {6'b000000, mbus.tx_full, mbus.rx_data_present} : mbus.uart_dout) : blkmem_dout;
+    mem_dout = uart_last_cond ? uart_last_out : blkmem_dout;
 end
 
 always_ff @(posedge clk) begin
@@ -100,9 +109,17 @@ always_ff @(posedge clk) begin
 //                mbus.led = mem_din[15:0];
 //            end
 //        end
-        if (mmio_region && ((mem_addr_lower == 12'h400) || (mem_addr_lower == 12'h404))) begin
+//        if (mmio_region && ((mem_addr_lower == 12'h400) || (mem_addr_lower == 12'h404))) begin
+        if (uart_region && (mem_wea | mem_rea)) begin
             uart_last_cond <= 1;
             uart_last_addr <= mem_addr_lower;
+//            uart_last_out <= mbus.uart_dout;
+            case (mem_addr_lower[1:0])
+                2'b00: uart_last_out <= {24'h0, mbus.uart_dout };
+                2'b01: uart_last_out <= {16'h0, mbus.uart_dout, 8'h0 }; 
+                2'b10: uart_last_out <= {8'h0, mbus.uart_dout, 16'h0 };
+                2'b11: uart_last_out <= {mbus.uart_dout, 24'h0 };
+            endcase            
 //            if (mem_addr_lower == 12'h400) uart_dout <= mbus.uart_dout; 
 //            else uart_dout <= {6'b000000, mbus.tx_full, mbus.rx_data_present};
         end else begin

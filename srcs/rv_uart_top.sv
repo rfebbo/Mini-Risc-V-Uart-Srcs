@@ -35,7 +35,7 @@ endinterface
 
 interface mmio_bus (
         input logic clk, Rst, rx,// uart_clk,
-        input logic [4:0] debug_input,
+        input logic [4:0] debug_input, BR_clk,
         output logic tx
         //output logic[31:0] led
     );
@@ -48,6 +48,9 @@ interface mmio_bus (
     logic [7:0] uart_din, uart_dout; 
     logic rx_ren, tx_wen, rx_data_present;
     logic tx_full;
+    logic [2:0] uart_addr;
+//    logic BR_clk;
+    
     
     
     modport memcon(
@@ -55,7 +58,7 @@ interface mmio_bus (
         output disp_dat, disp_wea, led, 
         
         input uart_dout, rx_data_present , tx_full,
-        output uart_din, rx_ren, tx_wen
+        output uart_din, rx_ren, tx_wen, uart_addr
     );
     
     modport display(
@@ -64,7 +67,7 @@ interface mmio_bus (
     );
     
     modport uart(
-        input clk, Rst, rx, rx_ren, tx_wen, uart_din, //uart_clk,
+        input clk, Rst, rx, rx_ren, tx_wen, uart_din, uart_addr, BR_clk, //uart_clk,
         output rx_data_present, tx, uart_dout, tx_full
     );
     
@@ -110,13 +113,13 @@ assign key[11:0]=12'h3cf;
 //  logic [11:0] mem_addr;
 //  logic [31:0] mem_din, mem_dout;
 //`ifdef SYNTHESIS
-//clk_wiz_0 c0(.*);
-//  riscv_bus rbus(.clk(clk_50M), .*);
-//  mmio_bus mbus(.clk(clk_50M),  .*);
+clk_wiz_0 c0(.*);
+  riscv_bus rbus(.clk(clk_50M), .*);
+  mmio_bus mbus(.clk(clk_50M), .BR_clk(clk), .*);
   
 //`else
- riscv_bus rbus(.*);
-  mmio_bus mbus(.*);
+// riscv_bus rbus(.*);
+//  mmio_bus mbus(.*);
 //`endif
   
   assign led = {14'h0, mbus.tx_full, mbus.rx_data_present};

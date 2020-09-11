@@ -43,44 +43,44 @@ rv_top dut(.*);
 
 always #5 clk=!clk; 
 
-task readfile(input string fname);
-begin
-    int fd, i; 
-    int idx; 
-    fd = $fopen(fname, "rb");
-    idx = 0;
-    while ($fscanf (fd, "%08x", i) == 1) begin
-        $display ("%08x: %08x", idx, i);
-        rxword(i);
-        idx = idx + 4;
-    end 
-    $fclose(fd);
+//task readfile(input string fname);
+//begin
+//    int fd, i; 
+//    int idx; 
+//    fd = $fopen(fname, "rb");
+//    idx = 0;
+//    while ($fscanf (fd, "%08x", i) == 1) begin
+//        $display ("%08x: %08x", idx, i);
+//        rxword(i);
+//        idx = idx + 4;
+//    end 
+//    $fclose(fd);
     
-end
-endtask
+//end
+//endtask
 
 
-task rxchar(input [7:0] c);
-begin
-    while(dut.u0.rx_fifo_full) #10; 
+//task rxchar(input [7:0] c);
+//begin
+//    while(dut.u0.rx_fifo_full) #10; 
     
-    dut.u0.rx_dout = c;
-    dut.u0.rx_pres = 1'b1;
-    #10; 
-    dut.u0.rx_pres = 1'b0;
-    dut.u0.rx_dout = 8'h00; 
-    #10;
-end
-endtask
+//    dut.u0.rx_dout = c;
+//    dut.u0.rx_pres = 1'b1;
+//    #10; 
+//    dut.u0.rx_pres = 1'b0;
+//    dut.u0.rx_dout = 8'h00; 
+//    #10;
+//end
+//endtask
 
-task rxword(input [31:0] w); 
-begin
-    rxchar(w[7:0]); 
-    rxchar(w[15:8]);
-    rxchar(w[23:16]);
-    rxchar(w[31:24]);
-end
-endtask
+//task rxword(input [31:0] w); 
+//begin
+//    rxchar(w[7:0]); 
+//    rxchar(w[15:8]);
+//    rxchar(w[23:16]);
+//    rxchar(w[31:24]);
+//end
+//endtask
 
 //    always_ff @(posedge dut.mbus.tx_wen) begin
 //        $strobe("%h", dut.mbus.uart_din);
@@ -119,26 +119,26 @@ initial begin
 
 
 
-//    #9000;
-//    rx = 0; //start bit
-//    #9000;
-//    rx = 1; //d0
-//    #9000;
-//    rx = 0; //d1
-//    #9000;
-//    rx = 1; //d2
-//    #9000;
-//    rx = 0; //d3
-//    #9000;
-//    rx = 1; //d4
-//    #9000;
-//    rx = 0; //d5
-//    #9000;
-//    rx = 1; //d6
-//    #9000;
-//    rx = 0; //d7
-//    #9000;
-//    rx = 1; //stop bit
+    #9000;
+    rx = 0; //start bit
+    #9000;
+    rx = 1; //d0
+    #9000;
+    rx = 0; //d1
+    #9000;
+    rx = 1; //d2
+    #9000;
+    rx = 0; //d3
+    #9000;
+    rx = 1; //d4
+    #9000;
+    rx = 0; //d5
+    #9000;
+    rx = 1; //d6
+    #9000;
+    rx = 0; //d7
+    #9000;
+    rx = 1; //stop bit
     
 //    #1500
     

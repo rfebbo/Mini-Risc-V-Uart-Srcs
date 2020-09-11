@@ -1,6 +1,10 @@
 #ifndef UART_H
 #define UART_H
 
+#define UART_BASE_ADDR 0xaaaaa400
+
+char uart_init(); 
+
 void uart_put(char c); 
 char uart_get(); 
 char uart_poll(); 
