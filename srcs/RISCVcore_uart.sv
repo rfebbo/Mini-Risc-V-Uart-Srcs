@@ -95,9 +95,9 @@ interface main_bus (
     logic imem_en;
     logic [31:0] imem_addr;
     
-    logic push, pop, stack_ena; 
-    logic stack_mismatch, stack_full, stack_empty; 
-    logic [31:0] stack_din; 
+//    logic push, pop, stack_ena; 
+//    logic stack_mismatch, stack_full, stack_empty; 
+//    logic [31:0] stack_din; 
     
     
     //CSR signals 
@@ -206,10 +206,10 @@ interface main_bus (
         output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
     );
     
-    modport rstack(
-        input clk, Rst, stack_ena, push, pop, stack_din,
-        output stack_mismatch, stack_full, stack_empty
-    );
+//    modport rstack(
+//        input clk, Rst, stack_ena, push, pop, stack_din,
+//        output stack_mismatch, stack_full, stack_empty
+//    );
     
     //modport for UART programmer
 //    modport UART_Programmer(
@@ -299,12 +299,12 @@ module RISCVcore_uart(
     
     assign bus.trap = trap;
     
-    always_comb begin : stackstuff
-        bus.push = (bus.IF_ID_jal | bus.IF_ID_jalr) & (bus.IF_ID_rd != 0);
-        bus.pop = (bus.IF_ID_jalr) & (bus.IF_ID_rd == 0); 
-        bus.stack_ena = 1;
-        bus.stack_din = bus.push ? (bus.IF_ID_pres_addr + 4) : bus.pop ? (bus.branoff) : 32'h0; 
-    end
+//    always_comb begin : stackstuff
+//        bus.push = (bus.IF_ID_jal | bus.IF_ID_jalr) & (bus.IF_ID_rd != 0);
+//        bus.pop = (bus.IF_ID_jalr) & (bus.IF_ID_rd == 0); 
+//        bus.stack_ena = 1;
+//        bus.stack_din = bus.push ? (bus.IF_ID_pres_addr + 4) : bus.pop ? (bus.branoff) : 32'h0; 
+//    end
     
     always_ff @(posedge clk) begin
         if(Rst) begin
@@ -336,7 +336,7 @@ module RISCVcore_uart(
     
     Writeback u5(bus.writeback);
     
-    ra_stack uS(bus.rstack);
+//    ra_stack uS(bus.rstack);
     
 //    CSR uC(.bus(bus));
     

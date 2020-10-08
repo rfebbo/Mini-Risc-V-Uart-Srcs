@@ -25,6 +25,14 @@ void uart_put(char c) {
 	*p = c; 
 }
 
+void uart_put_blocking(char c) {
+	char s;
+	do {
+		s = uart_poll() & 64;
+	} while (s == 0);
+	uart_put(c);
+}
+
 char uart_get() {
 	volatile char *p = (char *)UART_BASE_ADDR;
 	return *p; 
@@ -61,7 +69,7 @@ void uart_print(char c[])
 	int offset = 0;
 	while(*(ptr + offset) != '\0') {
 		// uart_write_blocking(*(ptr + offset));
-		uart_put(*(ptr + offset));
+		uart_put_blocking(*(ptr + offset));
 		offset++;
 	}
 

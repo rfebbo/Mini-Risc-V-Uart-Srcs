@@ -6,6 +6,7 @@
 char uart_init(); 
 
 void uart_put(char c); 
+void uart_put_blocking(char c);
 char uart_get(); 
 char uart_poll(); 
 void uart_write_blocking(char c);

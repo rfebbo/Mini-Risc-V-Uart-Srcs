@@ -120,15 +120,39 @@ Native Ports
 
 <hr> 
 
+## Programming the Core
+
+A c program may be compiled and loaded onto the core as a `.coe` file for the block memory. Within the `gcc` folder is a number of example and test programs, as well as a python script called `pycompile.py`. This script leverages the riscv toolchain to compile an ELF file, which is converted into a coe. It can also create a plain hex file for loading onto the core with the in-development kernel. 
+
+Example:
+```
+./pycompile.py -s -o test.coe test.c uart.c utils.c
+```
+
+#### Communication with the Core
+
+Communication to and from the core is done using UART, with a baud rate of 115200. Source files for using uart are in the gcc folder, specifically `uart.c` and `uart.h`, which rely on `utils.c` for some key functions, as the core does not currently support the C standard library. 
+
+<hr>
+
 ## Mini-RISC-V Program Kernel 
 
-This feature is currently in development. It is a software kernel that is loaded by default onto the core, that allows binaries to be loaded over a serial port and executed. 
+This feature is currently in development. It is a software kernel that is loaded by default onto the core, that allows binaries to be loaded over a serial port and executed. The kernel is not currently supported for implementing the core on the basys3.
 
 The kernel can be compiled using the `pycompile.py` script as so: 
 ```
-./pycompile.py -s -l kernel.ld -b kboot.S -o kernel kernel.c uart.c 
+./pycompile.py -s -l kernel.ld -b kboot.S -o kernel kernel.c uart.c utils.c
 ```
-Steps summary:
+
+Then programs can be compiled for use with the kernel using the `prog.ld` linker script, then loaded onto the core as such:
+```
+./pycompile.py -s -l prog.ld -o testprog.hex testprog.c uart.c utils.c 
+./reprogram.py -p <SERIAL PORT> testprog.hex
+```
+
+<hr>
+
+## Steps summary:
 
 Implementation on Nexys4:
 Top module file: rv_uart_top.sv

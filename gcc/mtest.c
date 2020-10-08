@@ -1,10 +1,11 @@
 #include"uart.h"
-#include"stdlib.h" 
+#include"malloc.h" 
 
 int main(void) {
+	uart_init();
 	char *x = malloc(12 * sizeof(char)); 
 	int i;
 	for (i = 0; i < 12; i++) 
 		x[i] = i + 48; 
-	print(x);
+	uart_print(x);
 }

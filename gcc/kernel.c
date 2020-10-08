@@ -50,6 +50,7 @@ int load_program() {
 
 
 int main(void) {
+	uart_init();
 	uart_print("loading program\n");
 	return load_program();
 	// print_program_memory();
