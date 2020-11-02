@@ -95,6 +95,8 @@ interface main_bus (
     logic imem_en;
     logic [31:0] imem_addr;
     
+    logic comp_sig;
+    
 //    logic push, pop, stack_ena; 
 //    logic stack_mismatch, stack_full, stack_empty; 
 //    logic [31:0] stack_din; 
@@ -133,7 +135,7 @@ interface main_bus (
         input debug_input, branoff,
         output IF_ID_pres_addr, ins, 
         input imem_dout, 
-        output imem_en, imem_addr
+        output imem_en, imem_addr, comp_sig
     );
     
     //modport for register file
@@ -145,7 +147,7 @@ interface main_bus (
         
     //modport for decode stage
     modport decode(
-        input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res, mem_hold,
+        input clk, Rst, dbg, ins, IF_ID_pres_addr, MEM_WB_rd, WB_res, mem_hold, comp_sig,
         input EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
         input EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
         input IF_ID_CSR, trap,
@@ -259,6 +261,8 @@ module RISCVcore_uart(
     
     logic trap;
     
+   
+    
     always_comb begin
         clk = rbus.clk; 
         Rst = rbus.Rst; 
@@ -282,6 +286,8 @@ module RISCVcore_uart(
     
     
     main_bus bus(.key(rbus.key), .mem_hold(rbus.mem_hold), .*);
+    
+     assign rbus.storecntrl = bus.EX_MEM_storecntrl;
     
     assign mem_wea = bus.mem_wea;
 //    assign mem_clk = bus.clk;

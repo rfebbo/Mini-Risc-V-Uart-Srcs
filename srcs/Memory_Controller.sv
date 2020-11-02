@@ -199,9 +199,15 @@ end
 //    .douta(imem_dout), .clkb(clk), .enb((mem_wea | mem_rea) & (~mmio_region)), 
 //    .web(mem_en), .addrb(rbus.mem_addr[12:2]), .dinb(blkmem_din), .doutb(doutb));
 //    .web(mem_en), .addrb(rbus.mem_addr[12:2]), .dinb(blkmem_din), .doutb(doutb));
-  blk_mem_gen_0 sharedmem(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
-    .douta(imem_dout), .clkb(clk), .enb((mem_wea | mem_rea) & (kernel_region | prog_region)), 
-    .web(mem_en), .addrb(rbus.mem_addr), .dinb(blkmem_din), .doutb(doutb));  
+
+//  blk_mem_gen_0 sharedmem(.clka(clk), .ena(imem_en), .wea(4'b0000), .addra(imem_addr), .dina(32'hz), 
+//    .douta(imem_dout), .clkb(clk), .enb((mem_wea | mem_rea) & (kernel_region | prog_region)), 
+//    .web(mem_en), .addrb(rbus.mem_addr), .dinb(blkmem_din), .doutb(doutb));  
+    
+    Mem_Interface sharedmem(.clk(clk), .imem_en(imem_en), .mem_en((mem_wea | mem_rea) & (~mmio_region)), 
+    	.storecntrl_a(3'b000), .storecntrl_b(rbus.storecntrl), .imem_addr(imem_addr), .imem_din(32'hz), .mem_addr(rbus.mem_addr), 
+    	.mem_din(blkmem_din), .imem_wen(4'b0000), .mem_wen(mem_en), .imem_dout(imem_dout), .mem_dout(doutb) 
+    	);
 
 //Memory_byteaddress mem0(.clk(clk), .rst(rst), .wea(mem_wea), .en(mem_en), .addr(mem_addr_lower), 
 //    .din(mem_din), .dout(mem_dout));
