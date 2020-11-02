@@ -1,0 +1,25 @@
+
+comptest.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	00001117          	auipc	sp,0x1
+   4:	04010113          	addi	sp,sp,64 # 1040 <_sp0>
+   8:	00000097          	auipc	ra,0x0
+   c:	00c08093          	addi	ra,ra,12 # 14 <_endloop>
+  10:	008000ef          	jal	ra,18 <main>
+
+00000014 <_endloop>:
+  14:	0000006f          	j	14 <_endloop>
+
+00000018 <main>:
+  18:	00000513          	li	a0,0
+  1c:	00000593          	li	a1,0
+  20:	00004533          	xor	a0,zero,zero
+  24:	000045b3          	xor	a1,zero,zero
+  28:	00a50513          	addi	a0,a0,10
+  2c:	00000013          	nop
+  30:	00a585b3          	add	a1,a1,a0
+  34:	00008067          	ret

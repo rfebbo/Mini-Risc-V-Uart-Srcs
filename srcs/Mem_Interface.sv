@@ -17,6 +17,8 @@ logic [7:0] dinb0, dinb1, dinb2, dinb3;
 logic [7:0] douta0, douta1, douta2, douta3; 
 logic [7:0] doutb0, doutb1, doutb2, doutb3;
 
+logic [1:0] last_imem_addr, last_mem_addr;
+
 
 logic [29:0] wraparound_a, wraparound_b;
 
@@ -34,6 +36,11 @@ mem_cell_3 cell3(.clka(clk), .addra(addra3), .dina(dina3),
 
 assign wraparound_a = imem_addr + 4;
 assign ena = imem_en ? 4'b1111 : 4'b0000;
+
+always_ff @(posedge clk) begin
+    last_imem_addr <= imem_addr[1:0];
+    last_mem_addr <= mem_addr[1:0];
+end
 
 always_comb begin
 
@@ -58,6 +65,13 @@ always_comb begin
 		default: wea = 4'b0000; 
 	endcase
 
+    case(last_imem_addr)
+        2'b00: imem_dout = {douta3, douta2, douta1, douta0};
+        2'b01: imem_dout = {douta0, douta3, douta2, douta1};
+        2'b10: imem_dout = {douta1, douta0, douta3, douta2};
+        2'b11: imem_dout = {douta2, douta1, douta0, douta3};
+    endcase
+
 	//Addressing stuff
 	case(imem_addr[1:0])
 		2'b00: begin
@@ -69,7 +83,7 @@ always_comb begin
 			dina1 = imem_din[15:8];
 			dina2 = imem_din[23:16];
 			dina3 = imem_din[31:24];
-			imem_dout = {douta3, douta2, douta1, douta0};
+			
 		end
 		2'b01: begin
 			addra0 = imem_addr[31:2] + 1;
@@ -80,7 +94,7 @@ always_comb begin
 			dina2 = imem_din[15:8];
 			dina3 = imem_din[23:16];
 			dina0 = imem_din[31:24];
-			imem_dout = {douta0, douta3, douta2, douta1};
+			
 		end
 		2'b10: begin
 			addra0 = imem_addr[31:2] + 1;
@@ -91,7 +105,7 @@ always_comb begin
 			dina3 = imem_din[15:8];
 			dina0 = imem_din[23:16];
 			dina1 = imem_din[31:24];
-			imem_dout = {douta1, douta0, douta3, douta2};
+			
 		end
 		2'b11: begin
 			addra0 = imem_addr[31:2] + 1;
@@ -102,7 +116,7 @@ always_comb begin
 			dina0 = imem_din[15:8];
 			dina1 = imem_din[23:16];
 			dina2 = imem_din[31:24];
-			imem_dout = {douta2, douta1, douta0, douta3};
+			
 		end
 	endcase
 
@@ -126,6 +140,13 @@ always_comb begin
 		3'b100: web = 4'b1111;
 		default: web = 4'b0000; 
 	endcase
+	
+	case(last_mem_addr)
+	   2'b00: mem_dout = {doutb3, doutb2, doutb1, doutb0};
+	   2'b01: mem_dout = {doutb0, doutb3, doutb2, doutb1};
+	   2'b10: mem_dout = {doutb1, doutb0, doutb3, doutb2};
+	   2'b11: mem_dout = {doutb2, doutb1, doutb0, doutb3};
+	endcase
 
 	case(mem_addr[1:0])
 		2'b00: begin
@@ -137,7 +158,7 @@ always_comb begin
 			dinb1 = mem_din[15:8];
 			dinb2 = mem_din[23:16];
 			dinb3 = mem_din[31:24];
-			mem_dout = {doutb3, doutb2, doutb1, doutb0};
+			
 		end
 		2'b01: begin
 			addrb0 = mem_addr[31:2] + 1;
@@ -148,7 +169,7 @@ always_comb begin
 			dinb2 = mem_din[15:8];
 			dinb3 = mem_din[23:16];
 			dinb0 = mem_din[31:24];
-			mem_dout = {doutb0, doutb3, doutb2, doutb1};
+			
 		end
 		2'b10: begin
 			addrb0 = mem_addr[31:2] + 1;
@@ -159,7 +180,7 @@ always_comb begin
 			dinb3 = mem_din[15:8];
 			dinb0 = mem_din[23:16];
 			dinb1 = mem_din[31:24];
-			mem_dout = {doutb1, doutb0, doutb3, doutb2};
+			
 		end
 		2'b11: begin
 			addrb0 = mem_addr[31:2] + 1;
@@ -170,7 +191,7 @@ always_comb begin
 			dinb0 = mem_din[15:8];
 			dinb1 = mem_din[23:16];
 			dinb2 = mem_din[31:24];
-			mem_dout = {doutb2, doutb1, doutb0, doutb3};
+			
 		end
 	endcase
 
