@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+// Takes two matrices and returns the resultant matrix's value at index
+
 module MatrixMultiplier(
     input  [31:0] A00,
     input  [31:0] A01,
@@ -19,26 +21,90 @@ module MatrixMultiplier(
     input  [31:0] B20,
     input  [31:0] B21,
     input  [31:0] B22,
-    output [31:0] C00,
-    output [31:0] C01,
-    output [31:0] C02,
-    output [31:0] C10,
-    output [31:0] C11,
-    output [31:0] C12,
-    output [31:0] C20,
-    output [31:0] C21,
-    output [31:0] C22
+    input  [ 3:0] C_index,
+    output [31:0] C
     );
     
-    assign C00 = (A00 * B00) + (A01 * B10) + (A02 * B20);
-    assign C01 = (A00 * B01) + (A01 * B11) + (A02 * B21);
-    assign C02 = (A00 * B02) + (A01 * B12) + (A02 * B22);
+    logic [31:0] dp_A0, dp_A1, dp_A2, dp_B0, dp_B1, dp_B2;
     
-    assign C10 = (A10 * B00) + (A11 * B10) + (A12 * B20);
-    assign C11 = (A10 * B01) + (A11 * B11) + (A12 * B21);
-    assign C12 = (A10 * B02) + (A11 * B12) + (A12 * B22);
+    DotProduct #(32) dp(dp_A0, dp_A1, dp_A2, dp_B0, dp_B1, dp_B2, C);
     
-    assign C20 = (A20 * B00) + (A21 * B10) + (A22 * B20);
-    assign C21 = (A20 * B01) + (A21 * B11) + (A22 * B21);
-    assign C22 = (A20 * B02) + (A21 * B12) + (A22 * B22);
+    // Select from Matrix A
+    always_comb begin
+        case (C_index)
+            4'b0000,
+            4'b0001,
+            4'b0010:
+                begin
+                dp_A0 = A00;
+                dp_A1 = A01;
+                dp_A2 = A02;
+                end
+            
+            4'b0011,
+            4'b0100,
+            4'b0101:
+                begin
+                dp_A0 = A10;
+                dp_A1 = A11;
+                dp_A2 = A12;
+                end
+            
+            4'b0110,
+            4'b0111,
+            4'b1000:
+                begin
+                dp_A0 = A20;
+                dp_A1 = A21;
+                dp_A2 = A22;
+                end
+                
+            default:
+                begin
+                dp_A0 = 32'h0000;
+                dp_A1 = 32'h0000;
+                dp_A2 = 32'h0000;
+                end
+        endcase
+    end
+    
+    // Select from Matrix B
+    always_comb begin
+        case (C_index)
+            4'b0000,
+            4'b0011,
+            4'b0110:
+                begin
+                dp_B0 = B00;
+                dp_B1 = B10;
+                dp_B2 = B20;
+                end
+            
+            4'b0001,
+            4'b0100,
+            4'b0111:
+                begin
+                dp_B0 = B01;
+                dp_B1 = B11;
+                dp_B2 = B21;
+                end
+            
+            4'b0010,
+            4'b0101,
+            4'b1000:
+                begin
+                dp_B0 = B02;
+                dp_B1 = B12;
+                dp_B2 = B22;
+                end
+                
+            default:
+                begin
+                dp_B0 = 32'h0000;
+                dp_B1 = 32'h0000;
+                dp_B2 = 32'h0000;
+                end
+        endcase
+    end
+    
 endmodule
