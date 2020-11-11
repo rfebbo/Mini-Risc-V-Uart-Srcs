@@ -85,6 +85,8 @@ logic [31:0]dout_rs1,dout_rs2;
 
 //control
 logic [2:0]IF_ID_alusel;
+logic [1:0]IF_ID_mulsel;
+logic [1:0]IF_ID_divsel;
 logic      IF_ID_branch;
 logic      IF_ID_memwrite,IF_ID_memread,IF_ID_regwrite,IF_ID_alusrc;
 logic [2:0]IF_ID_storecntrl;
@@ -132,6 +134,8 @@ assign bus.ecall = (bus.ins == 32'b00000000000000000000000001110011);
        .rs1(bus.ins[19:15]),
        .rd(bus.ins[11:7]), 
        .alusel(IF_ID_alusel),
+       .mulsel(IF_ID_mulsel),
+       .divsel(IF_ID_divsel),
        .branch(IF_ID_branch),
        .memwrite(IF_ID_memwrite),
        .memread(IF_ID_memread),
@@ -254,6 +258,8 @@ assign bus.ecall = (bus.ins == 32'b00000000000000000000000001110011);
         else if(!bus.dbg && !bus.mem_hold) begin
             if (!hz_sig) begin
                 bus.ID_EX_alusel<=IF_ID_alusel;
+                bus.ID_EX_mulsel<=IF_ID_mulsel;
+                bus.ID_EX_divsel<=IF_ID_divsel;
                 bus.ID_EX_alusrc<=IF_ID_alusrc;
                 ID_EX_memread_sig<=IF_ID_memread;
                 bus.ID_EX_memwrite<=IF_ID_memwrite;

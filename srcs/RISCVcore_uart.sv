@@ -56,6 +56,8 @@ interface main_bus (
     logic  [4:0]  EX_MEM_rs1, EX_MEM_rs2;
     
     logic  [2:0]  ID_EX_alusel;
+    logic  [1:0]  ID_EX_mulsel;
+    logic  [1:0]  ID_EX_divsel;
     logic  [4:0]  ID_EX_loadcntrl;
     logic  [2:0]  ID_EX_storecntrl;
     logic  [3:0]  ID_EX_cmpcntrl;
