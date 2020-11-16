@@ -38,8 +38,6 @@ module LAA_core( main_bus bus);
     logic [4:0] addr_laareg_in2; // address of LAA register to store read input data2
     logic [31:0] data_in1; // Data to be written
     logic [31:0] data_in2; // Data to be written
-    logic clk;
-    logic rst; // Reset all registers to 0
     
     logic [31:0] data_out; // Output of LAA - read from LAA register    
     logic [4:0] addr_corereg_out; // Store output of LAA to Core regfile
@@ -49,19 +47,19 @@ module LAA_core( main_bus bus);
     logic illegal_ins;
     
     // LAA bus
-    LAA_bus LAA_bus(clk, rst);
+    LAA_bus LAA_bus(.clk(bus.clk), .rst(bus.Rst));
     
     // LAA instantiation
     LAA LAA_inst (LAA_bus);
     
     assign bus.MEM_WB_regwrite = reg_write;
-    assign bus.WB_res = data_out;
+    assign bus.WB_res = LAA_bus.data_out; //data_out;
     assign bus.MEM_WB_rd = addr_corereg_out;
     assign bus.adr_rs1 = addr_corereg_in1;
     assign bus.IF_ID_rs2 = addr_corereg_in2;
     
-    assign LAA_bus.datain = data_in1;
-    assign data_out = LAA_bus.dataout;
+    assign LAA_bus.data_in = data_in1;
+    //assign data_out = LAA_bus.data_out;
     assign LAA_bus.opcode = laa_opcode;
     
     assign illegal_ins = (bus.LAA_ins[6:0] != 7'b0001011);
@@ -80,7 +78,7 @@ module LAA_core( main_bus bus);
     reg_write = 'b0;
     if (!illegal_ins) begin
      unique case (bus.LAA_ins[11:7])
-      4'b0010:               // Load/Write to LAA registers : [31:27] - core_reg, [26:22] - LAA_reg, [21:12] - 10 bits not used, [11:7] - 0010, [6:0] - 00001011
+      5'b00010:               // Load/Write to LAA registers : [31:27] - core_reg, [26:22] - LAA_reg, [21:12] - 10 bits not used, [11:7] - 0010, [6:0] - 00001011
         begin
     		laa_opcode = WRITE;
     		addr_corereg_in1 = bus.LAA_ins[31:27];
@@ -92,7 +90,7 @@ module LAA_core( main_bus bus);
     		reg_write = 'b0;
     		LAA_bus.addr = addr_laareg_in1;        	
         end
-      4'b0001:               // Read from LAA/Store to RiscV core registers : [31:27] - LAA_reg, [26:22] - core_reg, [21:12] - 10 bits not used, [11:7] - 0001, [6:0] - 00001011
+      5'b00001:               // Read from LAA/Store to RiscV core registers : [31:27] - LAA_reg, [26:22] - core_reg, [21:12] - 10 bits not used, [11:7] - 0001, [6:0] - 00001011
 		begin
     		laa_opcode = READ;
     		addr_corereg_in1 = 'd0;
@@ -104,7 +102,7 @@ module LAA_core( main_bus bus);
     		reg_write = 'b0;
     		LAA_bus.addr = addr_laareg_out;   		
         end		
-      4'b0011:               // Execute
+      5'b00011:               // Execute
 		begin
     		laa_opcode = MULTIPLY;
     		addr_corereg_in1 = 'd0;
