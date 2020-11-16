@@ -51,8 +51,8 @@ module Control
   input  logic       hazard,
   input  logic [4:0] rs1,rd,
   output logic [2:0] alusel,
-  output logic [1:0] mulsel,
-  output logic [1:0] divsel,
+  output logic [2:0] mulsel,
+  output logic [2:0] divsel,
   output logic [2:0] storecntrl, //sw,sh,sb
   output logic [4:0] loadcntrl,  //lhu,lbu,lw,lh,lb
   output logic [3:0] cmpcntrl,   //slt,slti,sltu,sltiu
@@ -151,14 +151,14 @@ module Control
 			    {7'h20,3'b101}: alusel      = 3'b111; //sra
 			    {7'h00,3'b110}: alusel      = 3'b011; //or
 			    {7'h00,3'b111}: alusel      = 3'b010; //and
-			    {7'h01,3'b000}: mulsel      = 2'b00; //mul
-			    {7'h01,3'b001}: mulsel      = 2'b01; //mulh
-			    {7'h01,3'b010}: mulsel      = 2'b10; //mulhsu
-			    {7'h01,3'b011}: mulsel      = 2'b11; //mulhu
-			    {7'h01,3'b100}: divsel      = 2'b00; //div
-			    {7'h01,3'b101}: divsel      = 2'b01; //divu
-			    {7'h01,3'b110}: divsel      = 2'b10; //rem
-			    {7'h01,3'b111}: divsel      = 2'b11; //remu
+			    {7'h01,3'b000}: mulsel      = 3'b001; //mul
+			    {7'h01,3'b001}: mulsel      = 3'b010; //mulh
+			    {7'h01,3'b010}: mulsel      = 3'b011; //mulhsu
+			    {7'h01,3'b011}: mulsel      = 3'b100; //mulhu
+			    {7'h01,3'b100}: divsel      = 3'b001; //div
+			    {7'h01,3'b101}: divsel      = 3'b010; //divu
+			    {7'h01,3'b110}: divsel      = 3'b011; //rem
+			    {7'h01,3'b111}: divsel      = 3'b100; //remu
 		      default:        illegal_ins = 1'b1;				
         endcase
       end

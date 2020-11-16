@@ -1,11 +1,12 @@
 // TODO: Maybe merge divsel and mulsel to alusel?
-module Multiplier
+module Divider
 (
+    input  logic        clk,
     input  logic [31:0] a,
     input  logic [31:0] b,
     input  logic        valid,
     input  logic [1:0]  divsel,
-    output logic [31:0] res,
+    output logic [31:0] res
 );
 
     reg         busy;
@@ -13,6 +14,8 @@ module Multiplier
     reg   [4:0] count;
     reg  [31:0] rem;
     reg  [31:0] quot;
+    reg         a_sign;
+    reg         b_sign;
     wire [31:0] div_a;
     wire [31:0] div_b;
     wire        negative;
@@ -20,7 +23,7 @@ module Multiplier
     wire [31:0] quotient;
     wire [31:0] remainder;
 
-    always @(posedge clk_i) begin
+    always @(posedge clk) begin
         a_sign   <= (divsel == 2'b00) || (divsel == 2'b10);
         b_sign   <= (divsel == 2'b00) || (divsel == 2'b10);
     end
@@ -32,7 +35,7 @@ module Multiplier
     assign quotient  = negative ? -quot : quot;
     assign remainder = negative ? -rem : rem;
 
-    always @(posedge clk_i)
+    always @(posedge clk)
     begin
         if (valid)
         begin
@@ -66,12 +69,12 @@ module Multiplier
     always @*
     begin
       case (divsel)
-    	2'b00:   res = quotient  //div
-    	2'b01:   res = quotient  //divu
-    	2'b10:   res = remainder //rem
-    	2'b11:   res = remainder //remu
+    	2'b00:   res = quotient;  //div
+    	2'b01:   res = quotient;  //divu
+    	2'b10:   res = remainder; //rem
+    	2'b11:   res = remainder; //remu
         default: res = 32'h0;
       endcase
     end
-endmodule: Multiplier
+endmodule: Divider
 

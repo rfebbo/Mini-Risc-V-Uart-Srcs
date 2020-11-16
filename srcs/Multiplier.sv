@@ -1,34 +1,67 @@
 module Multiplier
 (
-    input  logic [31:0] a,
-    input  logic [31:0] b,
-    input  logic [1:0]  mulsel,
-    output logic [31:0] res,
+  // Inputs
+  input         clk,
+  input         rst,
+  input  [3:0]  mulsel,
+  input  [31:0] a,
+  input  [31:0] b,
+  output [31:0] res
 );
-    reg        a_sign   = 1'b0;
-    reg        b_sign   = 1'b0;
-    wire [63:0] op_a    = 64'h0000000000000000;
-    wire [63:0] op_b    = 64'h0000000000000000;
-    wire [63:0] mul_res = 64'h0000000000000000;
 
-    always @(posedge clk_i)
+  reg  [32:0] a_valid;
+  reg  [32:0] b_valid;
+  reg  [32:0] op_a;
+  reg  [32:0] op_b;
+  reg         high_bits;
+  wire [64:0] full_res;
+
+  wire mul = (mulsel == 3'b001) ||
+             (mulsel == 3'b010) ||
+             (mulsel == 3'b011) ||
+             (mulsel == 3'b100);
+
+  always_comb
+  begin
+    if (mulsel == 3'b011)
     begin
-        a_sign   <= (mulsel == 2'b01) || (mulsel == 2'b10);
-        b_sign   <= (mulsel == 2'b01);
+      op_a = {a[31], a[31:0]};
+      op_b = {1'b0, b[31:0]};
     end
-
-    assign op_a = {{32{a_sign & a[31]}}, a};
-    assign op_b = {{32{b_sign & b[31]}}, b};
-    assign mul_res = op_a * op_b;
-
-    always @*
+    else if (mulsel == 3'b010)
     begin
-        case(mulsel)
-            2'b00:   res = mul_res[31:0];
-            2'b01:   res = mul_res[63:32];
-            2'b10:   res = mul_res[63:32];
-            2'b11:   res = mul_res[63:32];
-            default: res = 32'h0;
-        endcase
+      op_a = {a[31], a[31:0]};
+      op_b = {b[31], b[31:0]};
     end
-endmodule: Multiplier
+    else
+    begin
+      op_a = {1'b0, a[31:0]};
+      op_b = {1'b0, b[31:0]};
+    end
+  end
+
+  always @(posedge clk or posedge rst)
+  begin
+    if (rst)
+    begin
+      a_valid <= 31'b0;
+      b_valid <= 31'b0;
+      high_bits <= 1'b0;
+    end
+    else if (mul)
+    begin
+      a_valid <= op_a;
+      b_valid <= op_b;
+      high_bits <= ~(mulsel == 3'b001);
+    end
+    else
+    begin
+        a_valid <= 31'b0;
+        b_valid <= 31'b0;
+        high_bits <= 1'b0;
+    end
+  end
+
+  assign full_res = {{32{a_valid[32]}}, a_valid}*{{32{b_valid[32]}}, b_valid};
+  assign res = high_bits ? full_res[63:32] : full_res[31:0];
+endmodule

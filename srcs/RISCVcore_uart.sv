@@ -48,6 +48,7 @@ interface main_bus (
     logic         ID_EX_jal,ID_EX_jalr;
     logic         ID_EX_compare;
     logic  [31:0] EX_MEM_alures,MEM_WB_alures,MEM_WB_memres;
+    logic  [31:0] EX_MEM_mulres,MEM_WB_mulres;
     logic         EX_MEM_comp_res;
     
     logic [31:0] EX_MEM_pres_addr;
