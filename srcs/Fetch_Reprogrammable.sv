@@ -63,7 +63,8 @@ assign next_addr=bus.trap ? bus.mtvec : bus.IF_ID_jalr?bus.branoff: bus.IF_ID_ja
 assign En_sig=(bus.PC_En&&(!bus.debug)&&(!bus.dbg)&&(!bus.mem_hold)); 
 //assign En_sig=(bus.PC_En&&(!bus.dbg));
 assign En_mem=En_sig || bus.prog;
-assign bus.ins=bus.Rst?32'h00000000:memdout;
+assign bus.ins = bus.Rst ? 32'h00000000 : (memdout[6:0] != 7'b0001011) ? memdout : 'd0;
+assign bus.LAA_ins = bus.Rst ? 32'h00000000 : (memdout[6:0] == 7'b0001011) ? memdout : 'd0;
 //assign bus.ins=bus.Rst?32'h00000000:En_sig?memdout:32'h00000013;
 //assign addr_in=bus.prog?debug_addr_imm:pres_addr[11:2];
 assign addr_in=bus.prog?debug_addr_imm:pres_addr;
