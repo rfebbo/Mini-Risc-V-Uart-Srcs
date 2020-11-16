@@ -143,7 +143,8 @@ interface main_bus (
         input debug_input, branoff,
         output IF_ID_pres_addr, ins, 
         input imem_dout, 
-        output imem_en, imem_addr
+        output imem_en, imem_addr,
+        output LAA_ins
     );
     
     //modport for register file
