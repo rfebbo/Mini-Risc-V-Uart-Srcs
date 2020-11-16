@@ -121,7 +121,17 @@ interface main_bus (
     //modport declarations. These ensure each pipeline stage only sees and has access to the 
     //ports and signals that it needs
     
+	//Signals corresponding to LAA core    
+    logic [31:0] LAA_ins;
     
+    //modport for LAA_core
+	modport laa_core (
+		input LAA_ins, 
+		input clk, Rst,
+		input IF_ID_dout_rs1, IF_ID_dout_rs2,
+		output MEM_WB_rd, adr_rs1, IF_ID_rs2,
+		output WB_res, MEM_WB_regwrite
+	);    
     
     //modport for fetch stage
     modport fetch(
