@@ -59,9 +59,11 @@ module Execute(main_bus bus);
  
   logic        EX_MEM_memread_sig, EX_MEM_regwrite_sig;
   logic [31:0] EX_MEM_alures_sig;
+  logic [31:0] EX_MEM_mulres_sig;
   logic [4:0]  EX_MEM_rd_sig;
   logic        comp_res;
   logic [31:0] alures;
+  logic [31:0] mulres;
   logic [2:0]  sel;
   logic [31:0] ALUop1, ALUop2, rs2_mod;
   logic [31:0] rs2_mod_final; //new
@@ -109,6 +111,16 @@ module Execute(main_bus bus);
     .CSR_in(bus.ID_EX_CSR), 
     .csrsel(bus.csrsel)
   );
+
+  Multiplier mul
+  (
+    .clk(bus.clk),
+    .rst(bus.Rst),
+    .mulsel(bus.ID_EX_mulsel),
+    .a(ALUop1),
+    .b(ALUop2),
+    .res(mulres)
+  );
          
   always_ff @(posedge bus.clk)
   begin
@@ -119,6 +131,7 @@ module Execute(main_bus bus);
       bus.EX_MEM_memwrite   <= 1'b0;
       EX_MEM_regwrite_sig   <= 1'b0;
       EX_MEM_alures_sig     <= 32'h00000000;
+      EX_MEM_mulres_sig     <= 32'h00000000;
       bus.EX_MEM_dout_rs2   <= 32'h00000000;
       bus.EX_MEM_rs2        <= 5'h0;
       bus.EX_MEM_rs1        <= 5'h0;
@@ -139,6 +152,7 @@ module Execute(main_bus bus);
       bus.EX_MEM_memwrite   <= bus.ID_EX_memwrite;
       EX_MEM_regwrite_sig   <= (bus.ID_EX_regwrite && (!bus.ID_EX_compare)) + (bus.ID_EX_regwrite && bus.ID_EX_compare && comp_res);
       EX_MEM_alures_sig     <= alures;
+      EX_MEM_mulres_sig     <= mulres;
       bus.EX_MEM_dout_rs2   <= rs2_mod; //new
       bus.EX_MEM_rs2        <= bus.ID_EX_rs2;
       bus.EX_MEM_rs1        <= bus.ID_EX_rs1;
@@ -156,6 +170,7 @@ module Execute(main_bus bus);
   
   assign bus.EX_MEM_rd       = EX_MEM_rd_sig;
   assign bus.EX_MEM_alures   = EX_MEM_alures_sig;
+  assign bus.EX_MEM_mulres   = EX_MEM_mulres_sig;
   assign bus.EX_MEM_memread  = EX_MEM_memread_sig;
   assign bus.EX_MEM_regwrite = EX_MEM_regwrite_sig;
 endmodule: Execute

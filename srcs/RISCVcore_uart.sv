@@ -48,6 +48,8 @@ interface main_bus
   logic        ID_EX_jal, ID_EX_jalr;
   logic        ID_EX_compare;
   logic [31:0] EX_MEM_alures, MEM_WB_alures, MEM_WB_memres;
+  logic [31:0] EX_MEM_mulres, MEM_WB_mulres;
+  logic        EX_MEM_mulvalid;
   logic        EX_MEM_comp_res;
     
   logic [31:0] EX_MEM_pres_addr;
@@ -56,6 +58,7 @@ interface main_bus
   logic [4:0]  EX_MEM_rs1, EX_MEM_rs2;
     
   logic [2:0]  ID_EX_alusel;
+  logic [2:0]  ID_EX_mulsel;
   logic [4:0]  ID_EX_loadcntrl;
   logic [2:0]  ID_EX_storecntrl;
   logic [3:0]  ID_EX_cmpcntrl;
@@ -159,6 +162,7 @@ interface main_bus
     input  ID_EX_storecntrl, ID_EX_cmpcntrl, 
     output EX_MEM_loadcntrl, EX_MEM_storecntrl, 
     input  ID_EX_compare, ID_EX_pres_addr, ID_EX_alusel, ID_EX_alusrc,
+    input  ID_EX_mulsel,
     input  ID_EX_memread, ID_EX_memwrite, ID_EX_regwrite, ID_EX_jal,
     input  ID_EX_jalr, ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_dout_rs1, ID_EX_dout_rs2,
     output EX_MEM_dout_rs2, EX_MEM_rs2, EX_MEM_rs1,
@@ -276,8 +280,8 @@ module RISCVcore_uart(riscv_bus rbus);
   Decode u2(bus.decode);
   
   Execute u3(bus.execute);
-  
+
   Memory u4(bus.memory);
   
-  Writeback u5(bus.writeback);    
+  Writeback u5(bus.writeback);   
 endmodule
