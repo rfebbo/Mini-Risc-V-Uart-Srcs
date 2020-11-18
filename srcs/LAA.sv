@@ -24,11 +24,11 @@ module LAA(LAA_bus bus);
     // Control: 11111 (27)
     
     logic ready;
-    logic [31:0] matrices [27:0]; // 28 registers (9 ea. for A, B, & C; 1 for data_out)
+    logic [31:0] matrices [26:0]; // 28 registers (9 ea. for A, B, & C)
     logic [3:0] stage;
     logic [31:0] dp_result;
     
-    assign bus.data_out = matrices[27];
+    assign bus.data_out = bus.addr == 5'b11111 ? ready : matrices[bus.addr];
     assign ready = stage == 4'b0000;
     
     always_ff @(posedge bus.clk) begin
@@ -55,12 +55,6 @@ module LAA(LAA_bus bus);
         else if (bus.opcode == WRITE && bus.addr >= 5'b00000 && bus.addr <= 5'b10001)
             // Write
           matrices[bus.addr] <= bus.data_in;
-        else if (bus.opcode == READ  && bus.addr >= 5'b00000 && bus.addr <= 5'b10001)
-            // Read
-            matrices[27] <= matrices[bus.addr];
-        else if (bus.opcode == READ && bus.addr == 5'b11111)
-            // Read control register
-            matrices[27] <= ready;
     end
     
     MatrixMultiplier mm0(

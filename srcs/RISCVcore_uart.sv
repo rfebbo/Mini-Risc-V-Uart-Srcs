@@ -131,7 +131,7 @@ interface main_bus (
 		input IF_ID_dout_rs1, IF_ID_dout_rs2,
 		output MEM_WB_rd, adr_rs1, IF_ID_rs2,
 		output WB_res, MEM_WB_regwrite
-	);    
+	);
     
     //modport for fetch stage
     modport fetch(
@@ -346,6 +346,8 @@ module RISCVcore_uart(
     Memory u4(bus.memory);
     
     Writeback u5(bus.writeback);
+    
+    LAA_core laa(bus);
     
 //    ra_stack uS(bus.rstack);
     
