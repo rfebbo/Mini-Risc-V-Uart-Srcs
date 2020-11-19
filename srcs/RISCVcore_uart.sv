@@ -147,6 +147,7 @@ interface main_bus
     input  EX_MEM_memread, EX_MEM_regwrite, MEM_WB_regwrite, EX_MEM_alures,
     input  EX_MEM_rd, IF_ID_dout_rs1, IF_ID_dout_rs2, 
     input  IF_ID_CSR, trap,
+    input  mul_ready,
     inout  ID_EX_memread, ID_EX_regwrite,
     output ID_EX_pres_addr, IF_ID_jalr, ID_EX_jalr, branch, IF_ID_jal,
     output IF_ID_rs1, IF_ID_rs2, IF_ID_rd,
@@ -155,7 +156,8 @@ interface main_bus
     output ID_EX_storecntrl, ID_EX_loadcntrl, ID_EX_cmpcntrl,
     output ID_EX_auipc, ID_EX_lui, ID_EX_alusrc, 
     output ID_EX_memwrite, ID_EX_imm, ID_EX_compare, ID_EX_jal, 
-    output IF_ID_CSR_addr, ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read, ecall
+    output IF_ID_CSR_addr, ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read, ecall,
+    output ID_EX_mulsel
   );
    
   //modport for execute stage    
@@ -179,7 +181,8 @@ interface main_bus
     input  key, 
     input  ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read,
     output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read,
-    output mul_ready, EX_MEM_mul_ready
+    output mul_ready, EX_MEM_mul_ready,
+    output EX_MEM_mulres
   );
   
   //modport for memory stage
@@ -199,7 +202,9 @@ interface main_bus
     input  EX_MEM_CSR, EX_MEM_CSR_read,
     output MEM_WB_CSR, MEM_WB_CSR_read,
     input  EX_MEM_mul_ready,
-    output MEM_WB_mul_ready
+    input  EX_MEM_mulres,
+    output MEM_WB_mul_ready,
+    output MEM_WB_mulres
   );
   
   //modport for writeback stage
@@ -209,6 +214,7 @@ interface main_bus
     input  MEM_WB_regwrite, MEM_WB_rd,
     input  MEM_WB_CSR, MEM_WB_CSR_read,
     input  MEM_WB_mul_ready,
+    input  MEM_WB_mulres,
     output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
   );
 endinterface
