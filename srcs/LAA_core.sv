@@ -139,24 +139,23 @@ module LAA_core( main_bus bus);
 
 	always_ff @ (posedge bus.clk) begin
 		if (bus.Rst) begin
-			bus.LAA_busy <= 'b0;
 			cur_stage <= 'd0;
 			next_stage <= 'd0;
 		end else begin
+		  if (!illegal_ins) begin
 			cur_stage <= next_stage;
 			next_stage <= bus.LAA_ins[8:7];
 			laa_opcode = temp_opcode;
-			bus.LAA_busy <= 'b0;
 			if (next_stage == 2'b11) begin
-		   		if ((LAA_bus.addr == 5'b1_1111) && (|(LAA_bus.data_out))) bus.LAA_busy <= 'b0;
-		   		else bus.LAA_busy <= 'b1;
 				if ((cur_stage == 2'b11) ) begin
 					laa_opcode <= READ;
    		 			LAA_bus.addr <= 5'b1_1111;
    		 		end
 			end
+		  end
 		end
 	end
 
+	assign bus.LAA_busy = ((bus.LAA_ins[8:7]) == 2'b11) ? ((laa_opcode == READ) && ((LAA_bus.addr == 5'b1_1111) && (|(LAA_bus.data_out)))) ? 'b0 : 'b1 : 'b0;
 
 endmodule:LAA_core
