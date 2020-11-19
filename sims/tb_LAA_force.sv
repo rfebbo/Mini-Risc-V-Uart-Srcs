@@ -28,49 +28,49 @@ initial begin
     Rst=0;
     #50;
     
-    force dut.rv_core.bus.LAA_ins = 'h00000000;
-    force dut.rv_core.bus.ins     = 'h000017b7; #10; // a5 = 1
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout = 'h00000000;
+    force dut.rv_core.bus.imem_dout     = 'h000017b7; #10; // a5 = 1
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
     
-    force dut.rv_core.bus.ins     = 'h00000000;
-    force dut.rv_core.bus.LAA_ins = 'h7800010B; #10; // laa_A[0] = a5
-    force dut.rv_core.bus.LAA_ins = 'h7A40010B; #10; // laa_B[0] = a5
-    force dut.rv_core.bus.LAA_ins = 'h0000018B; #10; // multiply
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
-    force dut.rv_core.bus.LAA_ins = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout     = 'h00000000;
+    force dut.rv_core.bus.imem_dout = 'h7800010B; #10; // laa_A[0] = a5
+    force dut.rv_core.bus.imem_dout = 'h7A40010B; #10; // laa_B[0] = a5
+    force dut.rv_core.bus.imem_dout = 'h0000018B; #10; // multiply
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
+    force dut.rv_core.bus.imem_dout = 'h7FC0008B; #10; // a5 = laa_ctrl
     
-    force dut.rv_core.bus.LAA_ins = 'h00000000;
-    force dut.rv_core.bus.ins     = 'hef478793; #10; // a5 = a5 - 268
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout = 'h00000000;
+    force dut.rv_core.bus.imem_dout     = 'hef478793; #10; // a5 = a5 - 268
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
     
-    force dut.rv_core.bus.ins     = 'h00000000;
-    force dut.rv_core.bus.LAA_ins = 'h7800008B; #10; // a5 = laa_A[0]
+    force dut.rv_core.bus.imem_dout     = 'h00000000;
+    force dut.rv_core.bus.imem_dout = 'h7800008B; #10; // a5 = laa_A[0]
     
-    force dut.rv_core.bus.LAA_ins = 'h00000000;
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
-    force dut.rv_core.bus.ins     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout = 'h00000000;
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
+    force dut.rv_core.bus.imem_dout     = 'h00000013; #10; // NOP
 
 end
 
