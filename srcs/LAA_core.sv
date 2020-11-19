@@ -38,13 +38,14 @@ module LAA_core( main_bus bus);
     logic [4:0] addr_laareg_in2; // address of LAA register to store read input data2
     logic [31:0] data_in1; // Data to be written
     logic [31:0] data_in2; // Data to be written
-    
-    logic [31:0] data_out; // Output of LAA - read from LAA register    
+  
     logic [4:0] addr_corereg_out; // Store output of LAA to Core regfile
     logic [4:0] addr_laareg_out; // Read output of LAA from LAA register
     logic reg_write;
     
     logic illegal_ins;
+    logic [1:0] cur_stage, next_stage;
+    LAA_opcode temp_opcode;
     
     // LAA bus
     LAA_bus LAA_bus(.clk(bus.clk), .rst(bus.Rst));
@@ -53,7 +54,7 @@ module LAA_core( main_bus bus);
     LAA LAA_inst (LAA_bus);
     
     assign bus.MEM_WB_regwrite = reg_write;
-    assign bus.WB_res = LAA_bus.data_out; //data_out;
+    assign bus.WB_res = LAA_bus.data_out; //data_out; // Output of LAA - read from LAA register 
     assign bus.MEM_WB_rd = addr_corereg_out;
     assign bus.adr_rs1 = addr_corereg_in1;
     assign bus.IF_ID_rs2 = addr_corereg_in2;
@@ -66,7 +67,7 @@ module LAA_core( main_bus bus);
     
 
     always_comb begin
-    laa_opcode = NONE;
+    temp_opcode = NONE;
     addr_corereg_in1 = 'd0;
     addr_corereg_in2 = 'd0;
     addr_laareg_in1 = 'd0;
@@ -80,7 +81,7 @@ module LAA_core( main_bus bus);
      unique case (bus.LAA_ins[11:7])
       5'b00010:               // Load/Write to LAA registers : [31:27] - core_reg, [26:22] - LAA_reg, [21:12] - 10 bits not used, [11:7] - 0010, [6:0] - 00001011
         begin
-    		laa_opcode = WRITE;
+    		temp_opcode = WRITE;
     		addr_corereg_in1 = bus.LAA_ins[31:27];
     		addr_laareg_in1 = bus.LAA_ins[26:22];
     		data_in1 = bus.IF_ID_dout_rs1;
@@ -88,11 +89,11 @@ module LAA_core( main_bus bus);
     		addr_corereg_out = 'd0;
     		addr_laareg_out = 'd0;
     		reg_write = 'b0;
-    		LAA_bus.addr = addr_laareg_in1;        	
+    		LAA_bus.addr = addr_laareg_in1;
         end
       5'b00001:               // Read from LAA/Store to RiscV core registers : [31:27] - LAA_reg, [26:22] - core_reg, [21:12] - 10 bits not used, [11:7] - 0001, [6:0] - 00001011
 		begin
-    		laa_opcode = READ;
+    		temp_opcode = READ;
     		addr_corereg_in1 = 'd0;
     		addr_laareg_in1 = 'd0;
     		data_in1 = 'd0;
@@ -100,43 +101,62 @@ module LAA_core( main_bus bus);
     		addr_laareg_out = bus.LAA_ins[31:27];
     		addr_corereg_out = bus.LAA_ins[26:22];
     		reg_write = 'b0;
-    		LAA_bus.addr = addr_laareg_out;   		
+    		LAA_bus.addr = addr_laareg_out;
         end		
       5'b00011:               // Execute
 		begin
-    		laa_opcode = MULTIPLY;
+    		temp_opcode = MULTIPLY;
     		addr_corereg_in1 = 'd0;
     		addr_corereg_in2 = 'd0;
     		addr_laareg_in1 = 'd0;
     		addr_laareg_in2 = 'd0;
     		data_in1 = 'd0;
     		data_in2 = 'd0;
-    		data_out = 'd0;
     		addr_corereg_out = 'd0;
     		addr_laareg_out = 'd0;
-    		reg_write = 'b0;    		
+    		reg_write = 'b0;
+    		LAA_bus.addr = addr_laareg_out;
         end
  
      default:
        begin
-    		laa_opcode = NONE;
+    		temp_opcode = NONE;
     		addr_corereg_in1 = 'd0;
     		addr_corereg_in2 = 'd0;
     		addr_laareg_in1 = 'd0;
     		addr_laareg_in2 = 'd0;
     		data_in1 = 'd0;
     		data_in2 = 'd0;
-    		data_out = 'd0;
     		addr_corereg_out = 'd0;
     		addr_laareg_out = 'd0;
-    		reg_write = 'b0;    
+    		reg_write = 'b0;
+    		LAA_bus.addr = addr_laareg_out;
        end        
      endcase
     end
     end
 
 
-
+	always_ff @ (posedge bus.clk) begin
+		if (bus.Rst) begin
+			bus.LAA_busy <= 'b0;
+			cur_stage <= 'd0;
+			next_stage <= 'd0;
+		end else begin
+			cur_stage <= next_stage;
+			next_stage <= bus.LAA_ins[8:7];
+			laa_opcode = temp_opcode;
+			bus.LAA_busy <= 'b0;
+			if (next_stage == 2'b11) begin
+		   		if ((LAA_bus.addr == 5'b1_1111) && (|(LAA_bus.data_out))) bus.LAA_busy <= 'b0;
+		   		else bus.LAA_busy <= 'b1;
+				if ((cur_stage == 2'b11) ) begin
+					laa_opcode <= READ;
+   		 			LAA_bus.addr <= 5'b1_1111;
+   		 		end
+			end
+		end
+	end
 
 
 endmodule:LAA_core
