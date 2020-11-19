@@ -122,19 +122,22 @@ interface main_bus (
     //ports and signals that it needs
     
 	//Signals corresponding to LAA core    
-    logic [31:0] LAA_ins;
-	logic LAA_busy;
+	//Signals corresponding to LAA core    
+    logic [31:0] LAA_ins, laa_data_out;
+    logic LAA_busy,laa_regwrite;
+    logic  [4:0]  adr_laa_rs1, addr_corereg_laa;
+    
+    
     
     //modport for LAA_core
 	modport laa_core (
 		input LAA_ins, 
 		input clk, Rst,
 		input IF_ID_dout_rs1, IF_ID_dout_rs2,
-		output MEM_WB_rd, adr_rs1, IF_ID_rs2,
-		output WB_res, MEM_WB_regwrite,
-		output LAA_busy
+		output addr_corereg_laa, adr_laa_rs1, IF_ID_rs2,
+		output laa_data_out, MEM_WB_regwrite, 
+		output LAA_busy, laa_regwrite
 	);
-    
     //modport for fetch stage
     modport fetch(
         input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
@@ -151,8 +154,8 @@ interface main_bus (
     
     //modport for register file
     modport regfile(
-        input clk, adr_rs1, IF_ID_rs2, MEM_WB_rd, Rst,
-        input WB_res, MEM_WB_regwrite,
+        input clk, adr_rs1, adr_laa_rs1, IF_ID_rs2, MEM_WB_rd, addr_corereg_laa, Rst,
+        input WB_res, MEM_WB_regwrite, laa_data_out, laa_regwrite,
         output IF_ID_dout_rs1, IF_ID_dout_rs2 
     ); 
         
