@@ -122,6 +122,7 @@ module Memory(main_bus bus);
     begin
       bus.MEM_WB_alures    <= 32'h00000000;
       bus.MEM_WB_mulres    <= 32'h00000000;
+      bus.MEM_WB_mul_ready <= 1'b0;
       bus.MEM_WB_memread   <= 1'b0;
       bus.MEM_WB_regwrite  <= 1'b0;
       bus.MEM_WB_rd        <= 5'b00000;
@@ -139,6 +140,7 @@ module Memory(main_bus bus);
     begin
       bus.MEM_WB_alures    <= bus.EX_MEM_alures;
       bus.MEM_WB_mulres    <= bus.EX_MEM_mulres;
+      bus.MEM_WB_mul_ready <= bus.EX_MEM_mul_ready;
       bus.MEM_WB_memread   <= bus.EX_MEM_memread;
       bus.MEM_WB_regwrite  <= bus.EX_MEM_regwrite;
       bus.MEM_WB_rd        <= bus.EX_MEM_rd;

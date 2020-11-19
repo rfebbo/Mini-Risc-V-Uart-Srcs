@@ -49,6 +49,7 @@ module Control
   input  logic       ins_zero,
   input  logic       flush,
   input  logic       hazard,
+  input  logic       mul_ready,
   input  logic [4:0] rs1,rd,
   output logic [2:0] alusel,
   output logic [2:0] mulsel,
@@ -80,6 +81,8 @@ module Control
   // intruction classification signal
 
   logic stall;
+  logic mul_busy;
+  reg   mul_inst;
 
   always_comb
   begin
@@ -108,6 +111,7 @@ module Control
     csrsel      = 3'b000;
     csrwrite    = 1'b0;
     csrread     = 0;
+    mul_inst    = 1'b0;
   
     unique case (opcode)
       7'b0000011:               // load
@@ -156,13 +160,25 @@ module Control
           {7'h00,3'b111}: //and
             alusel = 3'b010;
 			    {7'h01,3'b000}: //mul
-            mulsel = 3'b001;
+          begin
+            mulsel   = 3'b001;
+            mul_inst = 1'b1;
+          end
 			    {7'h01,3'b001}: //mulh
-            mulsel = 3'b010;
+          begin
+            mulsel   = 3'b010;
+            mul_inst = 1'b1;
+          end
 			    {7'h01,3'b010}: //mulhsu
-            mulsel = 3'b011;
+          begin
+            mulsel   = 3'b011;
+            mul_inst = 1'b1;
+          end
 			    {7'h01,3'b011}: //mulhu
-            mulsel = 3'b100;
+          begin
+            mulsel   = 3'b100;
+            mul_inst = 1'b1;
+          end
           default:
             illegal_ins = 1'b1;				
         endcase
@@ -306,5 +322,7 @@ module Control
     endcase
   end
 
-  assign stall = flush || hazard || ins_zero;
+  assign mul_busy = mul_inst && !mul_ready;
+
+  assign stall = flush || hazard || ins_zero || mul_busy;
 endmodule: Control

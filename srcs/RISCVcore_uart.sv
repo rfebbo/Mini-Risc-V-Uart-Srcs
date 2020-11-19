@@ -112,6 +112,9 @@ interface main_bus
     
   logic        trap, ecall;
   logic [31:0] mtvec;
+  
+  logic        mul_ready;
+  logic        EX_MEM_mul_ready, MEM_WB_mul_ready;
 
   //modport declarations. These ensure each pipeline stage only sees and has access to the 
   //ports and signals that it needs
@@ -175,7 +178,8 @@ interface main_bus
     output EX_MEM_pres_addr,
     input  key, 
     input  ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read,
-    output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read
+    output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read,
+    output mul_ready, EX_MEM_mul_ready
   );
   
   //modport for memory stage
@@ -193,7 +197,9 @@ interface main_bus
     output mem_din, mem_addr, mem_wea, mem_en, mem_rea,
     
     input  EX_MEM_CSR, EX_MEM_CSR_read,
-    output MEM_WB_CSR, MEM_WB_CSR_read
+    output MEM_WB_CSR, MEM_WB_CSR_read,
+    input  EX_MEM_mul_ready,
+    output MEM_WB_mul_ready
   );
   
   //modport for writeback stage
@@ -202,6 +208,7 @@ interface main_bus
     input  clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
     input  MEM_WB_regwrite, MEM_WB_rd,
     input  MEM_WB_CSR, MEM_WB_CSR_read,
+    input  MEM_WB_mul_ready,
     output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
   );
 endinterface

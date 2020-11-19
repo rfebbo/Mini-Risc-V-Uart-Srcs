@@ -70,6 +70,8 @@ module Execute(main_bus bus);
   
   logic [31:0] CSR_res;
 
+  logic        mul_ready_sig;
+
   Forwarding dut
   (
     .EX_MEM_regwrite(EX_MEM_regwrite_sig),
@@ -119,6 +121,7 @@ module Execute(main_bus bus);
     .mulsel(bus.ID_EX_mulsel),
     .a(ALUop1),
     .b(ALUop2),
+    .ready(bus.mul_ready),
     .res(mulres)
   );
          
@@ -133,6 +136,7 @@ module Execute(main_bus bus);
       EX_MEM_alures_sig     <= 32'h00000000;
       EX_MEM_mulres_sig     <= 32'h00000000;
       bus.EX_MEM_dout_rs2   <= 32'h00000000;
+      bus.EX_MEM_mul_ready  <= 1'b0;
       bus.EX_MEM_rs2        <= 5'h0;
       bus.EX_MEM_rs1        <= 5'h0;
       bus.EX_MEM_comp_res   <= 1'b0;
@@ -153,6 +157,7 @@ module Execute(main_bus bus);
       EX_MEM_regwrite_sig   <= (bus.ID_EX_regwrite && (!bus.ID_EX_compare)) + (bus.ID_EX_regwrite && bus.ID_EX_compare && comp_res);
       EX_MEM_alures_sig     <= alures;
       EX_MEM_mulres_sig     <= mulres;
+      bus.EX_MEM_mul_ready  <= mul_ready_sig;
       bus.EX_MEM_dout_rs2   <= rs2_mod; //new
       bus.EX_MEM_rs2        <= bus.ID_EX_rs2;
       bus.EX_MEM_rs1        <= bus.ID_EX_rs1;
@@ -168,6 +173,7 @@ module Execute(main_bus bus);
     end
   end
   
+  assign bus.mul_ready       = mul_ready_sig;
   assign bus.EX_MEM_rd       = EX_MEM_rd_sig;
   assign bus.EX_MEM_alures   = EX_MEM_alures_sig;
   assign bus.EX_MEM_mulres   = EX_MEM_mulres_sig;

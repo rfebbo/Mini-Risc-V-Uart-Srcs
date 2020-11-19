@@ -126,6 +126,7 @@ module Decode(main_bus bus);
     .ins_zero(ins_zero),
     .flush(flush),
     .hazard(hz_sig),
+    .mul_ready(bus.mul_ready),
     .rs1(bus.ins[19:15]),
     .rd(bus.ins[11:7]), 
     .alusel(IF_ID_alusel),
