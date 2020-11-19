@@ -123,6 +123,7 @@ interface main_bus (
     
 	//Signals corresponding to LAA core    
     logic [31:0] LAA_ins;
+	logic LAA_busy;
     
     //modport for LAA_core
 	modport laa_core (
@@ -130,13 +131,14 @@ interface main_bus (
 		input clk, Rst,
 		input IF_ID_dout_rs1, IF_ID_dout_rs2,
 		output MEM_WB_rd, adr_rs1, IF_ID_rs2,
-		output WB_res, MEM_WB_regwrite
+		output WB_res, MEM_WB_regwrite,
+		output LAA_busy
 	);
     
     //modport for fetch stage
     modport fetch(
         input clk, PC_En, debug, prog, Rst, branch, IF_ID_jalr, IF_ID_jal,
-        input dbg, mem_hold,
+        input dbg, mem_hold, LAA_busy,
         input trap, mtvec,
         //input rx,
         input uart_dout, memcon_prog_ena,
