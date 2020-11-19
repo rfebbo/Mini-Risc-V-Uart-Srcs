@@ -77,6 +77,7 @@ module LAA_core( main_bus bus);
     addr_corereg_out = 'd0;
     addr_laareg_out = 'd0;
     reg_write = 'b0;
+    LAA_bus.addr = 'd0;
     if (!illegal_ins) begin
      unique case (bus.LAA_ins[11:7])
       5'b00010:               // Load/Write to LAA registers : [31:27] - core_reg, [26:22] - LAA_reg, [21:12] - 10 bits not used, [11:7] - 0010, [6:0] - 00001011
@@ -130,7 +131,7 @@ module LAA_core( main_bus bus);
     		addr_corereg_out = 'd0;
     		addr_laareg_out = 'd0;
     		reg_write = 'b0;
-    		LAA_bus.addr = addr_laareg_out;
+    		LAA_bus.addr = 'd0;
        end        
      endcase
     end
@@ -142,7 +143,6 @@ module LAA_core( main_bus bus);
 			cur_stage <= 'd0;
 			next_stage <= 'd0;
 		end else begin
-		  if (!illegal_ins) begin
 			cur_stage <= next_stage;
 			next_stage <= bus.LAA_ins[8:7];
 			laa_opcode = temp_opcode;
@@ -152,10 +152,9 @@ module LAA_core( main_bus bus);
    		 			LAA_bus.addr <= 5'b1_1111;
    		 		end
 			end
-		  end
 		end
 	end
 
-	assign bus.LAA_busy = ((bus.LAA_ins[8:7]) == 2'b11) ? ((laa_opcode == READ) && ((LAA_bus.addr == 5'b1_1111) && (|(LAA_bus.data_out)))) ? 'b0 : 'b1 : 'b0;
+	assign bus.LAA_busy = ((!illegal_ins) && ((bus.LAA_ins[8:7])) == 2'b11) ? ((laa_opcode == READ) && ((LAA_bus.addr == 5'b1_1111) && (|(LAA_bus.data_out)))) ? 'b0 : 'b1 : 'b0;
 
 endmodule:LAA_core
