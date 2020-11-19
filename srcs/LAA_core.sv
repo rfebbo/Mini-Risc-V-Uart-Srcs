@@ -53,12 +53,19 @@ module LAA_core( main_bus bus);
     // LAA instantiation
     LAA LAA_inst (LAA_bus);
     
-    assign bus.MEM_WB_regwrite = reg_write;
+    
+    /*assign bus.MEM_WB_regwrite = reg_write;
     assign bus.WB_res = LAA_bus.data_out; //data_out; // Output of LAA - read from LAA register 
     assign bus.MEM_WB_rd = addr_corereg_out;
     assign bus.adr_rs1 = addr_corereg_in1;
     assign bus.IF_ID_rs2 = addr_corereg_in2;
-    
+    */
+    assign bus.laa_regwrite = reg_write;
+    assign bus.laa_data_out = LAA_bus.data_out; //data_out; // Output of LAA - read from LAA register 
+    assign bus.addr_corereg_laa = addr_corereg_out;
+    assign bus.adr_laa_rs1 = addr_corereg_in1;
+    //assign bus.IF_ID_rs2 = addr_corereg_in2;
+   
     assign LAA_bus.data_in = data_in1;
     //assign data_out = LAA_bus.data_out;
     assign LAA_bus.opcode = laa_opcode;
