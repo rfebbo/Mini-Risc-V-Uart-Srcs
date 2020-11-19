@@ -3,7 +3,7 @@ module Multiplier
   // Inputs
   input         clk,
   input         rst,
-  input  [3:0]  mulsel,
+  input  [2:0]  mulsel,
   input  [31:0] a,
   input  [31:0] b,
   output        ready,
@@ -49,11 +49,12 @@ module Multiplier
   begin
     if (rst || !mul) // Reset
     begin
-      a_valid   <= 31'b0;
-      b_valid   <= 31'b0;
+      a_valid   <= 32'b0;
+      b_valid   <= 32'b0;
       high_bits <= 1'b0;
       busy      <= 1'b0;
       ready_s   <= 0;
+      full_res  <= 32'h0;
     end
     else if (ready)
     begin
@@ -74,5 +75,6 @@ module Multiplier
     end
   end
 
-  assign res = high_bits ? full_res[63:32] : full_res[31:0];
+  assign ready = ready_s;
+  assign res   = high_bits ? full_res[63:32] : full_res[31:0];
 endmodule

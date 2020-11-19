@@ -2,591 +2,1031 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Wed Apr  1 13:02:18 2020
-# Process ID: 7510
-# Current directory: /home/sabuj/Mini-Risc-V-Uart-Srcs
+# Start of session at: Thu Nov 19 10:59:55 2020
+# Process ID: 730
+# Current directory: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs
 # Command line: vivado
-# Log file: /home/sabuj/Mini-Risc-V-Uart-Srcs/vivado.log
-# Journal file: /home/sabuj/Mini-Risc-V-Uart-Srcs/vivado.jou
+# Log file: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/vivado.log
+# Journal file: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.xpr
+open_project /home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.xpr
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/sabuj/Vivado2019/Vivado/2019.1/data/ip'.
-WARNING: [IP_Flow 19-2162] IP 'blk_mem_gen_0' is locked:
-* Current project part 'xc7a100tcsg324-1' and the part 'xc7k70tfbv676-1' used to customize the IP 'blk_mem_gen_0' do not match.
-open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 6401.266 ; gain = 70.730 ; free physical = 2564 ; free virtual = 7447
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2019.1/data/ip'.
 update_compile_order -fileset sources_1
-add_files -norecurse {/home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Timer.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/compare.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv}
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 5 for port 'BR_clk' [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:106]
+WARNING: [VRFC 10-3283] element index 63 into 'full_res' is out of bounds [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv:79]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling module xil_defaultlib.riscv_bus
+Compiling module xil_defaultlib.mmio_bus
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.BUFG
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=6.25,...
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.main_bus
+Compiling module xil_defaultlib.Fetch_Reprogrammable(bus=main_bu...
+Compiling module xil_defaultlib.Regfile(bus=main_bus_regfile)
+Compiling module xil_defaultlib.Control
+Compiling module xil_defaultlib.branchforward
+Compiling module xil_defaultlib.Branchdecision
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Branoffgen
+Compiling module xil_defaultlib.Immgen
+Compiling module xil_defaultlib.compare
+Compiling module xil_defaultlib.Decode(bus=main_bus_decode)
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.Multiplier
+Compiling module xil_defaultlib.Execute(bus=main_bus_execute)
+Compiling module xil_defaultlib.Memory(bus=main_bus_memory)
+Compiling module xil_defaultlib.Writeback(bus=main_bus_writeback...
+Compiling module xil_defaultlib.RISCVcore_uart(rbus=riscv_bus_co...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_output_stage(...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3(C_FAMILY="art...
+Compiling module xil_defaultlib.blk_mem_gen_0
+Compiling module xil_defaultlib.Memory_Controller(rbus=riscv_bus...
+Compiling module xil_defaultlib.Addressable_FIFO
+Compiling module xil_defaultlib.Debug_Display(mbus=mmio_bus_disp...
+Compiling architecture a of entity xil_defaultlib.gh_jkff [gh_jkff_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det [gh_edge_det_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=4)\]
+Compiling architecture a of entity xil_defaultlib.gh_decode_3to8 [gh_decode_3to8_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [gh_register_ce_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld [\gh_counter_down_ce_ld(size=16)\]
+Compiling architecture a of entity xil_defaultlib.gh_baud_rate_gen [gh_baud_rate_gen_default]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_sr [gh_fifo_async16_sr_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [\gh_counter_integer_down(max_cou...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_PL_sl [\gh_shift_reg_PL_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [gh_counter_integer_down_default]
+Compiling architecture a of entity xil_defaultlib.gh_parity_gen_Serial [gh_parity_gen_serial_default]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Tx_8bit [gh_uart_tx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_binary2gray [\gh_binary2gray(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_gray2binary [\gh_gray2binary(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_rcsr_wf [\gh_fifo_async16_rcsr_wf(data_wi...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_se_sl [\gh_shift_reg_se_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Rx_8bit [gh_uart_rx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det_XCD [gh_edge_det_xcd_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld_tc [\gh_counter_down_ce_ld_tc(size=1...]
+Compiling architecture a of entity xil_defaultlib.gh_uart_16550 [gh_uart_16550_default]
+Compiling module xil_defaultlib.uart_controller(mbus=mmio_bus_ua...
+Compiling module xil_defaultlib.rv_uart_top
+Compiling module xil_defaultlib.tb_rvtop
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_rvtop_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6589.664 ; gain = 0.000 ; free physical = 1452 ; free virtual = 14357
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_rvtop_behav -key {Behavioral:sim_1:Functional:tb_rvtop} -tclbatch {tb_rvtop.tcl} -view {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1ms
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb_rvtop.dut.memcon0.sharedmem.inst.native_mem_mapped_module.blk_mem_gen_v8_4_3_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Begin simulaton
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:07 . Memory (MB): peak = 6664.477 ; gain = 0.000 ; free physical = 1422 ; free virtual = 14390
+xsim: Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 6664.477 ; gain = 74.812 ; free physical = 1422 ; free virtual = 14390
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_rvtop_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1ms
+launch_simulation: Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 6664.477 ; gain = 74.812 ; free physical = 1422 ; free virtual = 14390
 update_compile_order -fileset sources_1
-export_ip_user_files -of_objects  [get_files /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Timer.sv] -no_script -reset -force -quiet
-remove_files  /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Timer.sv
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP blk_mem_gen_0, cache-ID = 6098b50319847a81; cache size = 1.057 MB.
-WARNING: [Vivado 12-4801] The synthesis checkpoint for IP '/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' is available but stale and the IP is locked. An out-of-context (OOC) run will be created and/or launched, but synthesis may not be able to complete or could result in incorrect behavior.
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-WARNING: [HDL 9-3756] overwriting previous definition of module 'ALU' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv:55]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Addressable_FIFO' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branchdecision' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branoffgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'CSR' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv:44]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Debug_Display' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Decode' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Execute' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv:30]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch_Reprogrammable' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv:39]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Forwarding' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv:35]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Hazard' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv:31]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'IRAM_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Immgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv:25]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_byteaddress' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_ff' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'main_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore_uart' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:205]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Regfile' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv:34]
-CRITICAL WARNING: [HDL 9-806] Syntax error near "posedge". [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Timer.sv:41]
-CRITICAL WARNING: [HDL 9-806] Syntax error near "<=". [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Timer.sv:46]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'UART_Programmer' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Writeback' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'branchforward' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'compare' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv:2]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'riscv_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'mmio_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'tx_control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'uart_controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv:23]
-WARNING: [filemgmt 20-736] The current top specification, "rv_top", does not uniquely identify a single design element. Using "rv_top" (Library: xil_defaultlib, File: /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv).
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'ALU()' found in library 'xil_defaultlib'
-Duplicate found at line 55 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-	(Active) Duplicate found at line 55 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Addressable_FIFO()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branchdecision()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branoffgen()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CSR()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Control()' found in library 'xil_defaultlib'
-Duplicate found at line 44 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-	(Active) Duplicate found at line 44 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Debug_Display()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Decode()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Execute()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch()' found in library 'xil_defaultlib'
-Duplicate found at line 30 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-	(Active) Duplicate found at line 30 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch_Reprogrammable()' found in library 'xil_defaultlib'
-Duplicate found at line 39 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-	(Active) Duplicate found at line 39 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Forwarding()' found in library 'xil_defaultlib'
-Duplicate found at line 35 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-	(Active) Duplicate found at line 35 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Hazard()' found in library 'xil_defaultlib'
-Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-	(Active) Duplicate found at line 31 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'IRAM_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Immgen()' found in library 'xil_defaultlib'
-Duplicate found at line 25 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-	(Active) Duplicate found at line 25 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_byteaddress()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_ff()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'main_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore_uart()' found in library 'xil_defaultlib'
-Duplicate found at line 205 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 205 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Regfile()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'UART_Programmer()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Writeback()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'branchforward()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'compare()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'rv_top()' found in library 'xil_defaultlib'
-Duplicate found at line 2 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 2 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 71 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 71 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'riscv_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'mmio_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'tx_control()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_controller()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CDiv(Behavior)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 11 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'DB(Behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_32I8O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_8I32O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 24 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'SingPul(onepulse)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 13 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_rx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_tx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-WARNING: [Runs 36-337] The following IPs are either missing output products or output products are not up-to-date for Synthesis target. Since these IPs are locked, no update to the output products can be done. 
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-
-[Wed Apr  1 14:07:10 2020] Launched synth_1...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/synth_1/runme.log
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP blk_mem_gen_0, cache-ID = 6098b50319847a81; cache size = 1.057 MB.
-WARNING: [Vivado 12-4801] The synthesis checkpoint for IP '/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' is available but stale and the IP is locked. An out-of-context (OOC) run will be created and/or launched, but synthesis may not be able to complete or could result in incorrect behavior.
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-WARNING: [HDL 9-3756] overwriting previous definition of module 'ALU' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv:55]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Addressable_FIFO' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branchdecision' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branoffgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'CSR' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv:44]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Debug_Display' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Decode' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Execute' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv:30]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch_Reprogrammable' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv:39]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Forwarding' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv:35]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Hazard' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv:31]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'IRAM_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Immgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv:25]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_byteaddress' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_ff' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'main_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore_uart' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:205]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Regfile' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'UART_Programmer' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Writeback' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'branchforward' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'compare' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv:2]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'riscv_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'mmio_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'tx_control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'uart_controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv:23]
-WARNING: [filemgmt 20-736] The current top specification, "rv_top", does not uniquely identify a single design element. Using "rv_top" (Library: xil_defaultlib, File: /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv).
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'ALU()' found in library 'xil_defaultlib'
-Duplicate found at line 55 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-	(Active) Duplicate found at line 55 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Addressable_FIFO()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branchdecision()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branoffgen()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CSR()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Control()' found in library 'xil_defaultlib'
-Duplicate found at line 44 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-	(Active) Duplicate found at line 44 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Debug_Display()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Decode()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Execute()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch()' found in library 'xil_defaultlib'
-Duplicate found at line 30 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-	(Active) Duplicate found at line 30 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch_Reprogrammable()' found in library 'xil_defaultlib'
-Duplicate found at line 39 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-	(Active) Duplicate found at line 39 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Forwarding()' found in library 'xil_defaultlib'
-Duplicate found at line 35 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-	(Active) Duplicate found at line 35 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Hazard()' found in library 'xil_defaultlib'
-Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-	(Active) Duplicate found at line 31 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'IRAM_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Immgen()' found in library 'xil_defaultlib'
-Duplicate found at line 25 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-	(Active) Duplicate found at line 25 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_byteaddress()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_ff()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'main_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore_uart()' found in library 'xil_defaultlib'
-Duplicate found at line 205 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 205 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Regfile()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'UART_Programmer()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Writeback()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'branchforward()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'compare()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'rv_top()' found in library 'xil_defaultlib'
-Duplicate found at line 2 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 2 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 71 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 71 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'riscv_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'mmio_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'tx_control()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_controller()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CDiv(Behavior)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 11 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'DB(Behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_32I8O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_8I32O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 24 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'SingPul(onepulse)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 13 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_rx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_tx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-WARNING: [Runs 36-337] The following IPs are either missing output products or output products are not up-to-date for Synthesis target. Since these IPs are locked, no update to the output products can be done. 
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-
-[Wed Apr  1 14:09:31 2020] Launched synth_1...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/synth_1/runme.log
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP blk_mem_gen_0, cache-ID = 6098b50319847a81; cache size = 1.057 MB.
-WARNING: [Vivado 12-4801] The synthesis checkpoint for IP '/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' is available but stale and the IP is locked. An out-of-context (OOC) run will be created and/or launched, but synthesis may not be able to complete or could result in incorrect behavior.
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-WARNING: [HDL 9-3756] overwriting previous definition of module 'ALU' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv:55]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Addressable_FIFO' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branchdecision' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Branoffgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'CSR' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv:44]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Debug_Display' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Decode' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Execute' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv:58]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv:30]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Fetch_Reprogrammable' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv:39]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Forwarding' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv:35]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Hazard' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv:31]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'IRAM_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Immgen' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv:25]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv:36]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_Controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_byteaddress' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Memory_ff' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'main_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:27]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'RISCVcore_uart' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv:205]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Regfile' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'UART_Programmer' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv:28]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'Writeback' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv:26]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'branchforward' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'compare' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv:23]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv:2]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'riscv_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of interface 'mmio_bus' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:34]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'rv_top' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:71]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'tx_control' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv:3]
-WARNING: [HDL 9-3756] overwriting previous definition of module 'uart_controller' [/home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv:23]
-WARNING: [filemgmt 20-736] The current top specification, "rv_top", does not uniquely identify a single design element. Using "rv_top" (Library: xil_defaultlib, File: /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv).
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'ALU()' found in library 'xil_defaultlib'
-Duplicate found at line 55 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-	(Active) Duplicate found at line 55 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Addressable_FIFO()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branchdecision()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Branoffgen()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CSR()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CSR.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Control()' found in library 'xil_defaultlib'
-Duplicate found at line 44 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-	(Active) Duplicate found at line 44 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Debug_Display()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Decode()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Execute()' found in library 'xil_defaultlib'
-Duplicate found at line 58 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-	(Active) Duplicate found at line 58 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch()' found in library 'xil_defaultlib'
-Duplicate found at line 30 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-	(Active) Duplicate found at line 30 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Fetch_Reprogrammable()' found in library 'xil_defaultlib'
-Duplicate found at line 39 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-	(Active) Duplicate found at line 39 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Forwarding()' found in library 'xil_defaultlib'
-Duplicate found at line 35 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-	(Active) Duplicate found at line 35 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Hazard()' found in library 'xil_defaultlib'
-Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-	(Active) Duplicate found at line 31 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'IRAM_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/IRAM_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Immgen()' found in library 'xil_defaultlib'
-Duplicate found at line 25 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-	(Active) Duplicate found at line 25 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory()' found in library 'xil_defaultlib'
-Duplicate found at line 36 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-	(Active) Duplicate found at line 36 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_Controller()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_byteaddress()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_byteaddress.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Memory_ff()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Memory_ff.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'main_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 27 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 27 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'RISCVcore_uart()' found in library 'xil_defaultlib'
-Duplicate found at line 205 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-	(Active) Duplicate found at line 205 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Regfile()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'UART_Programmer()' found in library 'xil_defaultlib'
-Duplicate found at line 28 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-	(Active) Duplicate found at line 28 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/UART_Programmer.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'Writeback()' found in library 'xil_defaultlib'
-Duplicate found at line 26 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-	(Active) Duplicate found at line 26 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'branchforward()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'compare()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/compare.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'rv_top()' found in library 'xil_defaultlib'
-Duplicate found at line 2 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 2 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_top.sv
-Duplicate found at line 71 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 71 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'riscv_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'mmio_bus()' found in library 'xil_defaultlib'
-Duplicate found at line 34 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-	(Active) Duplicate found at line 34 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'tx_control()' found in library 'xil_defaultlib'
-Duplicate found at line 3 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-	(Active) Duplicate found at line 3 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/tx_control.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_controller()' found in library 'xil_defaultlib'
-Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-	(Active) Duplicate found at line 23 of file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'CDiv(Behavior)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 11 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/CDiv.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'DB(Behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 31 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/DB.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_32I8O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 23 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_32I8O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'FIFO_8I32O(behavioral)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 24 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/FIFO_8I32O.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'SingPul(onepulse)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 13 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/SingPul.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_rx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_rx6.vhd
-WARNING: [filemgmt 20-1318] Duplicate Design Unit 'uart_tx6(low_level_definition)' found in library 'xil_defaultlib'
-	(Active) Duplicate found at line 100 of file /home/sabuj/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-Duplicate found in file /home/sabuj/vivado_new/MiniRISCV/Mini-Risc-V-Uart-Srcs/srcs/uart_tx6.vhd
-WARNING: [Runs 36-337] The following IPs are either missing output products or output products are not up-to-date for Synthesis target. Since these IPs are locked, no update to the output products can be done. 
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-
-[Wed Apr  1 14:11:10 2020] Launched synth_1...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/synth_1/runme.log
-launch_runs impl_2 -jobs 2
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP blk_mem_gen_0, cache-ID = 6098b50319847a81; cache size = 1.057 MB.
-WARNING: [Vivado 12-4801] The synthesis checkpoint for IP '/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' is available but stale and the IP is locked. An out-of-context (OOC) run will be created and/or launched, but synthesis may not be able to complete or could result in incorrect behavior.
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-[Wed Apr  1 14:12:39 2020] Launched impl_2...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/impl_2/runme.log
-open_run impl_2
-INFO: [Device 21-403] Loading part xc7a100tcsg324-1
-INFO: [Netlist 29-17] Analyzing 774 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2019.1
-INFO: [Project 1-570] Preparing netlist for logic optimization
-INFO: [Timing 38-478] Restoring timing data from binary archive.
-INFO: [Timing 38-479] Binary timing data restore complete.
-INFO: [Project 1-856] Restoring constraints from binary archive.
-INFO: [Constraints 18-5170] The checkpoint was created with non-default parameter values which do not match the current Vivado settings.  Mismatching parameters are:
-  general.maxThreads
-INFO: [Project 1-853] Binary constraint restore complete.
-Reading XDEF placement.
-Reading placer database...
-Reading XDEF routing.
-Read XDEF File: Time (s): cpu = 00:00:00.35 ; elapsed = 00:00:00.34 . Memory (MB): peak = 7605.695 ; gain = 5.004 ; free physical = 1596 ; free virtual = 6755
-Restored from archive | CPU: 0.350000 secs | Memory: 6.017059 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:00.35 ; elapsed = 00:00:00.34 . Memory (MB): peak = 7605.695 ; gain = 5.004 ; free physical = 1596 ; free virtual = 6755
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 7605.695 ; gain = 0.000 ; free physical = 1597 ; free virtual = 6755
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 19 instances were transformed.
-  LUT6_2 => LUT6_2 (LUT5, LUT6): 19 instances
-
-open_run: Time (s): cpu = 00:00:26 ; elapsed = 00:00:18 . Memory (MB): peak = 7788.371 ; gain = 926.566 ; free physical = 1500 ; free virtual = 6662
-reset_run synth_1
-launch_runs impl_2 -to_step write_bitstream -jobs 2
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP blk_mem_gen_0, cache-ID = 6098b50319847a81; cache size = 1.057 MB.
-WARNING: [Vivado 12-4801] The synthesis checkpoint for IP '/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci' is available but stale and the IP is locked. An out-of-context (OOC) run will be created and/or launched, but synthesis may not be able to complete or could result in incorrect behavior.
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-WARNING: [Runs 36-337] The following IPs are either missing output products or output products are not up-to-date for Synthesis target. Since these IPs are locked, no update to the output products can be done. 
-Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
-/home/sabuj/vivado_new/MiniRISCV/MiniRISCV.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-
-[Wed Apr  1 14:15:24 2020] Launched synth_1...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/synth_1/runme.log
-[Wed Apr  1 14:15:24 2020] Launched impl_2...
-Run output will be captured here: /home/sabuj/vivado_new/MiniRISCV/MiniRISCV.runs/impl_2/runme.log
-open_hw
-connect_hw_server
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-2222] Launching hw_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-****** Xilinx hw_server v2019.1
-  **** Build date : May 24 2019 at 15:06:40
-    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210274592712A
-set_property PROGRAM.FILE {/home/sabuj/Downloads/rv_top.bit} [get_hw_devices xc7a100t_0]
-current_hw_device [get_hw_devices xc7a100t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
-INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
-set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
-set_property PROGRAM.FILE {/home/sabuj/Downloads/rv_top.bit} [get_hw_devices xc7a100t_0]
-program_hw_devices [get_hw_devices xc7a100t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
-INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_clk_wiz_0_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-3180] cannot find port 'mul_inst' on this module [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv:152]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 5 for port 'BR_clk' [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:106]
+WARNING: [VRFC 10-3283] element index 63 into 'full_res' is out of bounds [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv:79]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling module xil_defaultlib.riscv_bus
+Compiling module xil_defaultlib.mmio_bus
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.BUFG
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=6.25,...
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.main_bus
+Compiling module xil_defaultlib.Fetch_Reprogrammable(bus=main_bu...
+Compiling module xil_defaultlib.Regfile(bus=main_bus_regfile)
+Compiling module xil_defaultlib.Control
+Compiling module xil_defaultlib.branchforward
+Compiling module xil_defaultlib.Branchdecision
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Branoffgen
+Compiling module xil_defaultlib.Immgen
+Compiling module xil_defaultlib.compare
+Compiling module xil_defaultlib.Decode(bus=main_bus_decode)
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.Multiplier
+Compiling module xil_defaultlib.Execute(bus=main_bus_execute)
+Compiling module xil_defaultlib.Memory(bus=main_bus_memory)
+Compiling module xil_defaultlib.Writeback(bus=main_bus_writeback...
+Compiling module xil_defaultlib.RISCVcore_uart(rbus=riscv_bus_co...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_output_stage(...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3(C_FAMILY="art...
+Compiling module xil_defaultlib.blk_mem_gen_0
+Compiling module xil_defaultlib.Memory_Controller(rbus=riscv_bus...
+Compiling module xil_defaultlib.Addressable_FIFO
+Compiling module xil_defaultlib.Debug_Display(mbus=mmio_bus_disp...
+Compiling architecture a of entity xil_defaultlib.gh_jkff [gh_jkff_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det [gh_edge_det_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=4)\]
+Compiling architecture a of entity xil_defaultlib.gh_decode_3to8 [gh_decode_3to8_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [gh_register_ce_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld [\gh_counter_down_ce_ld(size=16)\]
+Compiling architecture a of entity xil_defaultlib.gh_baud_rate_gen [gh_baud_rate_gen_default]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_sr [gh_fifo_async16_sr_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [\gh_counter_integer_down(max_cou...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_PL_sl [\gh_shift_reg_PL_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [gh_counter_integer_down_default]
+Compiling architecture a of entity xil_defaultlib.gh_parity_gen_Serial [gh_parity_gen_serial_default]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Tx_8bit [gh_uart_tx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_binary2gray [\gh_binary2gray(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_gray2binary [\gh_gray2binary(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_rcsr_wf [\gh_fifo_async16_rcsr_wf(data_wi...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_se_sl [\gh_shift_reg_se_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Rx_8bit [gh_uart_rx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det_XCD [gh_edge_det_xcd_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld_tc [\gh_counter_down_ce_ld_tc(size=1...]
+Compiling architecture a of entity xil_defaultlib.gh_uart_16550 [gh_uart_16550_default]
+Compiling module xil_defaultlib.uart_controller(mbus=mmio_bus_ua...
+Compiling module xil_defaultlib.rv_uart_top
+Compiling module xil_defaultlib.tb_rvtop
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_rvtop_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6714.969 ; gain = 0.000 ; free physical = 1492 ; free virtual = 14435
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_rvtop_behav -key {Behavioral:sim_1:Functional:tb_rvtop} -tclbatch {tb_rvtop.tcl} -view {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+WARNING: Simulation object /tb_rvtop/dut/rv_core/u2/u1/mul_ready was not found in the design.
+WARNING: Simulation object /tb_rvtop/dut/rv_core/u2/u1/mul_busy was not found in the design.
+source tb_rvtop.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1ms
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb_rvtop.dut.memcon0.sharedmem.inst.native_mem_mapped_module.blk_mem_gen_v8_4_3_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Begin simulaton
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:07 . Memory (MB): peak = 6791.820 ; gain = 0.000 ; free physical = 1392 ; free virtual = 14396
+xsim: Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 6791.820 ; gain = 76.852 ; free physical = 1392 ; free virtual = 14396
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_rvtop_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1ms
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 6791.820 ; gain = 76.852 ; free physical = 1392 ; free virtual = 14396
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg}
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_clk_wiz_0_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 5 for port 'BR_clk' [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:106]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling module xil_defaultlib.riscv_bus
+Compiling module xil_defaultlib.mmio_bus
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.BUFG
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=6.25,...
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.main_bus
+Compiling module xil_defaultlib.Fetch_Reprogrammable(bus=main_bu...
+Compiling module xil_defaultlib.Regfile(bus=main_bus_regfile)
+Compiling module xil_defaultlib.Control
+Compiling module xil_defaultlib.branchforward
+Compiling module xil_defaultlib.Branchdecision
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Branoffgen
+Compiling module xil_defaultlib.Immgen
+Compiling module xil_defaultlib.compare
+Compiling module xil_defaultlib.Decode(bus=main_bus_decode)
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.Multiplier
+Compiling module xil_defaultlib.Execute(bus=main_bus_execute)
+Compiling module xil_defaultlib.Memory(bus=main_bus_memory)
+Compiling module xil_defaultlib.Writeback(bus=main_bus_writeback...
+Compiling module xil_defaultlib.RISCVcore_uart(rbus=riscv_bus_co...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_output_stage(...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3(C_FAMILY="art...
+Compiling module xil_defaultlib.blk_mem_gen_0
+Compiling module xil_defaultlib.Memory_Controller(rbus=riscv_bus...
+Compiling module xil_defaultlib.Addressable_FIFO
+Compiling module xil_defaultlib.Debug_Display(mbus=mmio_bus_disp...
+Compiling architecture a of entity xil_defaultlib.gh_jkff [gh_jkff_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det [gh_edge_det_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=4)\]
+Compiling architecture a of entity xil_defaultlib.gh_decode_3to8 [gh_decode_3to8_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [gh_register_ce_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld [\gh_counter_down_ce_ld(size=16)\]
+Compiling architecture a of entity xil_defaultlib.gh_baud_rate_gen [gh_baud_rate_gen_default]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_sr [gh_fifo_async16_sr_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [\gh_counter_integer_down(max_cou...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_PL_sl [\gh_shift_reg_PL_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [gh_counter_integer_down_default]
+Compiling architecture a of entity xil_defaultlib.gh_parity_gen_Serial [gh_parity_gen_serial_default]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Tx_8bit [gh_uart_tx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_binary2gray [\gh_binary2gray(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_gray2binary [\gh_gray2binary(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_rcsr_wf [\gh_fifo_async16_rcsr_wf(data_wi...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_se_sl [\gh_shift_reg_se_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Rx_8bit [gh_uart_rx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det_XCD [gh_edge_det_xcd_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld_tc [\gh_counter_down_ce_ld_tc(size=1...]
+Compiling architecture a of entity xil_defaultlib.gh_uart_16550 [gh_uart_16550_default]
+Compiling module xil_defaultlib.uart_controller(mbus=mmio_bus_ua...
+Compiling module xil_defaultlib.rv_uart_top
+Compiling module xil_defaultlib.tb_rvtop
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_rvtop_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6820.832 ; gain = 0.000 ; free physical = 1461 ; free virtual = 14410
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_rvtop_behav -key {Behavioral:sim_1:Functional:tb_rvtop} -tclbatch {tb_rvtop.tcl} -view {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1ms
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb_rvtop.dut.memcon0.sharedmem.inst.native_mem_mapped_module.blk_mem_gen_v8_4_3_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Begin simulaton
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 6830.840 ; gain = 0.000 ; free physical = 1376 ; free virtual = 14382
+xsim: Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 6830.840 ; gain = 10.008 ; free physical = 1376 ; free virtual = 14382
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_rvtop_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1ms
+launch_simulation: Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 6830.840 ; gain = 10.008 ; free physical = 1376 ; free virtual = 14382
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg}
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 5 for port 'BR_clk' [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:106]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling module xil_defaultlib.riscv_bus
+Compiling module xil_defaultlib.mmio_bus
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.BUFG
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=6.25,...
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.main_bus
+Compiling module xil_defaultlib.Fetch_Reprogrammable(bus=main_bu...
+Compiling module xil_defaultlib.Regfile(bus=main_bus_regfile)
+Compiling module xil_defaultlib.Control
+Compiling module xil_defaultlib.branchforward
+Compiling module xil_defaultlib.Branchdecision
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Branoffgen
+Compiling module xil_defaultlib.Immgen
+Compiling module xil_defaultlib.compare
+Compiling module xil_defaultlib.Decode(bus=main_bus_decode)
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.Multiplier
+Compiling module xil_defaultlib.Execute(bus=main_bus_execute)
+Compiling module xil_defaultlib.Memory(bus=main_bus_memory)
+Compiling module xil_defaultlib.Writeback(bus=main_bus_writeback...
+Compiling module xil_defaultlib.RISCVcore_uart(rbus=riscv_bus_co...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_output_stage(...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3(C_FAMILY="art...
+Compiling module xil_defaultlib.blk_mem_gen_0
+Compiling module xil_defaultlib.Memory_Controller(rbus=riscv_bus...
+Compiling module xil_defaultlib.Addressable_FIFO
+Compiling module xil_defaultlib.Debug_Display(mbus=mmio_bus_disp...
+Compiling architecture a of entity xil_defaultlib.gh_jkff [gh_jkff_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det [gh_edge_det_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=4)\]
+Compiling architecture a of entity xil_defaultlib.gh_decode_3to8 [gh_decode_3to8_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [gh_register_ce_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld [\gh_counter_down_ce_ld(size=16)\]
+Compiling architecture a of entity xil_defaultlib.gh_baud_rate_gen [gh_baud_rate_gen_default]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_sr [gh_fifo_async16_sr_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [\gh_counter_integer_down(max_cou...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_PL_sl [\gh_shift_reg_PL_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [gh_counter_integer_down_default]
+Compiling architecture a of entity xil_defaultlib.gh_parity_gen_Serial [gh_parity_gen_serial_default]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Tx_8bit [gh_uart_tx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_binary2gray [\gh_binary2gray(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_gray2binary [\gh_gray2binary(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_rcsr_wf [\gh_fifo_async16_rcsr_wf(data_wi...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_se_sl [\gh_shift_reg_se_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Rx_8bit [gh_uart_rx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det_XCD [gh_edge_det_xcd_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld_tc [\gh_counter_down_ce_ld_tc(size=1...]
+Compiling architecture a of entity xil_defaultlib.gh_uart_16550 [gh_uart_16550_default]
+Compiling module xil_defaultlib.uart_controller(mbus=mmio_bus_ua...
+Compiling module xil_defaultlib.rv_uart_top
+Compiling module xil_defaultlib.tb_rvtop
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_rvtop_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6830.840 ; gain = 0.000 ; free physical = 1451 ; free virtual = 14401
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_rvtop_behav -key {Behavioral:sim_1:Functional:tb_rvtop} -tclbatch {tb_rvtop.tcl} -view {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1ms
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb_rvtop.dut.memcon0.sharedmem.inst.native_mem_mapped_module.blk_mem_gen_v8_4_3_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Begin simulaton
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 6830.840 ; gain = 0.000 ; free physical = 1377 ; free virtual = 14391
+xsim: Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 6830.840 ; gain = 0.000 ; free physical = 1377 ; free virtual = 14391
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_rvtop_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1ms
+launch_simulation: Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 6830.840 ; gain = 0.000 ; free physical = 1377 ; free virtual = 14391
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg}
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/tools/Xilinx/Vivado/2019.1/data/xsim/xsim.ini' copied to run dir:'/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_rvtop' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/blk_mem_gen_0.mif'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/kernel.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/uartTest.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/test.coe'
+INFO: [SIM-utils-43] Exported '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim/laa_test.coe'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_rvtop_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_clk_wiz_0_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Addressable_FIFO.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Addressable_FIFO
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branchdecision
+INFO: [VRFC 10-2458] undeclared symbol lessu, assumed default net type wire [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Brachdecision.sv:48]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Branoffgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Branoffgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Control_majumder_backup.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Debug_Display.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Debug_Display
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Fetch_Reprogrammable.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Fetch_Reprogrammable
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Forwarding.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Forwarding
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Hazard.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Immgen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Immgen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Memory_Controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Memory_Controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Multiplier.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Multiplier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/RISCVcore_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCVcore_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Regfile.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/Writeback.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Writeback
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/branchforward.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module branchforward
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/clk_div.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_div
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/compare.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compare
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rv_uart_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/uart_controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rvtop
+xvhdl --incr --relax -prj tb_rvtop_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator 2019.1
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2019.1/bin/unwrapped/lnx64.o/xelab -wto e9b9dece88d24ea3954e3375971afb57 --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_3 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_rvtop_behav xil_defaultlib.tb_rvtop xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 5 for port 'BR_clk' [/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/srcs/rv_uart_top.sv:106]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling module xil_defaultlib.riscv_bus
+Compiling module xil_defaultlib.mmio_bus
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.BUFG
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=6.25,...
+Compiling module xil_defaultlib.clk_wiz_0_clk_wiz_0_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_0
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.main_bus
+Compiling module xil_defaultlib.Fetch_Reprogrammable(bus=main_bu...
+Compiling module xil_defaultlib.Regfile(bus=main_bus_regfile)
+Compiling module xil_defaultlib.Control
+Compiling module xil_defaultlib.branchforward
+Compiling module xil_defaultlib.Branchdecision
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Branoffgen
+Compiling module xil_defaultlib.Immgen
+Compiling module xil_defaultlib.compare
+Compiling module xil_defaultlib.Decode(bus=main_bus_decode)
+Compiling module xil_defaultlib.Forwarding
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.Multiplier
+Compiling module xil_defaultlib.Execute(bus=main_bus_execute)
+Compiling module xil_defaultlib.Memory(bus=main_bus_memory)
+Compiling module xil_defaultlib.Writeback(bus=main_bus_writeback...
+Compiling module xil_defaultlib.RISCVcore_uart(rbus=riscv_bus_co...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_output_stage(...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_3.blk_mem_gen_v8_4_3(C_FAMILY="art...
+Compiling module xil_defaultlib.blk_mem_gen_0
+Compiling module xil_defaultlib.Memory_Controller(rbus=riscv_bus...
+Compiling module xil_defaultlib.Addressable_FIFO
+Compiling module xil_defaultlib.Debug_Display(mbus=mmio_bus_disp...
+Compiling architecture a of entity xil_defaultlib.gh_jkff [gh_jkff_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det [gh_edge_det_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=4)\]
+Compiling architecture a of entity xil_defaultlib.gh_decode_3to8 [gh_decode_3to8_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [gh_register_ce_default]
+Compiling architecture a of entity xil_defaultlib.gh_register_ce [\gh_register_ce(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld [\gh_counter_down_ce_ld(size=16)\]
+Compiling architecture a of entity xil_defaultlib.gh_baud_rate_gen [gh_baud_rate_gen_default]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_sr [gh_fifo_async16_sr_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [\gh_counter_integer_down(max_cou...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_PL_sl [\gh_shift_reg_PL_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_counter_integer_down [gh_counter_integer_down_default]
+Compiling architecture a of entity xil_defaultlib.gh_parity_gen_Serial [gh_parity_gen_serial_default]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Tx_8bit [gh_uart_tx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_binary2gray [\gh_binary2gray(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_gray2binary [\gh_gray2binary(size=5)\]
+Compiling architecture a of entity xil_defaultlib.gh_fifo_async16_rcsr_wf [\gh_fifo_async16_rcsr_wf(data_wi...]
+Compiling architecture a of entity xil_defaultlib.gh_shift_reg_se_sl [\gh_shift_reg_se_sl(size=8)\]
+Compiling architecture a of entity xil_defaultlib.gh_uart_Rx_8bit [gh_uart_rx_8bit_default]
+Compiling architecture a of entity xil_defaultlib.gh_edge_det_XCD [gh_edge_det_xcd_default]
+Compiling architecture a of entity xil_defaultlib.gh_counter_down_ce_ld_tc [\gh_counter_down_ce_ld_tc(size=1...]
+Compiling architecture a of entity xil_defaultlib.gh_uart_16550 [gh_uart_16550_default]
+Compiling module xil_defaultlib.uart_controller(mbus=mmio_bus_ua...
+Compiling module xil_defaultlib.rv_uart_top
+Compiling module xil_defaultlib.tb_rvtop
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_rvtop_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6913.754 ; gain = 0.000 ; free physical = 1276 ; free virtual = 14267
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_rvtop_behav -key {Behavioral:sim_1:Functional:tb_rvtop} -tclbatch {tb_rvtop.tcl} -view {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1ms
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb_rvtop.dut.memcon0.sharedmem.inst.native_mem_mapped_module.blk_mem_gen_v8_4_3_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Begin simulaton
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 6913.754 ; gain = 0.000 ; free physical = 1235 ; free virtual = 14291
+xsim: Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 6913.754 ; gain = 0.000 ; free physical = 1235 ; free virtual = 14291
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_rvtop_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1ms
+launch_simulation: Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 6913.754 ; gain = 0.000 ; free physical = 1235 ; free virtual = 14291

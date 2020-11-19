@@ -43,13 +43,13 @@
 
 module Control
 (
+  input  logic       clk,
   input  logic [6:0] opcode,
   input  logic [2:0] funct3,
   input  logic [6:0] funct7,
   input  logic       ins_zero,
   input  logic       flush,
   input  logic       hazard,
-  input  logic       mul_ready,
   input  logic [4:0] rs1,rd,
   output logic [2:0] alusel,
   output logic [2:0] mulsel,
@@ -75,14 +75,13 @@ module Control
   output logic       illegal_ins, 
   output logic [2:0] csrsel, 
   output logic       csrwrite, 
-  output logic       csrread
+  output logic       csrread,
+  output logic       mul_inst
 );
 
   // intruction classification signal
 
   logic stall;
-  logic mul_busy;
-  reg   mul_inst;
 
   always_comb
   begin
@@ -322,7 +321,5 @@ module Control
     endcase
   end
 
-  assign mul_busy = mul_inst && !mul_ready;
-
-  assign stall = flush || hazard || ins_zero || mul_busy;
+  assign stall = flush || hazard || ins_zero;
 endmodule: Control

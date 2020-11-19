@@ -101,6 +101,8 @@ module Decode(main_bus bus);
   logic        hz_sig;
   logic        branch_taken_sig;
 
+  logic        mul_inst;
+
   //separating different field of instruction
   assign funct3        = bus.ins[14:12];
   assign funct7        = bus.ins[31:25];
@@ -114,19 +116,19 @@ module Decode(main_bus bus);
 
   assign bus.branch = branch_taken_sig;
   assign ins_zero   = !(|bus.ins);
-  assign bus.hz     = hz_sig;
+  assign bus.hz     = hz_sig || (mul_inst && !bus.mul_ready);
   assign bus.ecall  = (bus.ins == 32'b00000000000000000000000001110011);
 
   //control signal generation
   Control u1
   (
+    .clk(bus.clk),
     .opcode(bus.ins[6:0]),
     .funct3(funct3),
     .funct7(funct7),
     .ins_zero(ins_zero),
     .flush(flush),
     .hazard(hz_sig),
-    .mul_ready(bus.mul_ready),
     .rs1(bus.ins[19:15]),
     .rd(bus.ins[11:7]), 
     .alusel(IF_ID_alusel),
@@ -146,7 +148,8 @@ module Decode(main_bus bus);
     .cmpcntrl(IF_ID_cmpcntrl), 
     .csrsel(csrsel), 
     .csrwrite(csrwrite),
-    .csrread(csrread)
+    .csrread(csrread),
+    .mul_inst(mul_inst)
   );
 
   //branchforward

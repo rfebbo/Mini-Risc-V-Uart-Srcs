@@ -121,7 +121,7 @@ module Execute(main_bus bus);
     .mulsel(bus.ID_EX_mulsel),
     .a(ALUop1),
     .b(ALUop2),
-    .ready(bus.mul_ready),
+    .ready(mul_ready_sig),
     .res(mulres)
   );
          
