@@ -1,0 +1,152 @@
+
+laa.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	00001117          	auipc	sp,0x1
+   4:	28010113          	addi	sp,sp,640 # 1280 <_sp0>
+   8:	00000097          	auipc	ra,0x0
+   c:	00c08093          	addi	ra,ra,12 # 14 <_endloop>
+  10:	008000ef          	jal	ra,18 <main>
+
+00000014 <_endloop>:
+  14:	0000006f          	j	14 <_endloop>
+
+00000018 <main>:
+  18:	f7010113          	addi	sp,sp,-144
+  1c:	08812623          	sw	s0,140(sp)
+  20:	09010413          	addi	s0,sp,144
+  24:	fe042623          	sw	zero,-20(s0)
+  28:	23402303          	lw	t1,564(zero) # 234 <main+0x21c>
+  2c:	23400713          	li	a4,564
+  30:	00472883          	lw	a7,4(a4)
+  34:	23400713          	li	a4,564
+  38:	00872803          	lw	a6,8(a4)
+  3c:	23400713          	li	a4,564
+  40:	00c72503          	lw	a0,12(a4)
+  44:	23400713          	li	a4,564
+  48:	01072583          	lw	a1,16(a4)
+  4c:	23400713          	li	a4,564
+  50:	01472603          	lw	a2,20(a4)
+  54:	23400713          	li	a4,564
+  58:	01872683          	lw	a3,24(a4)
+  5c:	23400713          	li	a4,564
+  60:	01c72703          	lw	a4,28(a4)
+  64:	23400793          	li	a5,564
+  68:	0207a783          	lw	a5,32(a5)
+  6c:	fc642223          	sw	t1,-60(s0)
+  70:	fd142423          	sw	a7,-56(s0)
+  74:	fd042623          	sw	a6,-52(s0)
+  78:	fca42823          	sw	a0,-48(s0)
+  7c:	fcb42a23          	sw	a1,-44(s0)
+  80:	fcc42c23          	sw	a2,-40(s0)
+  84:	fcd42e23          	sw	a3,-36(s0)
+  88:	fee42023          	sw	a4,-32(s0)
+  8c:	fef42223          	sw	a5,-28(s0)
+  90:	25802303          	lw	t1,600(zero) # 258 <main+0x240>
+  94:	25800713          	li	a4,600
+  98:	00472883          	lw	a7,4(a4)
+  9c:	25800713          	li	a4,600
+  a0:	00872803          	lw	a6,8(a4)
+  a4:	25800713          	li	a4,600
+  a8:	00c72503          	lw	a0,12(a4)
+  ac:	25800713          	li	a4,600
+  b0:	01072583          	lw	a1,16(a4)
+  b4:	25800713          	li	a4,600
+  b8:	01472603          	lw	a2,20(a4)
+  bc:	25800713          	li	a4,600
+  c0:	01872683          	lw	a3,24(a4)
+  c4:	25800713          	li	a4,600
+  c8:	01c72703          	lw	a4,28(a4)
+  cc:	25800793          	li	a5,600
+  d0:	0207a783          	lw	a5,32(a5)
+  d4:	fa642023          	sw	t1,-96(s0)
+  d8:	fb142223          	sw	a7,-92(s0)
+  dc:	fb042423          	sw	a6,-88(s0)
+  e0:	faa42623          	sw	a0,-84(s0)
+  e4:	fab42823          	sw	a1,-80(s0)
+  e8:	fac42a23          	sw	a2,-76(s0)
+  ec:	fad42c23          	sw	a3,-72(s0)
+  f0:	fae42e23          	sw	a4,-68(s0)
+  f4:	fcf42023          	sw	a5,-64(s0)
+  f8:	f6042e23          	sw	zero,-132(s0)
+  fc:	f8042023          	sw	zero,-128(s0)
+ 100:	f8042223          	sw	zero,-124(s0)
+ 104:	f8042423          	sw	zero,-120(s0)
+ 108:	f8042623          	sw	zero,-116(s0)
+ 10c:	f8042823          	sw	zero,-112(s0)
+ 110:	f8042a23          	sw	zero,-108(s0)
+ 114:	f8042c23          	sw	zero,-104(s0)
+ 118:	f8042e23          	sw	zero,-100(s0)
+ 11c:	fc442783          	lw	a5,-60(s0)
+ 120:	7800020B						msw	a5,0									# laa_A[0] = a5
+ 124:	fc842783          	lw	a5,-56(s0)
+ 128:	7840020B						msw	a5,1									# laa_A[1] = a5
+ 12c:	fcc42783          	lw	a5,-52(s0)
+ 130:	7880020B						msw	a5,2									# laa_A[2] = a5
+ 134:	fd042783          	lw	a5,-48(s0)
+ 138:	78C0020B						msw	a5,3									# laa_A[3] = a5
+ 13c:	fd442783          	lw	a5,-44(s0)
+ 140:	7900020B						msw	a5,4									# laa_A[4] = a5
+ 144:	fd842783          	lw	a5,-40(s0)
+ 148:	7940020B						msw	a5,5									# laa_A[5] = a5
+ 14c:	fdc42783          	lw	a5,-36(s0)
+ 150:	7980020B						msw	a5,6									# laa_A[6] = a5
+ 154:	fe042783          	lw	a5,-32(s0)
+ 158:	79C0020B						msw	a5,7									# laa_A[7] = a5
+ 15c:	fe442783          	lw	a5,-28(s0)
+ 160:	7A00020B						msw	a5,8									# laa_A[8] = a5
+ 164:	fa042783          	lw	a5,-96(s0)
+ 168:	7A40020B						msw	a5,9									# laa_B[0] = a5
+ 16c:	fa442783          	lw	a5,-92(s0)
+ 170:	7A80020B						msw	a5,10									# laa_B[1] = a5
+ 174:	fa842783          	lw	a5,-88(s0)
+ 178:	7AC0020B						msw	a5,11									# laa_B[2] = a5
+ 17c:	fac42783          	lw	a5,-84(s0)
+ 180:	7B00020B						msw	a5,12									# laa_B[3] = a5
+ 184:	fb042783          	lw	a5,-80(s0)
+ 188:	7B40020B						msw	a5,13									# laa_B[4] = a5
+ 18c:	fb442783          	lw	a5,-76(s0)
+ 190:	7B80020B						msw	a5,14									# laa_B[5] = a5
+ 194:	fb842783          	lw	a5,-72(s0)
+ 198:	7BC0020B						msw	a5,15									# laa_B[6] = a5
+ 19c:	fbc42783          	lw	a5,-68(s0)
+ 1a0:	7C00020B						msw	a5,16									# laa_B[7] = a5
+ 1a4:	fc042783          	lw	a5,-64(s0)
+ 1a8:	7C40020B						msw	a5,17									# laa_B[8] = a5
+ 1ac:	0000030B						mm												# laa_A = laa_A * laa_B
+ 2f8:	7FC0020B          	mlw a5,ctrl								# a5 = laa_ctrl_reg
+ 1b4:	00000013          	nop
+ 1b8:	00000013          	nop
+ 1bc:	00000013          	nop
+ 1c0:	00000013          	nop
+ 1c4:	00000013          	nop
+ 1c8:	00000013          	nop
+ 1cc:	00000013          	nop
+ 1d0:	00000013          	nop
+ 1d4:	fc078ee3          	beqz	a5,1b0 <main+0x198>	# goto 2f8 if not ready
+ 1d8:	7800020B          	mlw a5,0									# a5 = laa_A[0]
+ 1dc:	f6f42e23          	sw	a5,-132(s0)
+ 1e0:	7840020B          	mlw a5,1									# a5 = laa_A[1]
+ 1e4:	f8f42023          	sw	a5,-128(s0)
+ 1e8:	7880020B          	mlw a5,2									# a5 = laa_A[2]
+ 1ec:	f8f42223          	sw	a5,-124(s0)
+ 1f0:	78C0020B          	mlw a5,3									# a5 = laa_A[3]
+ 1f4:	f8f42423          	sw	a5,-120(s0)
+ 1f8:	7900020B          	mlw a5,4									# a5 = laa_A[4]
+ 1fc:	f8f42623          	sw	a5,-116(s0)
+ 200:	7940020B          	mlw a5,5									# a5 = laa_A[5]
+ 204:	f8f42823          	sw	a5,-112(s0)
+ 208:	7980020B          	mlw a5,6									# a5 = laa_A[6]
+ 20c:	f8f42a23          	sw	a5,-108(s0)
+ 210:	79C0020B          	mlw a5,7									# a5 = laa_A[7]
+ 214:	f8f42c23          	sw	a5,-104(s0)
+ 218:	7A00020B          	mlw a5,8									# a5 = laa_A[8]
+ 21c:	f8f42e23          	sw	a5,-100(s0)
+ 220:	00000793          	li	a5,0
+ 224:	00078513          	mv	a0,a5
+ 228:	08c12403          	lw	s0,140(sp)
+ 22c:	09010113          	addi	sp,sp,144
+ 230:	00008067          	ret

@@ -28,7 +28,7 @@ Disassembly of section .text:
   40:	00000013          	nop
   44:	00000013          	nop
   48:	00000013          	nop
-  4c:	00200793          	li	a5,2
+  4c:	00200793          	li	a5,2	# TODO Load all into their own registers, 9 at a time, then do the writes?
   50: 7800010B						msw	a5,0
   54:	00c00793          	li	a5,12
   58: 7840010B						msw	a5,1

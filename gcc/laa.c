@@ -23,7 +23,7 @@ int main(void) {
 	test = 6;
 	test = 8;
 	test = 1;
-	test = 7;
+	test = 0;
 	test = 2;
 
 	// char h3[] = "Loading matrix B\r\n";

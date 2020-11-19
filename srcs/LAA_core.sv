@@ -109,7 +109,7 @@ module LAA_core( main_bus bus);
     		data_in2 = 'd0;
     		addr_laareg_out = bus.LAA_ins[31:27];
     		addr_corereg_out = bus.LAA_ins[26:22];
-    		reg_write = 'b0;
+    		reg_write = 'b1;
     		LAA_bus.addr = addr_laareg_out;
         end		
       5'b00011:               // Execute
