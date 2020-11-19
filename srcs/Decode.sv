@@ -83,6 +83,7 @@ module Decode(main_bus bus);
 
   //control
   logic [2:0] IF_ID_alusel;
+  logic [2:0] IF_ID_mulsel;
   logic       IF_ID_branch;
   logic       IF_ID_memwrite, IF_ID_memread, IF_ID_regwrite, IF_ID_alusrc;
   logic [2:0] IF_ID_storecntrl;
@@ -128,6 +129,7 @@ module Decode(main_bus bus);
     .rs1(bus.ins[19:15]),
     .rd(bus.ins[11:7]), 
     .alusel(IF_ID_alusel),
+    .mulsel(IF_ID_mulsel),
     .branch(IF_ID_branch),
     .memwrite(IF_ID_memwrite),
     .memread(IF_ID_memread),
@@ -233,6 +235,7 @@ module Decode(main_bus bus);
     if(bus.Rst)
     begin
       bus.ID_EX_alusel     <= 3'h0;
+      bus.ID_EX_mulsel     <= 3'h0;
       bus.ID_EX_alusrc     <= 1'b0;
       ID_EX_memread_sig    <= 1'b0;
       bus.ID_EX_memwrite   <= 1'b0;
@@ -263,6 +266,7 @@ module Decode(main_bus bus);
       if (!hz_sig)
       begin
         bus.ID_EX_alusel     <= IF_ID_alusel;
+        bus.ID_EX_mulsel     <= IF_ID_mulsel;
         bus.ID_EX_alusrc     <= IF_ID_alusrc;
         ID_EX_memread_sig    <= IF_ID_memread;
         bus.ID_EX_memwrite   <= IF_ID_memwrite;

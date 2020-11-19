@@ -51,6 +51,7 @@ module Control
   input  logic       hazard,
   input  logic [4:0] rs1,rd,
   output logic [2:0] alusel,
+  output logic [2:0] mulsel,
   output logic [2:0] storecntrl, //sw,sh,sb
   output logic [4:0] loadcntrl,  //lhu,lbu,lw,lh,lb
   output logic [3:0] cmpcntrl,   //slt,slti,sltu,sltiu
@@ -83,6 +84,7 @@ module Control
   always_comb
   begin
     alusel      = 3'b000;
+    mulsel      = 3'b000;
     storecntrl  = 3'b000;
     loadcntrl   = 5'b00000;
     cmpcntrl    = 2'b00;
@@ -153,6 +155,14 @@ module Control
             alusel = 3'b011;
           {7'h00,3'b111}: //and
             alusel = 3'b010;
+			    {7'h01,3'b000}: //mul
+            mulsel = 3'b001;
+			    {7'h01,3'b001}: //mulh
+            mulsel = 3'b010;
+			    {7'h01,3'b010}: //mulhsu
+            mulsel = 3'b011;
+			    {7'h01,3'b011}: //mulhu
+            mulsel = 3'b100;
           default:
             illegal_ins = 1'b1;				
         endcase

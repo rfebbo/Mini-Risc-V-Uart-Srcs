@@ -14,6 +14,8 @@ module Multiplier
   reg  [32:0] op_a;
   reg  [32:0] op_b;
   reg         high_bits;
+  reg         busy;
+  reg         ready;
   wire [64:0] full_res;
 
   wire mul = (mulsel == 3'b001) ||
@@ -44,26 +46,30 @@ module Multiplier
 
   always @(posedge clk or posedge rst)
   begin
-    if (rst)
+    if (rst) // Reset
     begin
       a_valid   <= 31'b0;
       b_valid   <= 31'b0;
       high_bits <= 1'b0;
     end
-    else if (mul)
-    begin
-      a_valid   <= op_a;
-      b_valid   <= op_b;
-      high_bits <= ~(mulsel == 3'b001);
-    end
-    else
+    else if (!mul)
     begin
         a_valid   <= 31'b0;
         b_valid   <= 31'b0;
         high_bits <= 1'b0;
     end
+    else if (busy) // Stage 2: Calculate multiplication.
+    begin
+      full_res = {{32{a_valid[32]}}, a_valid} * {{32{b_valid[32]}}, b_valid};
+      ready    = 1'b1;
+    end
+    else if (!busy) // Stage 1: Set operands.
+    begin
+      a_valid   <= op_a;
+      b_valid   <= op_b;
+      high_bits <= ~(mulsel == 3'b001);
+    end
   end
 
-  assign full_res = {{32{a_valid[32]}}, a_valid} * {{32{b_valid[32]}}, b_valid};
   assign res      = high_bits ? full_res[63:32] : full_res[31:0];
 endmodule
