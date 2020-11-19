@@ -46,6 +46,7 @@ module LAA_core( main_bus bus);
     logic illegal_ins;
     logic [1:0] cur_stage, next_stage;
     LAA_opcode temp_opcode;
+    logic [4:0] temp_addr;
     
     // LAA bus
     LAA_bus LAA_bus(.clk(bus.clk), .rst(bus.Rst));
@@ -123,7 +124,7 @@ module LAA_core( main_bus bus);
     		addr_corereg_out = 'd0;
     		addr_laareg_out = 'd0;
     		reg_write = 'b0;
-    		LAA_bus.addr = addr_laareg_out;
+    		LAA_bus.addr = temp_addr;
         end
  
      default:
@@ -149,14 +150,16 @@ module LAA_core( main_bus bus);
 		if (bus.Rst) begin
 			cur_stage <= 'd0;
 			next_stage <= 'd0;
+			temp_addr <= 'd0;
 		end else begin
 			cur_stage <= next_stage;
 			next_stage <= bus.LAA_ins[8:7];
 			laa_opcode = temp_opcode;
+			temp_addr <= 'd0;
 			if (next_stage == 2'b11) begin
 				if ((cur_stage == 2'b11) ) begin
 					laa_opcode <= READ;
-   		 			LAA_bus.addr <= 5'b1_1111;
+   		 			temp_addr <= 5'b1_1111;
    		 		end
 			end
 		end
