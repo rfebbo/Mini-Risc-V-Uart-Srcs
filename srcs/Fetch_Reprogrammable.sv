@@ -60,7 +60,7 @@ assign pc_incr=bus.branch?bus.branoff:12'h004;
 //assign next_addr=bus.IF_ID_jalr?bus.branoff: bus.IF_ID_jal ? (bus.IF_ID_pres_addr + pc_incr) : (pres_addr+pc_incr);
 assign next_addr=bus.trap ? bus.mtvec : bus.IF_ID_jalr?bus.branoff: bus.IF_ID_jal ? (bus.IF_ID_pres_addr + pc_incr)
      : bus.branch ? (bus.IF_ID_pres_addr+pc_incr) : (pres_addr+pc_incr);
-assign En_sig=(bus.PC_En&&(!bus.debug)&&(!bus.dbg)&&(!bus.mem_hold)) && (LAA_ins_sig && (!bus.LAA_busy)); 
+assign En_sig=(bus.PC_En&&(!bus.debug)&&(!bus.dbg)&&(!bus.mem_hold))  && !(LAA_ins_sig && (bus.LAA_busy)); 
 assign LAA_ins_sig = (|bus.LAA_ins);
 	//assign En_sig=(bus.PC_En&&(!bus.dbg));
 assign En_mem=En_sig || bus.prog;
