@@ -18,6 +18,7 @@ module Multiplier
   reg        busy;
   reg        ready_s;
   reg [64:0] full_res;
+  reg        count;
 
   wire mul = (mulsel == 3'b001) ||
              (mulsel == 3'b010) ||
@@ -47,23 +48,28 @@ module Multiplier
 
   always @(posedge clk or posedge rst)
   begin
-    if (rst || !mul) // Reset
+    if (ready_s)
+    begin
+      if (count)
+        count <= 0;
+      else
+        ready_s <= 0;
+    end
+    else if (rst || !mul) // Reset
     begin
       a_valid   <= 32'b0;
       b_valid   <= 32'b0;
       high_bits <= 1'b0;
       busy      <= 1'b0;
-      ready_s   <= 0;
+      ready_s   <= 1'b0;
+      count     <= 1'b0;
       full_res  <= 32'h0;
-    end
-    else if (ready)
-    begin
-      ready_s <= 0;
     end
     else if (busy) // Stage 2: Calculate multiplication.
     begin
       full_res = {{32{a_valid[32]}}, a_valid} * {{32{b_valid[32]}}, b_valid};
       ready_s  = 1'b1;
+      count    = 1'b1;
       busy     = 1'b0;
     end
     else // Stage 1: Set operands.
