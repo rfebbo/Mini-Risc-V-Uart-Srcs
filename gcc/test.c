@@ -6,7 +6,10 @@ void print(int a)
 
 int main(void)
 {
-	int i = 2 + 3;
-	int j = 1 + i;
-	print(j);
+	int temp = 2;
+	for(int i = 1; i < 3; i++)
+	{
+		temp *= i;		
+	}
+	print(temp);
 }
