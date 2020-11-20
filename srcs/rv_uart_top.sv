@@ -115,8 +115,8 @@ assign key[11:0]=12'h3cf;
 //`ifndef SYNTHESIS
 
 clk_wiz_0 c0(.*);
-  riscv_bus rbus(.clk(clk_50M), .*);
-  mmio_bus mbus(.clk(clk_50M), .BR_clk(clk), .*);
+  riscv_bus rbus(.clk(clk_5M), .*);
+  mmio_bus mbus(.clk(clk_5M), .BR_clk(clk), .*);
 clk_div cdiv(clk,Rst,16'd500,clk_7seg);  
 //`else
 // riscv_bus rbus(.*);

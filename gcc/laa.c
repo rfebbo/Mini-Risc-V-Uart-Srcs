@@ -1,21 +1,21 @@
-// #include"uart.h"
+#include"uart.h"
 // #include"print.h"
-// #include"utils.h"
+#include"utils.h"
 
 int main(void) {
-	//uart_init();
+	uart_init();
 
-	//char h1[] = "LAA Test\r\n";
-	//uart_print(h1);
+	char h1[] = "LAA Test\r\n";
+	uart_print(h1);
 	int test = 0;
 
-	// int matrixA[9] = { 3, 12, 4,  5, 6, 8, 1, 0, 2 };
-	// int matrixB[9] = { 7,  3, 8, 11, 9, 5, 6, 8, 4 };
 	int matrixC[9] = { 0,  0, 0,  0, 0, 0, 0, 0, 0 };
 	// Result should be { 177, 149, 100, 149, 133, 102, 19, 19, 16 }
 
-	//char h2[] = "Loading matrix A\r\n";
-	//uart_print(h2);
+	char h4[] = "Multiplying matrices...\r\n";
+	uart_print(h4);
+
+	// Matrix A
 	test = 2;
 	test = 12;
 	test = 4;
@@ -23,11 +23,10 @@ int main(void) {
 	test = 6;
 	test = 8;
 	test = 1;
-	test = 0;
+	test = 1;
 	test = 2;
 
-	// char h3[] = "Loading matrix B\r\n";
-	// uart_print(h3);
+	// Matix B
 	test = 7;
 	test = 3;
 	test = 8;
@@ -38,17 +37,29 @@ int main(void) {
 	test = 8;
 	test = 4;
 
-	//char h4[] = "Multiplying matrices...\r\n";
-	//uart_print(h4);
-	int status = 0;
+	int status = 0; // mm
 	do {
 		// Read LAA control reg. into status register
-		status = 0;
-		status = 0;
-	} while (status == 0);
+		status = 0; // mlw a5, ctrl
+		status = 0; // nop
+		status = 0; // nop
+		status = 0; // nop
+		// nop
+	} while (status == 0); // beqz a5, #do
 
-	//char h5[] = "Retrieving resultant matrix\r\n";
-	//uart_print(h5);
+	char h5[] = "Retrieving resultant matrix\r\n";
+	uart_print(h5);
+
+	test = 0; // mlw a0,matA[0]
+	test = 0; // mlw a1,matA[1]
+	test = 0; // mlw a2,matA[2]
+	test = 0; // mlw a3,matA[3]
+	test = 0; // mlw a4,matA[4]
+	test = 0; // mlw a5,matA[5]
+	test = 0; // mlw a6,matA[6]
+	test = 0; // mlw a7,matA[7]
+	test = 0; // mlw a8,matA[8]
+
 	matrixC[0] = test;
 	matrixC[1] = test;
 	matrixC[2] = test;
@@ -59,11 +70,13 @@ int main(void) {
 	matrixC[7] = test;
 	matrixC[8] = test;
 
-	// char num_str[16];
-	// for (int i = 0; i < 9; i++) {
-	// 	itoa(matrixC[i], num_str);
-	// 	uart_print(num_str);
-	// }
+	char num_str[16];
+	char* space = " ";
+	for (int i = 0; i < 9; i++) {
+		itoa(matrixC[i], num_str);
+		uart_print(num_str);
+		uart_print(space);
+	}
 
 	return 0;
 }
