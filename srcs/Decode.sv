@@ -84,6 +84,7 @@ module Decode(main_bus bus);
   //control
   logic [2:0] IF_ID_alusel;
   logic [2:0] IF_ID_mulsel;
+  logic [2:0] IF_ID_divsel;
   logic       IF_ID_branch;
   logic       IF_ID_memwrite, IF_ID_memread, IF_ID_regwrite, IF_ID_alusrc;
   logic [2:0] IF_ID_storecntrl;
@@ -102,6 +103,7 @@ module Decode(main_bus bus);
   logic        branch_taken_sig;
 
   logic        mul_inst;
+  logic        div_inst;
 
   //separating different field of instruction
   assign funct3        = bus.ins[14:12];
@@ -116,7 +118,7 @@ module Decode(main_bus bus);
 
   assign bus.branch = branch_taken_sig;
   assign ins_zero   = !(|bus.ins);
-  assign bus.hz     = hz_sig || (mul_inst && !bus.mul_ready);
+  assign bus.hz     = hz_sig || (mul_inst && !bus.mul_ready) || (div_inst && !bus.div_ready);
   assign bus.ecall  = (bus.ins == 32'b00000000000000000000000001110011);
 
   //control signal generation
@@ -133,6 +135,7 @@ module Decode(main_bus bus);
     .rd(bus.ins[11:7]), 
     .alusel(IF_ID_alusel),
     .mulsel(IF_ID_mulsel),
+    .divsel(IF_ID_divsel),
     .branch(IF_ID_branch),
     .memwrite(IF_ID_memwrite),
     .memread(IF_ID_memread),
@@ -149,7 +152,8 @@ module Decode(main_bus bus);
     .csrsel(csrsel), 
     .csrwrite(csrwrite),
     .csrread(csrread),
-    .mul_inst(mul_inst)
+    .mul_inst(mul_inst),
+    .div_inst(div_inst)
   );
 
   //branchforward
@@ -240,6 +244,7 @@ module Decode(main_bus bus);
     begin
       bus.ID_EX_alusel     <= 3'h0;
       bus.ID_EX_mulsel     <= 3'h0;
+      bus.ID_EX_divsel     <= 3'h0;
       bus.ID_EX_alusrc     <= 1'b0;
       ID_EX_memread_sig    <= 1'b0;
       bus.ID_EX_memwrite   <= 1'b0;
@@ -271,6 +276,7 @@ module Decode(main_bus bus);
       begin
         bus.ID_EX_alusel     <= IF_ID_alusel;
         bus.ID_EX_mulsel     <= IF_ID_mulsel;
+        bus.ID_EX_divsel     <= IF_ID_divsel;
         bus.ID_EX_alusrc     <= IF_ID_alusrc;
         ID_EX_memread_sig    <= IF_ID_memread;
         bus.ID_EX_memwrite   <= IF_ID_memwrite;

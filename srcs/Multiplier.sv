@@ -1,6 +1,5 @@
 module Multiplier
 (
-  // Inputs
   input         clk,
   input         rst,
   input  [2:0]  mulsel,
@@ -20,10 +19,10 @@ module Multiplier
   reg [64:0] full_res;
   reg        count;
 
-  wire mul = (mulsel == 3'b001) ||
-             (mulsel == 3'b010) ||
-             (mulsel == 3'b011) ||
-             (mulsel == 3'b100);
+  wire mul = (mulsel == 3'b001) || //mul
+             (mulsel == 3'b010) || //mulh
+             (mulsel == 3'b011) || //mulhsu
+             (mulsel == 3'b100);   //mulhu
 
   always_comb
   begin

@@ -53,6 +53,7 @@ module Control
   input  logic [4:0] rs1,rd,
   output logic [2:0] alusel,
   output logic [2:0] mulsel,
+  output logic [2:0] divsel,
   output logic [2:0] storecntrl, //sw,sh,sb
   output logic [4:0] loadcntrl,  //lhu,lbu,lw,lh,lb
   output logic [3:0] cmpcntrl,   //slt,slti,sltu,sltiu
@@ -76,7 +77,8 @@ module Control
   output logic [2:0] csrsel, 
   output logic       csrwrite, 
   output logic       csrread,
-  output logic       mul_inst
+  output logic       mul_inst,
+  output logic       div_inst
 );
 
   // intruction classification signal
@@ -87,6 +89,7 @@ module Control
   begin
     alusel      = 3'b000;
     mulsel      = 3'b000;
+    divsel      = 3'b000;
     storecntrl  = 3'b000;
     loadcntrl   = 5'b00000;
     cmpcntrl    = 2'b00;
@@ -111,6 +114,7 @@ module Control
     csrwrite    = 1'b0;
     csrread     = 0;
     mul_inst    = 1'b0;
+    div_inst    = 1'b0;
   
     unique case (opcode)
       7'b0000011:               // load
@@ -177,6 +181,26 @@ module Control
           begin
             mulsel   = 3'b100;
             mul_inst = 1'b1;
+          end
+			    {7'h01,3'b100}: //div
+          begin
+            divsel   = 3'b001;
+            div_inst = 1'b1;
+          end
+			    {7'h01,3'b101}: //divu
+          begin
+            divsel   = 3'b010;
+            div_inst = 1'b1;
+          end
+			    {7'h01,3'b110}: //rem
+          begin
+            divsel   = 3'b011;
+            div_inst = 1'b1;
+          end
+			    {7'h01,3'b111}: //remu
+          begin
+            divsel   = 3'b100;
+            div_inst = 1'b1;
           end
           default:
             illegal_ins = 1'b1;				
