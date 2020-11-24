@@ -1847,3 +1847,4 @@ selectGraphicalView(RDIResource.RDIViews_WAVEFORM_VIEWER, 777, 577); // n (o, cl
 // TclEventType: WAVEFORM_UPDATE_WAVEFORM
 selectGraphicalView(RDIResource.RDIViews_WAVEFORM_VIEWER, 1148, 578); // n (o, cl)
 // TclEventType: WAVEFORM_UPDATE_COMMANDS
+// HMemoryUtils.trashcanNow. Engine heap size: 1,436 MB. GUI used memory: 109 MB. Current time: 11/24/20, 2:33:44 AM EST

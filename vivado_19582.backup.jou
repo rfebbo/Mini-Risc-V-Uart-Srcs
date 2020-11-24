@@ -2,8 +2,8 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Tue Nov 24 16:33:31 2020
-# Process ID: 1915
+# Start of session at: Tue Nov 24 16:24:57 2020
+# Process ID: 19582
 # Current directory: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs
 # Command line: vivado
 # Log file: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/vivado.log
@@ -12,64 +12,45 @@
 start_gui
 open_project /home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.xpr
 update_compile_order -fileset sources_1
-launch_simulation
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-source m_ext_test.tcl
-close_sim
-set_property -name {xsim.simulate.runtime} -value {1000ns} -objects [get_filesets sim_1]
-launch_simulation
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-source m_ext_test.tcl
-close_sim
 set_property SOURCE_SET sources_1 [get_filesets sim_1]
-add_files -fileset sim_1 -norecurse -scan_for_includes /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-add_files -fileset sim_1 -norecurse -scan_for_includes /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.sv
+add_files -fileset sim_1 -scan_for_includes {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_RISCVcore.sv /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.sv /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.sv /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/tb_rvtop.sv}
+update_compile_order -fileset sim_1
 # Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
 set_property source_mgmt_mode None [current_project]
-set_property top d_ext_test [get_filesets sim_1]
+set_property top m_ext_test [get_filesets sim_1]
 set_property top_lib xil_defaultlib [get_filesets sim_1]
 # Re-enabling previously disabled source management mode.
 set_property source_mgmt_mode All [current_project]
 update_compile_order -fileset sim_1
 launch_simulation
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source m_ext_test.tcl
+close_sim
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse -scan_for_includes /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
-save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg}
+source m_ext_test.tcl
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg}
 close_sim
 launch_simulation
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
-set_property -name {xsim.simulate.runtime} -value {500ns} -objects [get_filesets sim_1]
+source m_ext_test.tcl
 close_sim
 launch_simulation
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
-save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg}
+source m_ext_test.tcl
+close_sim
+set_property -name {xsim.simulate.runtime} -value {400ns} -objects [get_filesets sim_1]
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
+source m_ext_test.tcl
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg}
 close_sim
 launch_simulation
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
 open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
-close_sim
-launch_simulation
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
-save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg}
-set_property -name {xsim.simulate.runtime} -value {2500ns} -objects [get_filesets sim_1]
-close_sim
-launch_simulation
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/m_ext_test.wcfg
-open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/sims/d_ext_test.wcfg
-source d_ext_test.tcl
