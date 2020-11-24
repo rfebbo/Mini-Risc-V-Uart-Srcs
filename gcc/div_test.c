@@ -1,3 +1,6 @@
+
+#include "print.h"
+
 int main(void)
 {
     int j = -7;
@@ -6,17 +9,17 @@ int main(void)
 
 	for(int i = 0; i < 3; i++)
     {
-        k /= j;
+        k /= j; // -142, 20, -2
     }
 
-    l = k + 1;
+    l = k + 1; // -1
 
     for(int i = 0; i < 5; i++)
     {
-        l *= j;
+        l *= j; // 7, -49, 343, -2401, 16807
     }
 
-    l = l % k;
+    l = l % k; // 1
 
     volatile int * p = (int *)0xaaaaa008;
     *p = l;

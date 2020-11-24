@@ -9,105 +9,106 @@ module Divider
   output [31:0] res
 );
 
-  reg [31:0] dividend;
-  reg [62:0] divisor;
-  reg [31:0] divid;
-  reg [62:0] divis;
+  reg [31:0] numerator;
+  reg [31:0] divisor;
   reg [31:0] quotient;
-  reg [31:0] mask;
+  reg [31:0] remainder;
+  reg [31:0] op_a;
+  reg [31:0] op_b;
+  reg [5:0]  index;
   reg        div_inst;
-  reg        busy;
   reg        invert_res;
-  reg        ready_s;
-  reg [31:0] result;
   reg        count;
+  reg        rdy;
+  reg        busy;
+  reg [31:0] div_result;
+  reg [31:0] rem_result;
 
-  wire div  = (divsel == 3'b001); //div
-  wire divu = (divsel == 3'b010); //divu
-  wire rem  = (divsel == 3'b011); //rem
-  wire remu = (divsel == 3'b100); //remu
+  wire div  = (divsel == 3'b001); // div
+  wire divu = (divsel == 3'b010); // divu
+  wire rem  = (divsel == 3'b011); // rem
+  wire remu = (divsel == 3'b100); // remu
 
-  wire divrem    = div || divu || rem || remu;
+  wire divrem_op = div || divu || rem || remu;
   wire div_op    = div || divu;
+  wire neg_q     = a[31] != b[31];
+  wire neg_r     = a[31];
 
   always_comb
   begin
     case (divsel)
       3'b001:
       begin
-        divid <= a[31] ? -a : a;
-        divis <= b[31] ? {-b, 31'b0} : {b, 31'b0};
+        op_a <= a[31] ? -a : a;
+        op_b <= b[31] ? -b : b;
       end
       3'b011:
       begin
-        divid <= a[31] ? -a : a;
-        divis <= b[31] ? {-b, 31'b0} : {b, 31'b0};
+        op_a <= a[31] ? -a : a;
+        op_b <= b[31] ? -b : b;
       end
       default:
       begin
-        divid <= a;
-        divis <= {b, 31'b0};
+        op_a <= a;
+        op_b <= b;
       end
     endcase
   end
 
   always @(posedge clk or posedge rst)
   begin
-    if (ready_s)
+    if (rdy) // Stage 3: Wait 2 clock cycles.
     begin
       if (count)
         count <= 0;
       else
-        ready_s <= 0;
+        rdy <= 0;
     end
-    else if (rst || !divrem)
+    else if (rst || !divrem_op) // Reset
     begin
-      busy         <= 1'b0;
-      dividend     <= 32'b0;
-      divisor      <= 63'b0;
-      invert_res   <= 1'b0;
-      quotient     <= 32'b0;
-      mask         <= 32'b0;
-      div_inst     <= 1'b0;
-      ready_s      <= 1'b0;
-      count        <= 1'b0;
-    end
-    else if (busy)
-    begin
-      if (divisor <= {31'b0, dividend})
-      begin
-        dividend = dividend - divisor[31:0];
-        quotient = quotient | mask;
-      end
-  
-      divisor = divisor >> 1'b1;
-      mask    = mask >> 1'b1;
-      ready_s = !(|mask);
-      count   = !(|mask);
-      busy    = |mask;
-    end
-    else
-    begin
-      div_inst   <= div_op;
+      numerator  <= 32'b0;
+      divisor    <= 32'b0;
       quotient   <= 32'b0;
-      mask       <= 32'h80000000;
-      dividend   <= divid;
-      divisor    <= divis;
-      invert_res <= (div && (a[31] != b[31]) && |b) || (rem && a[31]);
+      remainder  <= 32'b0;
+      index      <= 5'b0;
+      div_inst   <= 1'b0;
+      invert_res <= 1'b0;
+      count      <= 1'b0;
+      rdy        <= 1'b0;
+      busy       <= 1'b0;
+    end
+    else if (busy) // Stage 2: Calculate multiplication.
+    begin
+      remainder    = remainder << 1'b1;
+      remainder[0] = numerator[index];
+
+      if (divisor <= remainder)
+      begin
+        remainder       = remainder - divisor;
+        quotient[index] = 1'b1;
+      end
+
+      count = ~(|index);
+      rdy   = ~(|index);
+      busy  = |index;
+      index = ~(|index) ? 5'd0 : index - 5'd1;
+    end
+    else // Stage 1: Set operands and result formatting conditions.
+    begin
+      numerator  <= op_a;
+      divisor    <= op_b;
+      quotient   <= 32'b0;
+      remainder  <= 32'b0;
+      div_inst   <= div_op;
+      invert_res <= (div && neg_q && |b) || (rem && neg_r);
+      index      <= 5'd31;
       busy       <= 1'b1;
     end
   end
 
-  always_comb
-  begin
-    result = 32'b0;
+  assign div_result = invert_res ? -quotient : quotient;
+  assign rem_result = invert_res ? -remainder : remainder;
 
-    if (div_inst)
-      result = invert_res ? -quotient : quotient;
-    else
-      result = invert_res ? -dividend : dividend;
-  end
-
-  assign ready = ready_s;
-  assign res   = result;
+  assign ready = rdy;
+  assign res   = div_inst ? div_result : rem_result;
 endmodule

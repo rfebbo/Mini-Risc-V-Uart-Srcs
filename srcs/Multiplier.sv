@@ -9,22 +9,24 @@ module Multiplier
   output [31:0] res
 );
 
-  reg [32:0] a_valid;
-  reg [32:0] b_valid;
+  reg [32:0] factor_a;
+  reg [32:0] factor_b;
   reg [32:0] op_a;
   reg [32:0] op_b;
   reg        high_bits;
-  reg        busy;
-  reg        ready_s;
-  reg [64:0] full_res;
   reg        count;
+  reg        rdy;
+  reg        busy;
+  reg [64:0] full_res;
 
-  wire mul = (mulsel == 3'b001) || //mul
-             (mulsel == 3'b010) || //mulh
-             (mulsel == 3'b011) || //mulhsu
-             (mulsel == 3'b100);   //mulhu
+  wire mul    = (mulsel == 3'b001); // mul
+  wire mulh   = (mulsel == 3'b010); // mulh
+  wire mulhsu = (mulsel == 3'b011); // mulhsu
+  wire mulhu  = (mulsel == 3'b100); // mulhu
 
-  always_comb
+  wire mul_op = mul || mulh || mulhsu || mulhu; 
+
+  always_comb // Set operands' sign bits based on instruction type.
   begin
     case (mulsel)
       3'b011:
@@ -47,39 +49,39 @@ module Multiplier
 
   always @(posedge clk or posedge rst)
   begin
-    if (ready_s)
+    if (rdy) // Stage 3: Wait 2 clock cycles.
     begin
       if (count)
         count <= 0;
       else
-        ready_s <= 0;
+        rdy <= 0;
     end
-    else if (rst || !mul) // Reset
+    else if (rst || !mul_op) // Reset
     begin
-      a_valid   <= 32'b0;
-      b_valid   <= 32'b0;
+      factor_a  <= 32'b0;
+      factor_b  <= 32'b0;
       high_bits <= 1'b0;
-      busy      <= 1'b0;
-      ready_s   <= 1'b0;
       count     <= 1'b0;
+      rdy       <= 1'b0;
+      busy      <= 1'b0;
       full_res  <= 32'h0;
     end
     else if (busy) // Stage 2: Calculate multiplication.
     begin
-      full_res = {{32{a_valid[32]}}, a_valid} * {{32{b_valid[32]}}, b_valid};
-      ready_s  = 1'b1;
+      full_res = {{32{factor_a[32]}}, factor_a} * {{32{factor_b[32]}}, factor_b};
       count    = 1'b1;
+      rdy      = 1'b1;
       busy     = 1'b0;
     end
-    else // Stage 1: Set operands.
+    else // Stage 1: Set operands and result formatting conditions.
     begin
-      a_valid   <= op_a;
-      b_valid   <= op_b;
-      high_bits <= ~(mulsel == 3'b001);
+      factor_a  <= op_a;
+      factor_b  <= op_b;
+      high_bits <= ~mul;
       busy      <= 1'b1;
     end
   end
 
-  assign ready = ready_s;
+  assign ready = rdy;
   assign res   = high_bits ? full_res[63:32] : full_res[31:0];
 endmodule
