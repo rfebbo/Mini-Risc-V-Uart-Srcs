@@ -187,6 +187,7 @@ interface main_bus
         input ID_EX_storecntrl, ID_EX_cmpcntrl,
         output EX_MEM_loadcntrl, EX_MEM_storecntrl,
         input ID_EX_compare, ID_EX_pres_addr, ID_EX_alusel, ID_EX_alusrc,
+    		input  ID_EX_mulsel, ID_EX_divsel,
         input ID_EX_memread, ID_EX_memwrite, ID_EX_regwrite, ID_EX_jal,
         input ID_EX_jalr, ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_dout_rs1, ID_EX_dout_rs2,
         output EX_MEM_dout_rs2, EX_MEM_rs2, EX_MEM_rs1,
@@ -199,7 +200,9 @@ interface main_bus
         output EX_MEM_pres_addr,
         input key,
         input ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read,
-        output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read
+        output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read,
+				output mul_ready, EX_MEM_mul_ready, div_ready, EX_MEM_div_ready,
+				output EX_MEM_mulres, EX_MEM_divres
     );
 
     //modport for memory stage
@@ -216,7 +219,11 @@ interface main_bus
         output mem_din, mem_addr, mem_wea, mem_en, mem_rea,
 
         input EX_MEM_CSR, EX_MEM_CSR_read,
-        output MEM_WB_CSR, MEM_WB_CSR_read
+        output MEM_WB_CSR, MEM_WB_CSR_read,
+        input  EX_MEM_mul_ready, EX_MEM_div_ready,
+        input  EX_MEM_mulres, EX_MEM_divres,
+        output MEM_WB_mul_ready, MEM_WB_div_ready,
+        output MEM_WB_mulres, MEM_WB_divres
     );
 
     //modport for writeback stage
@@ -224,66 +231,10 @@ interface main_bus
         input clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
         input MEM_WB_regwrite, MEM_WB_rd,
         input MEM_WB_CSR, MEM_WB_CSR_read,
+        input  MEM_WB_mul_ready, MEM_WB_div_ready,
+    	input  MEM_WB_mulres, MEM_WB_divres,
         output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
     );
-
-  //modport for execute stage
-  modport execute
-  (
-    input  clk, Rst, dbg, ID_EX_lui, ID_EX_auipc, ID_EX_loadcntrl, mem_hold,
-    input  ID_EX_storecntrl, ID_EX_cmpcntrl,
-    output EX_MEM_loadcntrl, EX_MEM_storecntrl,
-    input  ID_EX_compare, ID_EX_pres_addr, ID_EX_alusel, ID_EX_alusrc,
-    input  ID_EX_mulsel, ID_EX_divsel,
-    input  ID_EX_memread, ID_EX_memwrite, ID_EX_regwrite, ID_EX_jal,
-    input  ID_EX_jalr, ID_EX_rs1, ID_EX_rs2, ID_EX_rd, ID_EX_dout_rs1, ID_EX_dout_rs2,
-    output EX_MEM_dout_rs2, EX_MEM_rs2, EX_MEM_rs1,
-    input  ID_EX_imm, MEM_WB_regwrite, WB_ID_regwrite,
-    output EX_MEM_alures,
-    input  WB_res, WB_ID_res,
-    output EX_MEM_memread, EX_MEM_rd,
-    input  MEM_WB_rd, WB_ID_rd,
-    output EX_MEM_memwrite, EX_MEM_regwrite, EX_MEM_comp_res,
-    output EX_MEM_pres_addr,
-    input  key,
-    input  ID_EX_CSR_addr, ID_EX_CSR, ID_EX_CSR_write, csrsel, ID_EX_CSR_read,
-    output EX_CSR_res, EX_CSR_addr, EX_CSR_write, EX_MEM_CSR, EX_MEM_CSR_read,
-    output mul_ready, EX_MEM_mul_ready, div_ready, EX_MEM_div_ready,
-    output EX_MEM_mulres, EX_MEM_divres
-  );
-
-  //modport for memory stage
-  modport memory
-  (
-    input  clk, Rst, dbg, EX_MEM_storecntrl, mmio_read, mem_hold,
-    input  EX_MEM_pres_addr,
-    input  EX_MEM_loadcntrl, EX_MEM_alures, EX_MEM_dout_rs2, EX_MEM_rs2, WB_res, EX_MEM_rs1,
-    input  EX_MEM_rd, EX_MEM_regwrite, EX_MEM_memread, EX_MEM_memwrite,
-    output MEM_WB_regwrite, MEM_WB_memread, MEM_WB_rd, MEM_WB_alures, MEM_WB_memres,
-    output mmio_wea, mmio_dat,
-
-    input  mem_dout,
-    output MEM_WB_pres_addr,
-    output mem_din, mem_addr, mem_wea, mem_en, mem_rea,
-
-    input  EX_MEM_CSR, EX_MEM_CSR_read,
-    output MEM_WB_CSR, MEM_WB_CSR_read,
-    input  EX_MEM_mul_ready, EX_MEM_div_ready,
-    input  EX_MEM_mulres, EX_MEM_divres,
-    output MEM_WB_mul_ready, MEM_WB_div_ready,
-    output MEM_WB_mulres, MEM_WB_divres
-  );
-
-  //modport for writeback stage
-  modport writeback
-  (
-    input  clk, Rst, dbg, MEM_WB_alures, MEM_WB_memres, MEM_WB_memread, mem_hold,
-    input  MEM_WB_regwrite, MEM_WB_rd,
-    input  MEM_WB_CSR, MEM_WB_CSR_read,
-    input  MEM_WB_mul_ready, MEM_WB_div_ready,
-    input  MEM_WB_mulres, MEM_WB_divres,
-    output WB_ID_regwrite, WB_ID_rd, WB_res, WB_ID_res
-  );
 endinterface
 
 module RISCVcore_uart(riscv_bus rbus);
