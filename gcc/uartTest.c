@@ -5,7 +5,7 @@
 int main(void) {
 	uart_init(); 
 
-	char h[] = "Hello, world!\r\n"; 
+	char h[] = "1234567890abcdefghijk\r\n"; 
 	// // int strlen = 13; 
 	uart_print(h);
 	

@@ -26,14 +26,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-//modport regfile(
-//        input clk, adr_rs1, IF_ID_rs2, MEM_WB_rd,
-//        input WB_res, MEM_WB_regwrite,
-//        output IF_ID_dout_rs1, IF_ID_dout_rs2 ); 
-
 module Regfile(main_bus bus);
-  
-  
   logic [31:0] regdata[31:0];  // array of 32 32-bit registers
   logic        wen;
 
@@ -51,16 +44,18 @@ module Regfile(main_bus bus);
     if (bus.laa_regwrite)
       regdata[bus.addr_corereg_laa] <= bus.laa_data_out;
   end
-  `ifndef SYNTHESIS
-    integer i;
-    initial begin
-      for(i=0; i<32 ;i=i+1)begin
-        if (i == 2)
-            regdata[i] = 511; 
-        else
-            regdata[i] = $random;
-      end
-        end
-      `endif
-    endmodule: Regfile
 
+`ifndef SYNTHESIS
+  integer i;
+  initial
+  begin
+    for(i = 0; i < 32; i = i + 1)
+    begin
+      if (i == 2)
+        regdata[i] = 511; 
+      else
+        regdata[i] = $random;
+    end
+  end
+`endif
+endmodule: Regfile

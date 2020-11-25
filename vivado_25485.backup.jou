@@ -1,0 +1,47 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Tue Nov 24 00:51:32 2020
+# Process ID: 25485
+# Current directory: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs
+# Command line: vivado
+# Log file: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/vivado.log
+# Journal file: /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/jting/Projects/senecautk/RISCV-Nexys/RISCV-Nexys.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg}
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+save_wave_config {/home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg}
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
+close_sim
+launch_simulation
+open_wave_config /home/jting/Projects/senecautk/Mini-Risc-V-Uart-Srcs-CR/sims/tb_rvtop_behav.wcfg
+source tb_rvtop.tcl
